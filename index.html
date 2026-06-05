@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sacred Water — Biosand Filter Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#f0f7ff;color:#0d2a3d;line-height:1.75;overflow-x:hidden}
+
+:root{
+  --navy:#0d2a3d;
+  --deep:#0a3d62;
+  --mid:#1a6fa8;
+  --sky:#3b9fd4;
+  --pale:#a8d8f0;
+  --mist:#dff0fb;
+  --foam:#f0f7ff;
+  --white:#ffffff;
+  --green:#2d8a6e;
+  --green-light:#3daf8a;
+  --green-pale:#d4f0e8;
+  --gold:#e8b84b;
+  --text:#0d2a3d;
+  --text-mid:#2a5470;
+  --text-light:#5a86a0;
+}
+
+/* ── LANG BAR ── */
+.lang-bar{
+  background:var(--navy);
+  padding:.55rem 1.5rem;
+  display:flex;
+  justify-content:flex-end;
+  gap:.4rem;
+  position:sticky;top:0;z-index:300;
+  border-bottom:2px solid var(--mid);
+}
+.lang-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.25);
+  color:rgba(255,255,255,.65);
+  font-family:'DM Sans',sans-serif;
+  font-size:.75rem;font-weight:600;
+  letter-spacing:.08em;
+  padding:.28rem .8rem;border-radius:3px;
+  cursor:pointer;transition:all .2s;
+}
+.lang-btn.active,.lang-btn:hover{background:var(--sky);border-color:var(--sky);color:#fff}
+
+/* ── LANGUAGE LAYERS ── */
+[data-lang]{display:none}
+body.lang-en [data-lang="en"]{display:block}
+body.lang-en span[data-lang="en"]{display:inline}
+body.lang-th [data-lang="th"]{display:block}
+body.lang-th span[data-lang="th"]{display:inline}
+body.lang-my [data-lang="my"]{display:block}
+body.lang-my span[data-lang="my"]{display:inline}
+body.lang-zh [data-lang="zh"]{display:block}
+body.lang-zh span[data-lang="zh"]{display:inline}
+span[data-lang]{display:none}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(160deg,var(--navy) 0%,var(--deep) 55%,#0f5a8a 100%);
+  color:#fff;
+  padding:4rem 1.5rem 3.5rem;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero-waves{position:absolute;bottom:0;left:0;width:100%;height:60px;overflow:hidden}
+.hero-waves svg{position:absolute;bottom:0;width:200%;animation:waveMove 8s linear infinite}
+@keyframes waveMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 110%,rgba(59,159,212,.22) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 30% at 10% 10%,rgba(45,138,110,.15) 0%,transparent 60%);
+  pointer-events:none;
+}
+/* floating bubbles */
+.bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.06);animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(100%) scale(1);opacity:.6}100%{transform:translateY(-200px) scale(1.2);opacity:0}}
+.hero-inner{position:relative;max-width:700px;margin:0 auto}
+.drop-icon{width:64px;height:64px;margin:0 auto 1.5rem;display:block;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.hero h1{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(2.6rem,8vw,4rem);
+  font-weight:700;line-height:1.05;
+  letter-spacing:-.02em;margin-bottom:.6rem;
+}
+.hero h1 em{font-style:italic;color:var(--pale)}
+.hero-tagline{font-size:1rem;color:rgba(200,230,248,.8);font-weight:300;max-width:480px;margin:0 auto 2.5rem}
+.hero-stats{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;padding-top:2rem;border-top:1px solid rgba(255,255,255,.12)}
+.stat-num{font-family:'DM Sans',sans-serif;font-size:2rem;font-weight:700;color:var(--gold);line-height:1;letter-spacing:.08em}
+.stat-num.serif{font-family:'Cormorant Garamond',serif;font-size:2.4rem}
+.stat-label{font-size:.7rem;color:rgba(200,230,248,.6);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem}
+
+/* ── NAV ── */
+.site-nav{background:var(--deep);position:sticky;top:38px;z-index:200;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,.1)}
+.site-nav ul{display:flex;list-style:none;max-width:860px;margin:0 auto;padding:0 1rem;white-space:nowrap}
+.site-nav a{display:block;padding:.8rem .95rem;font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(200,230,248,.7);text-decoration:none;border-bottom:3px solid transparent;transition:all .2s}
+.site-nav a:hover{color:#fff;border-bottom-color:var(--sky)}
+
+/* ── SHARED SECTION STYLES ── */
+.section{max-width:820px;margin:0 auto;padding:4rem 1.5rem}
+.section-num{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:700;color:var(--pale);line-height:1;display:block;margin-bottom:-.5rem;opacity:.5}
+h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.8rem,4vw,2.4rem);font-weight:700;color:var(--navy);line-height:1.15;margin-bottom:1.25rem}
+h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--mid);margin:1.75rem 0 .5rem}
+p{margin-bottom:1rem;color:var(--text-mid);font-size:.96rem}
+strong{color:var(--navy);font-weight:600}
+.alt-bg{background:var(--mist)}
+.deep-bg{background:var(--deep);color:#fff}
+.deep-bg h2{color:var(--pale)}
+.deep-bg h3{color:var(--sky)}
+.deep-bg p{color:rgba(200,230,248,.8)}
+
+/* ── CALLOUT ── */
+.callout{border-left:4px solid var(--green);background:var(--green-pale);padding:1rem 1.25rem;border-radius:0 8px 8px 0;margin:1.5rem 0}
+.callout.warn{border-color:var(--gold);background:#fdf5e0}
+.callout.blue{border-color:var(--sky);background:var(--mist)}
+.callout-title{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.35rem}
+.callout.warn .callout-title{color:#a07800}
+.callout.blue .callout-title{color:var(--mid)}
+.callout p{margin-bottom:0;font-size:.9rem}
+
+/* ══════════════════════════════
+   SECTION 1 — BACTERIA ANIMATIONS
+══════════════════════════════ */
+.bacteria-scene{
+  background:linear-gradient(135deg,var(--deep) 0%,#063a5c 100%);
+  border-radius:16px;
+  padding:2rem 1rem 1.5rem;
+  margin:1.5rem 0;
+  position:relative;overflow:hidden;
+  min-height:260px;
+}
+.bacteria-label{text-align:center;color:var(--pale);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;font-weight:600}
+.bacteria-canvas-wrap{position:relative;height:200px;overflow:hidden;border-radius:10px}
+.scene-caption{text-align:center;color:rgba(200,230,248,.6);font-size:.78rem;margin-top:.75rem;font-style:italic}
+
+/* individual bacteria types */
+.bact{position:absolute;border-radius:50%;opacity:.85;animation:swim linear infinite}
+@keyframes swim{
+  0%  {transform:translate(0,0) rotate(0deg)}
+  25% {transform:translate(var(--dx1),var(--dy1)) rotate(90deg)}
+  50% {transform:translate(var(--dx2),var(--dy2)) rotate(180deg)}
+  75% {transform:translate(var(--dx3),var(--dy3)) rotate(270deg)}
+  100%{transform:translate(0,0) rotate(360deg)}
+}
+/* vibrio (comma shaped) */
+.vibrio{width:18px;height:10px;background:rgba(255,80,80,.9);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;box-shadow:0 0 8px rgba(255,80,80,.6)}
+/* ecoli (rod) */
+.ecoli{width:22px;height:9px;background:rgba(255,160,40,.9);border-radius:5px;box-shadow:0 0 6px rgba(255,160,40,.5)}
+/* giardia (oval) */
+.giardia{width:16px;height:22px;background:rgba(160,90,255,.9);border-radius:50%;box-shadow:0 0 8px rgba(160,90,255,.5)}
+/* virus (spiky) */
+.virus-dot{width:10px;height:10px;background:rgba(255,60,120,.95);border-radius:50%;box-shadow:0 0 12px 4px rgba(255,60,120,.4)}
+
+/* flagella lines */
+.bact-wrap{position:absolute;display:flex;align-items:center;gap:2px;animation:swim linear infinite}
+
+.water-drop-divider{width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--sky),transparent);margin:2rem 0;opacity:.4}
+
+/* cawst link box */
+.resource-link{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--mist);border:1px solid var(--pale);
+  border-radius:10px;padding:1rem 1.25rem;margin:1.5rem 0;
+  text-decoration:none;color:inherit;transition:box-shadow .2s;
+}
+.resource-link:hover{box-shadow:0 4px 20px rgba(26,111,168,.15)}
+.resource-link-icon{font-size:2rem;flex-shrink:0}
+.resource-link h4{font-size:.92rem;font-weight:600;color:var(--mid);margin-bottom:.2rem}
+.resource-link p{font-size:.82rem;color:var(--text-light);margin:0}
+
+/* ══════════════════════════════
+   SECTION 2 — ANIMATED FILTER DIAGRAM
+══════════════════════════════ */
+.diagram-wrap{
+  display:flex;flex-wrap:wrap;gap:2rem;align-items:flex-start;
+  margin:1.5rem 0;
+}
+.filter-anim-container{
+  flex:0 0 280px;
+  margin:0 auto;
+}
+.filter-svg-wrap{
+  width:280px;position:relative;
+}
+.layer-legend{flex:1;min-width:220px}
+.layer-legend-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.65rem .85rem;
+  border-radius:7px;
+  margin-bottom:.5rem;
+  background:var(--mist);
+  border:1px solid var(--pale);
+  font-size:.85rem;
+  opacity:0;
+  animation:legendFade .5s ease forwards;
+}
+.layer-legend-item:nth-child(1){animation-delay:.2s}
+.layer-legend-item:nth-child(2){animation-delay:.5s}
+.layer-legend-item:nth-child(3){animation-delay:.8s}
+.layer-legend-item:nth-child(4){animation-delay:1.1s}
+.layer-legend-item:nth-child(5){animation-delay:1.4s}
+.layer-legend-item:nth-child(6){animation-delay:1.7s}
+@keyframes legendFade{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+.leg-swatch{width:18px;height:18px;border-radius:4px;flex-shrink:0}
+.leg-title{font-weight:600;color:var(--navy);font-size:.85rem}
+.leg-desc{font-size:.78rem;color:var(--text-light)}
+
+/* water flow animation */
+@keyframes waterDrop{
+  0%{opacity:0;transform:translateY(-8px)}
+  20%{opacity:1}
+  80%{opacity:1}
+  100%{opacity:0;transform:translateY(8px)}
+}
+@keyframes filterGlow{
+  0%,100%{filter:drop-shadow(0 0 3px rgba(59,159,212,.3))}
+  50%{filter:drop-shadow(0 0 10px rgba(59,159,212,.7))}
+}
+
+/* ══════════════════════════════
+   REAL PHOTO
+══════════════════════════════ */
+.photo-real{
+  width:100%;max-width:480px;
+  border-radius:12px;
+  display:block;margin:1.5rem auto;
+  box-shadow:0 8px 40px rgba(13,42,61,.2);
+}
+.photo-caption{
+  text-align:center;font-size:.8rem;color:var(--text-light);
+  font-style:italic;margin-top:.5rem;margin-bottom:1.5rem;
+}
+
+/* ══════════════════════════════
+   STEPS
+══════════════════════════════ */
+.steps{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem}
+.step{display:grid;grid-template-columns:48px 1fr;gap:1rem;background:#fff;border:1px solid var(--pale);border-radius:10px;padding:1.25rem;transition:box-shadow .2s}
+.step:hover{box-shadow:0 4px 20px rgba(26,111,168,.1)}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--mid);color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step h4{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.05em}
+.step p{font-size:.87rem;margin-bottom:0}
+
+/* ══════════════════════════════
+   MATERIALS TABLE
+══════════════════════════════ */
+.materials{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.88rem}
+.materials th{background:var(--deep);color:#fff;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1rem;text-align:left}
+.materials td{padding:.65rem 1rem;border-bottom:1px solid var(--mist);color:var(--text-mid);vertical-align:top}
+.materials tr:nth-child(even) td{background:var(--foam)}
+.materials td:first-child{font-weight:600;color:var(--navy)}
+
+/* ══════════════════════════════
+   TROUBLESHOOT
+══════════════════════════════ */
+.trouble-item{background:#fff;border:1px solid var(--pale);border-radius:10px;overflow:hidden;margin-bottom:.75rem}
+.trouble-q{padding:1rem 1.25rem;font-weight:600;font-size:.92rem;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.trouble-q::after{content:'＋';font-size:1.1rem;color:var(--sky);transition:transform .2s}
+.trouble-item.open .trouble-q::after{content:'－'}
+.trouble-a{display:none;padding:0 1.25rem 1rem;font-size:.88rem;color:var(--text-mid);border-top:1px solid var(--mist)}
+.trouble-a p{margin-bottom:0;padding-top:.75rem}
+.trouble-item.open .trouble-a{display:block}
+
+/* ══════════════════════════════
+   TESTING
+══════════════════════════════ */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;margin-top:1.5rem}
+.test-card{background:#fff;border:1px solid var(--pale);border-radius:10px;padding:1.25rem;transition:transform .2s,box-shadow .2s}
+.test-card:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(26,111,168,.12)}
+.test-icon{font-size:2rem;display:block;margin-bottom:.5rem}
+.test-card h4{font-size:.83rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);margin-bottom:.4rem}
+.test-card p{font-size:.82rem;margin-bottom:0;color:var(--text-mid)}
+
+/* ══════════════════════════════
+   CONTACT
+══════════════════════════════ */
+.contact-box{background:linear-gradient(135deg,var(--deep),#0f5a8a);color:#fff;border-radius:14px;padding:2.5rem 1.5rem;text-align:center;margin-top:2rem}
+.contact-box h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-bottom:.75rem}
+.contact-box p{color:rgba(200,230,248,.8);font-size:.9rem}
+.contact-btn{display:inline-block;margin-top:1.25rem;background:var(--gold);color:var(--navy);font-weight:700;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;padding:.8rem 2.2rem;border-radius:5px;text-decoration:none;transition:background .2s}
+.contact-btn:hover{background:#f5cd6a}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer{background:var(--navy);color:rgba(200,230,248,.45);text-align:center;padding:2.5rem 1.5rem;font-size:.78rem;line-height:2}
+footer strong{color:rgba(200,230,248,.8)}
+
+/* ══════════════════════════════
+   ANIMATIONS & MISC
+══════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner{animation:fadeUp .8s ease both}
+.section{animation:fadeUp .6s ease both}
+
+@media(max-width:560px){
+  nav{display:none}
+  .diagram-wrap{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body class="lang-en">
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('en')">🇺🇸 English</button>
+  <button class="lang-btn" onclick="setLang('th')">🇹🇭 ภาษาไทย</button>
+  <button class="lang-btn" onclick="setLang('my')">🇲🇲 မြန်မာ</button>
+  <button class="lang-btn" onclick="setLang('zh')">🇨🇳 中文</button>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <!-- bubbles -->
+  <div class="bubble" style="width:30px;height:30px;left:8%;bottom:0;animation-duration:9s;animation-delay:0s"></div>
+  <div class="bubble" style="width:18px;height:18px;left:22%;bottom:0;animation-duration:12s;animation-delay:2s"></div>
+  <div class="bubble" style="width:24px;height:24px;left:60%;bottom:0;animation-duration:10s;animation-delay:1s"></div>
+  <div class="bubble" style="width:14px;height:14px;left:80%;bottom:0;animation-duration:8s;animation-delay:3s"></div>
+  <div class="bubble" style="width:20px;height:20px;left:45%;bottom:0;animation-duration:11s;animation-delay:1.5s"></div>
+
+  <div class="hero-inner">
+    <svg class="drop-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 4 C26 16 10 24 10 38 C10 51.3 20.3 60 32 60 C43.7 60 54 51.3 54 38 C54 24 38 16 32 4Z" fill="rgba(59,159,212,0.3)"/>
+      <path d="M32 10 C27 20 14 27 14 38 C14 49 22.5 57 32 57 C41.5 57 50 49 50 38 C50 27 37 20 32 10Z" fill="rgba(168,216,240,0.5)"/>
+      <path d="M32 18 C29 25 20 29 20 37 C20 44.7 25.4 51 32 51 C38.6 51 44 44.7 44 37 C44 29 35 25 32 18Z" fill="rgba(255,255,255,0.9)"/>
+    </svg>
+
+    <div data-lang="en"><h1>Sacred <em>Water</em></h1><p class="hero-tagline">Build a locally sourced sustainable water filter that cleans 99.9% of bacteria and viruses, lasts 10 years or longer, and can be built anywhere in the world for minimal cost.</p></div>
+    <div data-lang="th"><h1>น้ำ<em>ศักดิ์สิทธิ์</em></h1><p class="hero-tagline">ตัวกรองทรายชีวภาพที่สร้างจากท่อคอนกรีต หิน ทราย และ PVC — ให้น้ำสะอาดแก่ทั้งหมู่บ้านนานหลายทศวรรษ</p></div>
+    <div data-lang="my"><h1>သန့်ရှင်းသော<em>ရေ</em></h1><p class="hero-tagline">ကွန်ကရစ်ပိုက်၊ ကျောက်တုံး၊ သဲနှင့် PVC ဖြင့် တည်ဆောက်သော ဇီဝသဲစစ်ဆေးကြောင်း — မျိုးဆက်တစ်ခုလုံးအတွက် ရွာတစ်ရွာလုံးကို သန့်ရှင်းသောရေ ပေးနိုင်သည်</p></div>
+    <div data-lang="zh"><h1>神圣<em>之水</em></h1><p class="hero-tagline">用当地材料建造可持续生物砂滤水器，可清除99%以上的细菌和病毒，使用寿命超过10年，可在世界任何地方以极低成本建造。</p></div>
+
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">10 +</div><div class="stat-label"><span data-lang="en">Years of Clean Water</span><span data-lang="th">ปีของน้ำสะอาด</span><span data-lang="my">နှစ်ပေါင်း သန့်ရှင်းသောရေ</span><span data-lang="zh">年清洁饮水</span></div></div>
+      <div class="stat"><div class="stat-num serif">Ø</div><div class="stat-label"><span data-lang="en">Moving Parts</span><span data-lang="th">ชิ้นส่วนเคลื่อนที่</span><span data-lang="my">လှုပ်ရှားသောအစိတ်အပိုင်း</span><span data-lang="zh">活动部件</span></div></div>
+      <div class="stat"><div class="stat-num">99%</div><div class="stat-label"><span data-lang="en">Bacteria &amp; Viruses Removed</span><span data-lang="th">กำจัดแบคทีเรียและไวรัส</span><span data-lang="my">ဘက်တီးရီးယားနှင့် ဗိုင်းရပ်စ် ဖယ်ရှားနိုင်</span><span data-lang="zh">细菌及病毒清除率</span></div></div>
+    </div>
+  </div>
+
+  <div class="hero-waves">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#f0f7ff"/>
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="#f0f7ff" transform="translate(720,0)"/>
+    </svg>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <ul>
+    <li><a href="#why"><span data-lang="en">Why Clean Water</span><span data-lang="th">ทำไมต้องน้ำสะอาด</span><span data-lang="my">သန့်ရှင်းသောရေ</span><span data-lang="zh">为何需要清洁水</span></a></li>
+    <li><a href="#howworks"><span data-lang="en">How It Works</span><span data-lang="th">วิธีทำงาน</span><span data-lang="my">အလုပ်လုပ်ပုံ</span><span data-lang="zh">工作原理</span></a></li>
+    <li><a href="#build"><span data-lang="en">How to Build</span><span data-lang="th">วิธีสร้าง</span><span data-lang="my">တည်ဆောက်နည်း</span><span data-lang="zh">如何建造</span></a></li>
+    <li><a href="#troubleshoot"><span data-lang="en">Troubleshoot</span><span data-lang="th">แก้ปัญหา</span><span data-lang="my">ပြဿနာဖြေရှင်း</span><span data-lang="zh">故障排除</span></a></li>
+    <li><a href="#testing"><span data-lang="en">Testing</span><span data-lang="th">ทดสอบ</span><span data-lang="my">စမ်းသပ်ခြင်း</span><span data-lang="zh">水质检测</span></a></li>
+    <li><a href="#contact"><span data-lang="en">Contact</span><span data-lang="th">ติดต่อ</span><span data-lang="my">ဆက်သွယ်ရန်</span><span data-lang="zh">联系我们</span></a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════
+     SECTION 1 — WHY CLEAN WATER
+═══════════════════════════════════ -->
+<section id="why" class="section">
+  <div data-lang="en">
+    <span class="section-num">01</span>
+    <h2>Why Clean Water Matters</h2>
+    <p>You cannot see, smell, or taste most waterborne pathogens. Water that looks perfectly clear can carry invisible killers — and in villages without clean water, these are the leading cause of sickness and death in young children.</p>
+
+    <!-- ANIMATED BACTERIA SCENE -->
+    <div class="bacteria-scene">
+      <div class="bacteria-label">What lives in contaminated water</div>
+      <div class="bacteria-canvas-wrap" id="bacteriaCanvas">
+        <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <!-- background -->
+          <rect width="500" height="200" fill="#071e30"/>
+          <!-- subtle grid -->
+          <line x1="0" y1="50"  x2="500" y2="50"  stroke="#3b9fd4" stroke-width=".3" opacity=".15"/>
+          <line x1="0" y1="100" x2="500" y2="100" stroke="#3b9fd4" stroke-width=".3" opacity=".15"/>
+          <line x1="0" y1="150" x2="500" y2="150" stroke="#3b9fd4" stroke-width=".3" opacity=".15"/>
+          <line x1="100" y1="0" x2="100" y2="200" stroke="#3b9fd4" stroke-width=".3" opacity=".15"/>
+          <line x1="200" y1="0" x2="200" y2="200" stroke="#3b9fd4" stroke-width=".3" opacity=".15"/>
+          <line x1="300" y1="0" x2="300" y2="200" stroke="#3b9fd4" stroke-width=".3" opacity=".15"/>
+          <line x1="400" y1="0" x2="400" y2="200" stroke="#3b9fd4" stroke-width=".3" opacity=".15"/>
+
+          <!-- ── E. COLI (orange rods with flagella) ── -->
+          <g opacity=".9">
+            <animateTransform attributeName="transform" type="translate" values="0,0;18,8;-10,15;0,0" dur="9s" repeatCount="indefinite"/>
+            <ellipse cx="60" cy="55" rx="14" ry="6" fill="#ff8c28"/>
+            <path d="M74,55 Q84,45 94,55 Q104,65 114,55" stroke="#ff8c28" stroke-width="1.5" fill="none" opacity=".6"/>
+            <text x="60" y="74" text-anchor="middle" fill="#ff8c28" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">E. coli</text>
+          </g>
+          <g opacity=".9">
+            <animateTransform attributeName="transform" type="translate" values="0,0;-14,10;20,-8;0,0" dur="11s" repeatCount="indefinite"/>
+            <ellipse cx="200" cy="130" rx="14" ry="6" fill="#ff8c28"/>
+            <path d="M214,130 Q224,120 234,130 Q244,140 254,130" stroke="#ff8c28" stroke-width="1.5" fill="none" opacity=".6"/>
+            <text x="200" y="149" text-anchor="middle" fill="#ff8c28" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">E. coli</text>
+          </g>
+
+          <!-- ── VIBRIO CHOLERAE (comma-shaped) ── -->
+          <g opacity=".9">
+            <animateTransform attributeName="transform" type="translate" values="0,0;12,-15;-8,10;0,0" dur="8s" repeatCount="indefinite"/>
+            <path d="M150,60 Q165,48 170,60 Q165,72 150,60Z" fill="#ff3c3c"/>
+            <path d="M168,62 Q178,52 185,62" stroke="#ff3c3c" stroke-width="2" fill="none" opacity=".7"/>
+            <text x="160" y="80" text-anchor="middle" fill="#ff3c3c" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">Cholera</text>
+          </g>
+          <g opacity=".9">
+            <animateTransform attributeName="transform" type="translate" values="0,0;-18,12;10,-10;0,0" dur="13s" repeatCount="indefinite"/>
+            <path d="M360,90 Q375,78 380,90 Q375,102 360,90Z" fill="#ff3c3c"/>
+            <path d="M378,92 Q388,82 395,92" stroke="#ff3c3c" stroke-width="2" fill="none" opacity=".7"/>
+            <text x="370" y="110" text-anchor="middle" fill="#ff3c3c" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">Cholera</text>
+          </g>
+
+          <!-- ── GIARDIA (oval with cilia) ── -->
+          <g opacity=".85">
+            <animateTransform attributeName="transform" type="translate" values="0,0;10,18;-12,-8;0,0" dur="10s" repeatCount="indefinite"/>
+            <ellipse cx="300" cy="55" rx="10" ry="16" fill="#aa50ff"/>
+            <line x1="292" y1="46" x2="287" y2="38" stroke="#aa50ff" stroke-width="1.2" opacity=".7"/>
+            <line x1="296" y1="42" x2="292" y2="34" stroke="#aa50ff" stroke-width="1.2" opacity=".7"/>
+            <line x1="304" y1="42" x2="308" y2="34" stroke="#aa50ff" stroke-width="1.2" opacity=".7"/>
+            <line x1="308" y1="46" x2="313" y2="38" stroke="#aa50ff" stroke-width="1.2" opacity=".7"/>
+            <line x1="292" y1="64" x2="287" y2="72" stroke="#aa50ff" stroke-width="1.2" opacity=".7"/>
+            <line x1="308" y1="64" x2="313" y2="72" stroke="#aa50ff" stroke-width="1.2" opacity=".7"/>
+            <text x="300" y="84" text-anchor="middle" fill="#aa50ff" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">Giardia</text>
+          </g>
+
+          <!-- ── VIRUS PARTICLES (spiky dots) ── -->
+          <g opacity=".95">
+            <animateTransform attributeName="transform" type="translate" values="0,0;-20,10;15,-12;0,0" dur="7s" repeatCount="indefinite"/>
+            <circle cx="420" cy="50" r="9" fill="#ff3c82"/>
+            <line x1="420" y1="38" x2="420" y2="32" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="420" y1="62" x2="420" y2="68" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="408" y1="50" x2="402" y2="50" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="432" y1="50" x2="438" y2="50" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="412" y1="42" x2="407" y2="37" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="428" y1="42" x2="433" y2="37" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="412" y1="58" x2="407" y2="63" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="428" y1="58" x2="433" y2="63" stroke="#ff3c82" stroke-width="2"/>
+            <circle cx="420" cy="50" r="6" fill="#ff3c82"/>
+            <text x="420" y="80" text-anchor="middle" fill="#ff3c82" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">Virus</text>
+          </g>
+          <g opacity=".95">
+            <animateTransform attributeName="transform" type="translate" values="0,0;16,-8;-10,14;0,0" dur="9s" repeatCount="indefinite"/>
+            <circle cx="80" cy="150" r="9" fill="#ff3c82"/>
+            <line x1="80" y1="138" x2="80" y2="132" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="80" y1="162" x2="80" y2="168" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="68"  y1="150" x2="62"  y2="150" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="92"  y1="150" x2="98"  y2="150" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="72"  y1="142" x2="67"  y2="137" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="88"  y1="142" x2="93"  y2="137" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="72"  y1="158" x2="67"  y2="163" stroke="#ff3c82" stroke-width="2"/>
+            <line x1="88"  y1="158" x2="93"  y2="163" stroke="#ff3c82" stroke-width="2"/>
+            <circle cx="80" cy="150" r="6" fill="#ff3c82"/>
+            <text x="80" y="180" text-anchor="middle" fill="#ff3c82" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">Virus</text>
+          </g>
+
+          <!-- ── CRYPTOSPORIDIUM (teal oval) ── -->
+          <g opacity=".85">
+            <animateTransform attributeName="transform" type="translate" values="0,0;14,12;-18,-6;0,0" dur="12s" repeatCount="indefinite"/>
+            <ellipse cx="450" cy="150" rx="12" ry="10" fill="#28d4a0"/>
+            <ellipse cx="450" cy="150" rx="6"  ry="5"  fill="#1aaa80" opacity=".6"/>
+            <text x="450" y="170" text-anchor="middle" fill="#28d4a0" font-size="7" font-family="DM Sans,sans-serif" font-weight="700">Crypto</text>
+          </g>
+          <g opacity=".85">
+            <animateTransform attributeName="transform" type="translate" values="0,0;-10,16;12,-10;0,0" dur="14s" repeatCount="indefinite"/>
+            <ellipse cx="260" cy="168" rx="12" ry="10" fill="#28d4a0"/>
+            <ellipse cx="260" cy="168" rx="6"  ry="5"  fill="#1aaa80" opacity=".6"/>
+            <text x="260" y="186" text-anchor="middle" fill="#28d4a0" font-size="7" font-family="DM Sans,sans-serif" font-weight="700">Crypto</text>
+          </g>
+        </svg>
+      </div>
+      <div class="scene-caption">These organisms are real — invisible to the eye but present in most unfiltered river and pond water</div>
+    </div>
+
+    <p>When human or animal waste enters a water source through flooding, open defecation, or runoff, it carries <strong>bacteria</strong> (E. coli, cholera), <strong>viruses</strong> (hepatitis A), and <strong>parasites</strong> (Giardia, Cryptosporidium). Even a small amount infects the gut — causing diarrhea, vomiting, and dehydration that can kill a child within days.</p>
+    <p><em>"Many people often have to walk very far or access already contaminated water."</em> This often causes children to miss school, families spending more of their income on medicine, or the loss of being able to work for several days due to sickness from preventable illnesses.</p>
+
+    <div class="water-drop-divider"></div>
+
+    <div class="callout blue">
+      <div class="callout-title" style="font-size:1.1rem;letter-spacing:.02em;text-transform:none;font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--deep)">The Solution Is Simple</div>
+      <p>A bio-sand filter built from local materials removes over <strong>99% of bacteria and viral parasites</strong> from drinking water — with no electricity, no chemicals, and no moving parts.</p>
+    </div>
+  </div>
+
+  <div data-lang="th">
+    <span class="section-num">01</span>
+    <h2>ทำไมน้ำสะอาดจึงสำคัญ</h2>
+    <p>คุณไม่สามารถมองเห็น ได้กลิ่น หรือชิมรสเชื้อโรคในน้ำส่วนใหญ่ได้ น้ำที่ดูใสสะอาดอาจมีเชื้อโรคที่มองไม่เห็น — และในหมู่บ้านที่ไม่มีน้ำสะอาด สิ่งเหล่านี้คือสาเหตุหลักของการเจ็บป่วยและการเสียชีวิตในเด็กเล็ก</p>
+    <div class="bacteria-scene">
+      <div class="bacteria-label">สิ่งที่อาศัยอยู่ในน้ำปนเปื้อน</div>
+      <div class="bacteria-canvas-wrap" id="bacteriaCanvas2"></div>
+      <div class="scene-caption">สิ่งมีชีวิตเหล่านี้มีอยู่จริง — มองไม่เห็นด้วยตาเปล่า แต่มีอยู่ในน้ำแม่น้ำและบ่อน้ำที่ไม่ผ่านการกรอง</div>
+    </div>
+    <p>เมื่อของเสียจากมนุษย์หรือสัตว์เข้าสู่แหล่งน้ำ มันจะนำ <strong>แบคทีเรีย</strong> ไวรัส และปรสิตมาด้วย การดื่มเพียงเล็กน้อยจะทำให้ลำไส้ติดเชื้อ ทำให้เกิดอาการท้องเสีย อาเจียน และขาดน้ำ ซึ่งอาจฆ่าเด็กได้ภายในไม่กี่วัน</p>
+    <div class="callout blue"><div class="callout-title" style="font-size:1.1rem;letter-spacing:.02em;text-transform:none;font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--deep)">วิธีแก้ปัญหานั้นง่าย</div><p>ตัวกรองทรายชีวภาพจากวัสดุในท้องถิ่นสามารถกำจัดแบคทีเรียและปรสิตได้มากกว่า <strong>99%</strong> จากน้ำดื่ม — ไม่มีไฟฟ้า ไม่มีสารเคมี ไม่มีชิ้นส่วนเคลื่อนที่</p></div>
+  </div>
+
+  <div data-lang="my">
+    <span class="section-num">01</span>
+    <h2>သန့်ရှင်းသောရေ အဘယ်ကြောင့်အရေးကြီးသနည်း</h2>
+    <p>ရေတွင်ပါဝင်သော ရောဂါပိုးအများစုကို မြင်၊ နံ့ သို့မဟုတ် အရသာဖြင့် မသိနိုင်ပါ။ ကြည်လင်သောရေသည်လည်း မမြင်နိုင်သော ဘေးအန္တရာယ်များ ဆောင်ဆောင်နိုင်သည်။</p>
+    <div class="bacteria-scene">
+      <div class="bacteria-label">ညစ်ညမ်းသောရေတွင် ဘာတွေနေနိုင်သလဲ</div>
+      <div class="bacteria-canvas-wrap" id="bacteriaCanvas3"></div>
+      <div class="scene-caption">ဤသတ္တဝါများသည် မျက်မမြင်ဖြစ်သော်လည်း စစ်ဆေးမထားသော မြစ်ရေနှင့် အင်းရေ အများစုတွင် ရှိနေသည်</div>
+    </div>
+    <div class="callout blue"><div class="callout-title" style="font-size:1.1rem;letter-spacing:.02em;text-transform:none;font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--deep)">ဖြေရှင်းချက်မှာ ရိုးရှင်းသည်</div><p>ဒေသတွင်းပစ္စည်းများဖြင့် ဇီဝသဲစစ်ဆေးကြောင်းသည် ဘက်တီးရီးယားနှင့် ပရာဆိုက်များ၏ <strong>၉၉%</strong> ကျော်ကို ဖယ်ရှားနိုင်သည် — လျှပ်စစ်မလို၊ ဓာတုပစ္စည်းမလို</p></div>
+  </div>
+
+  <div data-lang="zh">
+    <span class="section-num">01</span>
+    <h2>为什么清洁水如此重要</h2>
+    <p>您无法通过外观、气味或味道判断水是否安全。看似清澈的水也可能携带隐形杀手——对五岁以下儿童尤其危险。</p>
+    <div class="bacteria-scene">
+      <div class="bacteria-label">污染水中存在的病原体</div>
+      <div class="bacteria-canvas-wrap" id="bacteriaCanvas4"></div>
+      <div class="scene-caption">这些微生物真实存在——肉眼不可见，却存在于大多数未经过滤的河水和池塘水中</div>
+    </div>
+    <p><em>"许多人不得不走很远的路，或饮用已受污染的水源。"</em> 这往往导致儿童无法上学，家庭将更多收入花费在药物上，或因可预防的疾病而数天无法工作。</p>
+    <div class="callout blue"><div class="callout-title" style="font-size:1.1rem;letter-spacing:.02em;text-transform:none;font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--deep)">解决方案其实很简单</div><p>用当地材料制作的生物砂滤器可去除饮用水中超过 <strong>99% 的细菌和病毒</strong>——无需电力、无需化学品、无活动部件。</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     SECTION 2 — HOW IT WORKS
+═══════════════════════════════════ -->
+<div class="alt-bg">
+<section id="howworks" class="section">
+  <div data-lang="en">
+    <span class="section-num">02</span>
+    <h2>How the Biosand Filter Works</h2>
+    <p>No chemicals. No electricity. No moving parts. The filter works entirely through <strong>biology and physics</strong> — the same way nature cleans water in healthy soils and riverbeds.</p>
+
+    <div class="diagram-wrap">
+      <div class="filter-anim-container">
+        <div class="filter-svg-wrap">
+          <!-- ANIMATED FILTER DIAGRAM -->
+          <svg id="filterDiagram" viewBox="0 0 380 580" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;display:block">
+            <defs>
+              <radialGradient id="bioGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#7fff7f" stop-opacity=".8"/>
+                <stop offset="100%" stop-color="#3daf8a" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3b9fd4" stop-opacity=".6"/>
+                <stop offset="100%" stop-color="#1a6fa8" stop-opacity=".25"/>
+              </linearGradient>
+              <linearGradient id="sandFine" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c8922a"/>
+                <stop offset="100%" stop-color="#a87020"/>
+              </linearGradient>
+              <linearGradient id="jugFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#60c8f8"/>
+                <stop offset="100%" stop-color="#1a80d4"/>
+              </linearGradient>
+              <!-- clip the inside of filter body (inner area only) -->
+              <clipPath id="innerClip">
+                <rect x="68" y="46" width="114" height="390"/>
+              </clipPath>
+              <clipPath id="jugClip">
+                <rect x="248" y="120" width="100" height="130" rx="10"/>
+              </clipPath>
+            </defs>
+
+            <!-- ══════════════════════════════════
+                 CONCRETE PIPE BODY — outer shell
+                 Wall is 14px each side, inner starts at x=68, width=114
+            ══════════════════════════════════ -->
+            <!-- outer pipe -->
+            <rect x="54" y="40" width="142" height="396" rx="6" fill="#c0d4e4" stroke="#7aa0be" stroke-width="2.5"/>
+            <!-- left wall (thick concrete) -->
+            <rect x="54" y="40" width="14" height="396" fill="#a8c0d4"/>
+            <!-- right wall (thick concrete) — PVC pipe runs INSIDE here -->
+            <rect x="182" y="40" width="14" height="396" fill="#a8c0d4"/>
+
+            <!-- CONCRETE LID -->
+            <rect x="46" y="28" width="158" height="14" rx="5" fill="#9ab8cc" stroke="#7aa0be" stroke-width="1.5"/>
+            <text x="125" y="22" text-anchor="middle" fill="#5a86a0" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">CONCRETE LID</text>
+
+            <!-- ══════════════════════════════════
+                 BAFFLE — red diffuser plate just inside top
+                 Prevents incoming water from disturbing the biofilm
+            ══════════════════════════════════ -->
+            <rect x="68" y="46" width="114" height="16" fill="#d94040" opacity=".85"/>
+            <!-- baffle label inside -->
+            <text x="125" y="58" text-anchor="middle" fill="#fff" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">BAFFLE</text>
+
+            <!-- DIRTY WATER IN label above baffle -->
+            <text x="125" y="40" text-anchor="middle" fill="#d94040" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">▼ DIRTY WATER IN</text>
+
+            <!-- ══════════════════════════════════
+                 STANDING WATER  — 60px tall
+            ══════════════════════════════════ -->
+            <rect x="68" y="62" width="114" height="58" fill="url(#waterGrad)"/>
+            <text x="125" y="95" text-anchor="middle" fill="#1460a0" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">STANDING WATER</text>
+
+            <!-- ══════════════════════════════════
+                 BIOLAYER — thin green strip, 14px
+            ══════════════════════════════════ -->
+            <rect x="68" y="120" width="114" height="14" fill="#3daf8a" opacity=".9"/>
+            <rect x="68" y="120" width="114" height="14" fill="url(#bioGlow)" opacity=".5"/>
+            <text x="125" y="131" text-anchor="middle" fill="#fff" font-size="7.5" font-family="DM Sans,sans-serif" font-weight="700">BIOLAYER</text>
+
+            <!-- ══════════════════════════════════
+                 FINE SAND — tallest layer, orange/brown, ends at y=352
+            ══════════════════════════════════ -->
+            <rect x="68" y="134" width="114" height="218" fill="url(#sandFine)"/>
+            <!-- subtle horizontal grain lines -->
+            <line x1="68" y1="148" x2="182" y2="148" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="162" x2="182" y2="162" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="176" x2="182" y2="176" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="190" x2="182" y2="190" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="204" x2="182" y2="204" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="218" x2="182" y2="218" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="232" x2="182" y2="232" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="246" x2="182" y2="246" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="260" x2="182" y2="260" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="274" x2="182" y2="274" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="288" x2="182" y2="288" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="302" x2="182" y2="302" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="316" x2="182" y2="316" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="330" x2="182" y2="330" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="344" x2="182" y2="344" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <text x="125" y="248" text-anchor="middle" fill="#fff" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">FINE SAND</text>
+
+            <!-- ══════════════════════════════════
+                 SMALL GRAVEL — 42px tall, y=352 to y=394
+            ══════════════════════════════════ -->
+            <rect x="68" y="352" width="114" height="42" fill="#8099aa"/>
+            <circle cx="82"  cy="363" r="5"   fill="#6a8898"/>
+            <circle cx="98"  cy="371" r="4"   fill="#7a98a8"/>
+            <circle cx="114" cy="360" r="5.5" fill="#6a8898"/>
+            <circle cx="130" cy="369" r="4.5" fill="#7a98a8"/>
+            <circle cx="146" cy="358" r="5"   fill="#6a8898"/>
+            <circle cx="162" cy="369" r="4"   fill="#7a98a8"/>
+            <circle cx="176" cy="362" r="4.5" fill="#6a8898"/>
+            <circle cx="90"  cy="384" r="4"   fill="#7a98a8"/>
+            <circle cx="122" cy="383" r="5"   fill="#6a8898"/>
+            <circle cx="155" cy="384" r="4.5" fill="#7a98a8"/>
+            <text x="125" y="378" text-anchor="middle" fill="#fff" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">SMALL GRAVEL</text>
+
+            <!-- ══════════════════════════════════
+                 LARGE ROCKS — 42px tall, y=394 to y=436 (touches concrete base)
+            ══════════════════════════════════ -->
+            <rect x="68" y="394" width="114" height="42" fill="#2a3540"/>
+            <ellipse cx="84"  cy="408" rx="12" ry="7"  fill="#1a2530"/>
+            <ellipse cx="108" cy="416" rx="11" ry="6"  fill="#242f3a"/>
+            <ellipse cx="132" cy="404" rx="13" ry="7"  fill="#1a2530"/>
+            <ellipse cx="158" cy="412" rx="11" ry="6"  fill="#242f3a"/>
+            <ellipse cx="174" cy="402" rx="8"  ry="5"  fill="#1a2530"/>
+            <text x="125" y="423" text-anchor="middle" fill="#aac8d8" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">LARGE ROCKS</text>
+
+            <!-- ══════════════════════════════════
+                 CONCRETE BASE — flush against large rocks
+            ══════════════════════════════════ -->
+            <rect x="38" y="436" width="174" height="18" rx="5" fill="#9ab8cc" stroke="#7aa0be" stroke-width="1.5"/>
+            <text x="125" y="468" text-anchor="middle" fill="#5a86a0" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">CONCRETE BASE</text>
+
+            <!-- ══════════════════════════════════
+                 PVC STANDPIPE — correct routing:
+                 1. Entry hole at large rocks level (y=415) on inner right wall
+                 2. Pipe travels UP inside the right concrete wall (x=182-196)
+                 3. Exits right at 75% up the standing water zone (y=106)
+                 4. Horizontal pipe extends right, drops into jug below
+            ══════════════════════════════════ -->
+            <!-- pipe running UP inside right concrete wall from y=415 to y=106 -->
+            <rect x="186" y="106" width="7" height="309" rx="2" fill="#2272b8" opacity=".85"/>
+            <!-- entry hole: inner wall opens into pipe at large rocks level -->
+            <rect x="175" y="411" width="14" height="8" rx="2" fill="#2272b8"/>
+            <!-- elbow corner at y=106 turning right -->
+            <rect x="186" y="100" width="10" height="14" rx="0" fill="#2272b8"/>
+            <!-- horizontal exit pipe going right -->
+            <rect x="193" y="100" width="60" height="10" rx="3" fill="#2272b8"/>
+            <!-- PVC label -->
+            <text x="222" y="95" text-anchor="middle" fill="#1a5fa0" font-size="8" font-family="DM Sans,sans-serif" font-weight="700">PVC STANDPIPE → OUT</text>
+            <!-- vertical drop from exit down to jug neck -->
+            <rect x="244" y="110" width="10" height="78" rx="2" fill="#2272b8"/>
+
+            <!-- ══════════════════════════════════
+                 WATER JUG — below pipe exit
+            ══════════════════════════════════ -->
+            <defs>
+              <clipPath id="jugClip2">
+                <rect x="210" y="202" width="110" height="140" rx="12"/>
+              </clipPath>
+            </defs>
+            <!-- jug neck -->
+            <rect x="234" y="186" width="28" height="16" rx="4" fill="#1860a8"/>
+            <!-- jug body -->
+            <rect x="210" y="200" width="110" height="140" rx="12" fill="#1878d4" opacity=".2" stroke="#2272b8" stroke-width="2"/>
+            <!-- water level fill -->
+            <rect x="212" y="292" width="106" height="46" fill="#1878d4" opacity=".55" clip-path="url(#jugClip2)"/>
+            <!-- water surface shimmer -->
+            <line x1="212" y1="292" x2="318" y2="292" stroke="#60c8f8" stroke-width="1.5" opacity=".8"/>
+            <!-- jug handle -->
+            <path d="M320,222 Q345,222 345,255 Q345,288 320,288" stroke="#2272b8" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <!-- animated drips -->
+            <circle cx="249" cy="192" r="3" fill="#60c8f8" opacity="0">
+              <animate attributeName="cy" values="186;202" dur="1.5s" repeatCount="indefinite" begin="0s"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.5s" repeatCount="indefinite" begin="0s"/>
+            </circle>
+            <circle cx="249" cy="192" r="2.5" fill="#60c8f8" opacity="0">
+              <animate attributeName="cy" values="186;202" dur="1.5s" repeatCount="indefinite" begin="0.75s"/>
+              <animate attributeName="opacity" values="0;0.9;0" dur="1.5s" repeatCount="indefinite" begin="0.75s"/>
+            </circle>
+            <!-- CLEAN WATER label -->
+            <text x="265" y="358" text-anchor="middle" fill="#1460a0" font-size="9" font-family="DM Sans,sans-serif" font-weight="700">✓ CLEAN WATER</text>
+
+            <!-- ══════════════════════════════════
+                 ANIMATED DROPLETS falling through filter layers
+            ══════════════════════════════════ -->
+            <circle cx="90"  cy="62" r="3"   fill="#60c8f8" opacity="0">
+              <animate attributeName="cy" values="62;432" dur="3.6s" repeatCount="indefinite" begin="0s"/>
+              <animate attributeName="opacity" values="0;0.75;0.75;0" dur="3.6s" repeatCount="indefinite" begin="0s"/>
+            </circle>
+            <circle cx="125" cy="62" r="2.5" fill="#60c8f8" opacity="0">
+              <animate attributeName="cy" values="62;432" dur="3.6s" repeatCount="indefinite" begin="1.2s"/>
+              <animate attributeName="opacity" values="0;0.75;0.75;0" dur="3.6s" repeatCount="indefinite" begin="1.2s"/>
+            </circle>
+            <circle cx="160" cy="62" r="3"   fill="#60c8f8" opacity="0">
+              <animate attributeName="cy" values="62;432" dur="3.6s" repeatCount="indefinite" begin="2.4s"/>
+              <animate attributeName="opacity" values="0;0.75;0.75;0" dur="3.6s" repeatCount="indefinite" begin="2.4s"/>
+            </circle>
+          </svg>
+
+        </div>
+      </div>
+
+      <div class="layer-legend">
+        <div class="layer-legend-item"><div class="leg-swatch" style="background:#d94040"></div><div><div class="leg-title">Baffle</div><div class="leg-desc">Diffuses incoming water so it doesn't disturb the biolayer below.</div></div></div>
+        <div class="layer-legend-item"><div class="leg-swatch" style="background:#3daf8a"></div><div><div class="leg-title">Biolayer</div><div class="leg-desc">Living good bacteria that eat and destroy pathogens. The most important part of the filter.</div></div></div>
+        <div class="layer-legend-item"><div class="leg-swatch" style="background:#b87828"></div><div><div class="leg-title">Fine Sand</div><div class="leg-desc">The tallest layer — washed clean river sand. Most biological filtering happens here.</div></div></div>
+        <div class="layer-legend-item"><div class="leg-swatch" style="background:#8099aa"></div><div><div class="leg-title">Small Gravel</div><div class="leg-desc">Pre-filters larger debris and supports the fine sand above.</div></div></div>
+        <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a3540"></div><div><div class="leg-title">Large Rocks</div><div class="leg-desc">Bottom drainage layer — lets clean water flow freely toward the outlet.</div></div></div>
+        <div class="layer-legend-item"><div class="leg-swatch" style="background:#2272b8"></div><div><div class="leg-title">PVC Standpipe</div><div class="leg-desc">Runs inside the concrete wall, exits at the top — controls the water level inside the filter.</div></div></div>
+      </div>
+    </div>
+
+    <h3>The secret: the biolayer</h3>
+    <p>The most important part is invisible — a thin living layer of microorganisms that forms naturally on top of the fine sand within <strong>2–4 weeks</strong>. This biological film contains billions of beneficial bacteria and sticky proteins that physically trap and destroy pathogens.</p>
+    <p>✦ <strong>Good bacteria</strong> consume harmful E. coli, cholera, and other pathogens<br/>
+    ✦ <strong>Sticky biofilm</strong> catches viruses and microscopic parasites<br/>
+    ✦ <strong>Predatory microbes</strong> hunt pathogens before they can pass through</p>
+
+    <div class="callout warn">
+      <div class="callout-title">Critical — keep it wet</div>
+      <p>The filter must stay <strong>wet at all times</strong>. If it dries out, the biolayer dies and the 4-week start-up must begin again. Always keep at least 5cm of water above the sand surface.</p>
+    </div>
+  </div>
+
+  <div data-lang="th">
+    <span class="section-num">02</span>
+    <h2>ตัวกรองทรายชีวภาพทำงานอย่างไร</h2>
+    <p>ไม่มีสารเคมี ไม่มีไฟฟ้า ไม่มีชิ้นส่วนเคลื่อนที่ ตัวกรองทำงานผ่าน <strong>ชีววิทยาและฟิสิกส์</strong> ล้วนๆ</p>
+    <p>ส่วนที่สำคัญที่สุดคือ <strong>ชั้นชีวภาพ</strong> — ชั้นบางๆ ของจุลินทรีย์มีชีวิตที่ก่อตัวตามธรรมชาติบนผิวทรายละเอียดภายใน 2–4 สัปดาห์ แบคทีเรียที่ดีจะกำจัดเชื้อโรค โปรตีนเหนียวจะดักจับไวรัส และจุลินทรีย์ล่าเหยื่อจะกินเชื้อโรค</p>
+    <div class="callout warn"><div class="callout-title">สำคัญมาก — ต้องคงความชื้น</div><p>ตัวกรองต้อง<strong>ชื้นตลอดเวลา</strong> หากแห้งสนิท ชั้นชีวภาพจะตายและต้องเริ่ม 4 สัปดาห์ใหม่อีกครั้ง</p></div>
+  </div>
+
+  <div data-lang="my">
+    <span class="section-num">02</span>
+    <h2>ဇီဝသဲစစ်ဆေးကြောင်း မည်သို့အလုပ်လုပ်သနည်း</h2>
+    <p>ဓာတုပစ္စည်းမရှိ၊ လျှပ်စစ်မလို၊ လှုပ်ရှားသောအစိတ်အပိုင်းမရှိ။ စစ်ဆေးကြောင်းသည် <strong>ဇီဝဗေဒနှင့် ရူပဗေဒ</strong>မှတဆင့်သာ အလုပ်လုပ်သည်။</p>
+    <p>အရေးအကြီးဆုံးအပိုင်းမှာ <strong>ဇီဝအလွှာ</strong> ဖြစ်သည် — သဲမျက်နှာပြင်ပေါ်တွင် ၂-၄ ပတ်အတွင်း ဖြစ်ပေါ်သော အဏုဇီဝအလွှာ။ ကောင်းသောဘက်တီးရီးယားများသည် ဆိုးသောဘက်တီးရီးယားများကို ဖျက်ဆီးပြီး ကပ်ငြိသောပရိုတင်းများသည် ဗိုင်းရပ်စ်များကို ဖမ်းဆုပ်သည်။</p>
+    <div class="callout warn"><div class="callout-title">အရေးကြီး — စိုစွတ်နေစေရမည်</div><p>စစ်ဆေးကြောင်းသည် အမြဲတမ်း <strong>စိုစွတ်နေရမည်</strong>။ ခြောက်သွားပါက ဇီဝအလွှာသေပြီး ၄ ပတ် ပြန်စရမည်</p></div>
+  </div>
+
+  <div data-lang="zh">
+    <span class="section-num">02</span>
+    <h2>生物砂滤器如何工作</h2>
+    <p>无化学品。无电力。无活动部件。滤器完全依靠<strong>生物学和物理学</strong>原理工作——与自然界净化健康土壤和河床中水的方式相同。</p>
+    <p>最重要的部分是肉眼不可见的——一层薄薄的活微生物层，在2至4周内自然形成于细砂表面。这层生物膜含有数十亿有益细菌和黏性蛋白质，能捕获并消灭病原体。</p>
+    <div class="callout warn"><div class="callout-title">重要提示——保持湿润</div><p>滤器必须<strong>始终保持湿润</strong>。若完全干燥，生物层将死亡，需重新进行4周启动期。请始终保持砂面以上至少5厘米的水位。</p></div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 3 — HOW TO BUILD
+═══════════════════════════════════ -->
+<section id="build" class="section">
+  <div data-lang="en">
+    <span class="section-num">03</span>
+    <h2>How to Build It</h2>
+    <p>This filter was designed to be built by anyone using materials available in most villages in Southeast Asia. No special skills or tools required.</p>
+
+    <img src="filter-photo.jpg" alt="Completed Sacred Water biosand filter in a village, with blue PVC outlet pipe filling a water container" class="photo-real"/>
+    <p class="photo-caption">A completed Sacred Water filter — concrete pipe, concrete base, blue PVC outlet pipe. Water flows continuously into the collection container.</p>
+
+    <h3>Materials You Need</h3>
+    <table class="materials">
+      <thead><tr><th>Item</th><th>Size / Type</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Concrete pipe</td><td>~30–40cm diameter, ~90–100cm tall</td><td>Main filter body</td></tr>
+        <tr><td>Large rocks</td><td>Fist-sized, 5–10cm</td><td>Bottom drainage layer</td></tr>
+        <tr><td>Coarse sand / gravel</td><td>Washed, 1–5mm grain</td><td>Middle filter layer</td></tr>
+        <tr><td>Fine sand</td><td>Washed clean river sand</td><td>Upper filter + biolayer forms here</td></tr>
+        <tr><td>PVC pipe + elbow</td><td>~2cm diameter</td><td>Outlet pipe at base</td></tr>
+        <tr><td>Concrete / mortar</td><td>For sealing base</td><td>Waterproofing outlet</td></tr>
+        <tr><td>Concrete for base</td><td>Flat platform, ~30x30cm</td><td>Raises filter, holds collection container</td></tr>
+        <tr><td>Clean lid</td><td>Concrete or wood</td><td>Keeps insects and debris out</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <div class="callout-title">Wash all sand and gravel before use</div>
+      <p>Pour water over sand in a bucket and pour off the cloudy water. Repeat until water runs clear. Dirty sand will damage the filter's performance significantly.</p>
+    </div>
+
+    <h3>Build Steps</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><h4>Prepare the concrete pipe</h4><p>Stand the concrete pipe upright on a flat surface. This is the main body of your filter. Ensure it is stable and will not tip.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><h4>Build the concrete base</h4><p>Pour a small concrete base platform around the bottom of the pipe. This elevates the filter slightly and holds your collection container in place beneath the outlet. Allow 24–48 hours to cure.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><h4>Install the PVC outlet pipe</h4><p>Insert PVC pipe with an elbow fitting through the base of the concrete, near the bottom. Seal around it thoroughly with mortar so no water bypasses the sand. The outlet end should reach outside the filter body, over your collection container.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div><h4>Add large rocks (10–15cm layer)</h4><p>Place clean, fist-sized rocks in the bottom of the pipe above the outlet level. This layer supports everything above and allows water to drain freely to the outlet.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div><h4>Add coarse sand / gravel (15–20cm layer)</h4><p>Pour washed coarse sand or fine gravel on top of the rocks. This layer pre-filters larger particles before they reach the fine sand.</p></div></div>
+      <div class="step"><div class="step-num">6</div><div><h4>Add fine sand (30–40cm layer)</h4><p>Pour washed fine river sand as the top layer. This is where the biolayer will grow. Leave 10–15cm of space above the sand for water to collect.</p></div></div>
+      <div class="step"><div class="step-num">7</div><div><h4>Add a lid</h4><p>Make or place a simple lid (concrete or wood) over the top to keep insects, animals, and debris out. It should be easy to lift when adding water.</p></div></div>
+      <div class="step"><div class="step-num">8</div><div><h4>Start-up: wait 4 weeks before drinking</h4><p>Fill the filter with water daily for 2–4 weeks. The output will be cloudy at first — this is normal. After 4 weeks, the biolayer has formed and output water is safe to drink. <strong>Do not drink output water before 4 weeks have passed.</strong></p></div></div>
+    </div>
+  </div>
+
+  <div data-lang="th">
+    <span class="section-num">03</span>
+    <h2>วิธีการสร้าง</h2>
+    <p>ตัวกรองนี้ออกแบบให้ทุกคนสร้างได้จากวัสดุที่มีในหมู่บ้าน ไม่ต้องมีทักษะพิเศษ</p>
+    <img src="filter-photo.jpg" alt="ตัวกรองน้ำ Sacred Water ในหมู่บ้าน" class="photo-real"/>
+    <p class="photo-caption">ตัวกรอง Sacred Water ที่สร้างเสร็จแล้ว — ท่อคอนกรีต ฐานคอนกรีต และท่อทางออก PVC สีน้ำเงิน</p>
+    <table class="materials">
+      <thead><tr><th>วัสดุ</th><th>ขนาด</th><th>วัตถุประสงค์</th></tr></thead>
+      <tbody>
+        <tr><td>ท่อคอนกรีต</td><td>เส้นผ่านศูนย์กลาง 30–40 ซม. สูง 90–100 ซม.</td><td>ตัวกรองหลัก</td></tr>
+        <tr><td>หินก้อนใหญ่</td><td>5–10 ซม.</td><td>ชั้นระบายน้ำด้านล่าง</td></tr>
+        <tr><td>ทรายหยาบ/กรวด</td><td>ล้างสะอาด 1–5 มม.</td><td>ชั้นกรองตรงกลาง</td></tr>
+        <tr><td>ทรายละเอียด</td><td>ทรายแม่น้ำสะอาด</td><td>ชั้นกรองบน + ชั้นชีวภาพ</td></tr>
+        <tr><td>ท่อ PVC + ข้อต่องอ</td><td>เส้นผ่านศูนย์กลาง ~2 ซม.</td><td>ท่อทางออก</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><div class="callout-title">ล้างทรายและกรวดทั้งหมดก่อนใช้</div><p>เทน้ำลงบนทรายแล้วเทน้ำขุ่นออก ทำซ้ำจนน้ำใส ทรายสกปรกจะทำให้ตัวกรองทำงานได้แย่ลง</p></div>
+  </div>
+
+  <div data-lang="my">
+    <span class="section-num">03</span>
+    <h2>တည်ဆောက်နည်း</h2>
+    <p>ဤစစ်ဆေးကြောင်းကို ရွာတွင်ရရှိနိုင်သော ပစ္စည်းများဖြင့် မည်သူမဆို တည်ဆောက်နိုင်သည်</p>
+    <img src="filter-photo.jpg" alt="ရွာတွင် Sacred Water ဇီဝသဲစစ်ဆေးကြောင်း" class="photo-real"/>
+    <p class="photo-caption">ပြီးစီးသော Sacred Water စစ်ဆေးကြောင်း — ကွန်ကရစ်ပိုက်၊ ကွန်ကရစ်ခြေရင်းနှင့် အပြာရောင် PVC ထုတ်ပိုက်</p>
+    <div class="callout warn"><div class="callout-title">သဲနှင့် ကျောက်ချိုင့်အားလုံးကို ဆေးကြောပါ</div><p>သဲကို ပုံးထဲ ရေလောင်းပြီး ဝိုင်းဝိုင်းသောရေကို ဖယ်ရှားပါ။ ရေကြည်လင်သည်အထိ ထပ်ခါတလဲလဲ ပြုလုပ်ပါ</p></div>
+  </div>
+
+  <div data-lang="zh">
+    <span class="section-num">03</span>
+    <h2>如何建造</h2>
+    <p>任何人都可以用东南亚大多数村庄中常见的材料建造此滤器，无需特殊技能或工具。</p>
+    <img src="filter-photo.jpg" alt="村庄中完成的 Sacred Water 生物砂滤器" class="photo-real"/>
+    <p class="photo-caption">完成的 Sacred Water 滤器——混凝土管道、混凝土底座和蓝色 PVC 出水管。</p>
+    <div class="callout warn"><div class="callout-title">使用前清洗所有砂石</div><p>将水倒在桶中的砂子上，倒去浑浊的水。重复此步骤直到水变清澈。脏砂会严重影响滤器性能。</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     SECTION 4 — TROUBLESHOOT
+═══════════════════════════════════ -->
+<div class="alt-bg">
+<section id="troubleshoot" class="section">
+  <div data-lang="en">
+    <span class="section-num">04</span>
+    <h2>Troubleshooting</h2>
+    <p>Most problems have a simple cause and a simple fix. Tap each problem to see the solution.</p>
+    <div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">Water flow is very slow or has stopped</div><div class="trouble-a"><p>The sand is clogged with accumulated particles — normal over time. Fix: carefully scrape off and discard the top 1–2cm of fine sand. Rinse the removed sand and replace it. Do not disturb the deeper layers. Flow should return. If the filter was built with unwashed sand, this will happen sooner.</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">Output water looks cloudy or brown</div><div class="trouble-a"><p>In the first 2–4 weeks this is completely normal — the biolayer is still forming. After 4 weeks, if water is still cloudy: pre-filter the input water through clean cloth first to reduce turbidity, then let it pass through the filter. Do not drink cloudy output water.</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">The filter dried out completely</div><div class="trouble-a"><p>The biolayer has died. Restart the 2–4 week start-up period by filling with water daily. The filter itself is not damaged, but do not drink from it until 4 full weeks have passed from the restart. Going forward: keep water above the sand level at all times — even during dry season.</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">Water coming out smells bad</div><div class="trouble-a"><p>Something may have contaminated the filter — animal waste, chemicals, or a dead animal near or in the filter. Inspect and remove any contamination source. Clean the top 2cm of sand, restart with clean water, and wait 2–4 weeks before drinking again. Always use the lid.</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">Cracks in the concrete pipe</div><div class="trouble-a"><p>Small surface cracks are usually not serious. Deep cracks that go fully through the pipe wall allow water to bypass the sand layers — seal immediately with fresh mortar on the outside. If the pipe is severely damaged, the sand layers can be removed and reused in a new pipe.</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">Insects or animals getting into the filter</div><div class="trouble-a"><p>Always keep the lid on when not adding water. Mosquitoes can breed in the standing water above the sand. A tight-fitting lid prevents this entirely. Check that the lid has no large gaps around the edge.</p></div></div>
+    </div>
+    <a href="https://www.cawst.org/resources/biosand-filter" target="_blank" rel="noopener" class="resource-link" style="margin-top:1.5rem">
+      <div class="resource-link-icon">🎓</div>
+      <div>
+        <h4>CAWST — Biosand Filter Resources</h4>
+        <p>The Centre for Affordable Water and Sanitation Technology provides free guides, training videos, and manuals on biosand filtration in multiple languages.</p>
+      </div>
+    </a>
+  </div>
+
+  <div data-lang="th">
+    <span class="section-num">04</span>
+    <h2>การแก้ปัญหา</h2>
+    <p>ปัญหาส่วนใหญ่มีวิธีแก้ไขง่ายๆ แตะที่แต่ละปัญหาเพื่อดูวิธีแก้ไข</p>
+    <div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">น้ำไหลช้ามากหรือหยุดไหล</div><div class="trouble-a"><p>ทรายอุดตัน วิธีแก้: ขูดทรายละเอียดด้านบน 1–2 ซม. ออก ล้างและใส่กลับ อย่ารบกวนชั้นล่างๆ</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">น้ำขุ่นหรือเป็นสีน้ำตาล</div><div class="trouble-a"><p>ใน 2–4 สัปดาห์แรกเป็นเรื่องปกติ หลัง 4 สัปดาห์ กรองน้ำขาเข้าผ่านผ้าก่อน อย่าดื่มน้ำขุ่น</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">ตัวกรองแห้งสนิท</div><div class="trouble-a"><p>ชั้นชีวภาพตายแล้ว เริ่มช่วงเริ่มต้นใหม่โดยเติมน้ำทุกวัน ห้ามดื่มจนกว่าจะผ่าน 4 สัปดาห์เต็มจากการเริ่มใหม่</p></div></div>
+    </div>
+  </div>
+
+  <div data-lang="my">
+    <span class="section-num">04</span>
+    <h2>ပြဿနာဖြေရှင်းခြင်း</h2>
+    <p>ပြဿနာ အများစုသည် ရိုးရှင်းသောဖြေရှင်းနည်းများ ရှိသည်</p>
+    <div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">ရေစီးဆင်း နှေးကွေး သို့မဟုတ် ရပ်တန့်သည်</div><div class="trouble-a"><p>သဲ ပိတ်ဆို့နေသည်။ သိမ်မွေ့သဲ အပေါ် ၁-၂ ဆင်တီမီတာ ဖယ်ရှားပြီး ဆေးကြောကာ ပြန်ထည့်ပါ</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">စစ်ဆေးကြောင်း လုံးဝ ခြောက်သွားသည်</div><div class="trouble-a"><p>ဇီဝအလွှာ သေဆုံးသည်။ နေ့တိုင်း ရေဖြည့်ကာ ၄ ပတ် ပြန်စပါ</p></div></div>
+    </div>
+  </div>
+
+  <div data-lang="zh">
+    <span class="section-num">04</span>
+    <h2>故障排除</h2>
+    <p>大多数问题都有简单的原因和简单的解决方法。点击每个问题查看解决方案。</p>
+    <div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">出水流速极慢或停止</div><div class="trouble-a"><p>砂子被颗粒堵塞——这随时间推移属正常现象。解决方法：小心刮去并丢弃顶部1-2厘米的细砂。冲洗后可重新放回。不要扰动下层。流速应恢复正常。</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">出水浑浊或呈棕色</div><div class="trouble-a"><p>前2-4周属正常现象——生物层仍在形成中。4周后若水仍浑浊，请先用干净布过滤进水以降低浑浊度。切勿饮用浑浊的出水。</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">滤器完全干燥</div><div class="trouble-a"><p>生物层已死亡。每天注水重新开始2-4周启动期。从重启起满4周前请勿饮用。今后请始终保持砂面以上有水。</p></div></div>
+      <div class="trouble-item"><div class="trouble-q" onclick="toggleTrouble(this)">出水有异味</div><div class="trouble-a"><p>可能有污染物进入滤器。检查并清除污染源，清洁顶部2厘米砂层，用清水重启，2-4周后再饮用。请始终使用盖子。</p></div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 5 — TESTING
+═══════════════════════════════════ -->
+<section id="testing" class="section">
+  <div data-lang="en">
+    <span class="section-num">05</span>
+    <h2>Testing Your Water</h2>
+    <p>You cannot tell if water is safe by looking at it. These are the best testing methods available at village level.</p>
+    <div class="test-grid">
+      <div class="test-card"><span class="test-icon">🌿</span><h4>Visual Clarity</h4><p>Hold output water in a clear glass against sunlight. It should be completely clear with zero floating particles. Cloudy water means the filter needs cleaning or more time.</p></div>
+      <div class="test-card"><span class="test-icon">⏱️</span><h4>Flow Rate</h4><p>A healthy filter produces 0.5–1 liter per hour. Much slower = clogged sand (clean top layer). Suddenly much faster after cleaning = sand was disturbed; check and repack.</p></div>
+      <div class="test-card"><span class="test-icon">🧪</span><h4>H₂S Test Strip</h4><p>Low-cost strips detect fecal bacteria contamination. Available through NGOs and health offices. A negative result (no color change) after filtering means the filter is working. Ask your local health worker.</p></div>
+      <div class="test-card"><span class="test-icon">🏥</span><h4>Lab Test</h4><p>Submit 100ml of output water to a district health office. Ask them to test for E. coli. Zero E. coli per 100ml = safe to drink. This is the gold standard. Test after initial start-up and every 6 months.</p></div>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Biosand filters and viruses</div>
+      <p>Biosand filters are highly effective against bacteria and parasites. In areas with known viral outbreaks (hepatitis, norovirus), boil the output water as an extra step, or add a small amount of chlorine to the stored water.</p>
+    </div>
+  </div>
+
+  <div data-lang="th">
+    <span class="section-num">05</span>
+    <h2>การทดสอบน้ำ</h2>
+    <p>ไม่สามารถดูแค่ตาเปล่าว่าน้ำปลอดภัยหรือไม่</p>
+    <div class="test-grid">
+      <div class="test-card"><span class="test-icon">🌿</span><h4>ความใสของน้ำ</h4><p>ถือน้ำในแก้วใสขึ้นต้านแสงแดด น้ำต้องใสสนิท ไม่มีอนุภาคลอย</p></div>
+      <div class="test-card"><span class="test-icon">🧪</span><h4>แถบทดสอบ H₂S</h4><p>แถบราคาถูกที่ตรวจหาแบคทีเรียอุจจาระ หาได้จากองค์กรสุขภาพ ผลลบหลังกรองบ่งบอกว่าตัวกรองทำงานได้ดี</p></div>
+      <div class="test-card"><span class="test-icon">🏥</span><h4>การทดสอบในห้องปฏิบัติการ</h4><p>ส่งน้ำ 100 มล. ไปทดสอบอีโคไล ศูนย์ต่อ 100 มล. = ปลอดภัยสำหรับดื่ม</p></div>
+    </div>
+  </div>
+
+  <div data-lang="my">
+    <span class="section-num">05</span>
+    <h2>ရေ စမ်းသပ်ခြင်း</h2>
+    <p>ကြည့်ရုံဖြင့် ရေ လုံခြုံမှုရှိမရှိ မသိနိုင်ပါ</p>
+    <div class="test-grid">
+      <div class="test-card"><span class="test-icon">🌿</span><h4>ကြည်လင်မှုစစ်ဆေးခြင်း</h4><p>စစ်ထားသောရေကို ဖန်ခွက်တွင်ထည့်ပြီး နေရောင်ခြည်နှင့်ပြိုင်ကြည့်ပါ — လုံးဝကြည်လင်ရမည်</p></div>
+      <div class="test-card"><span class="test-icon">🧪</span><h4>H₂S စမ်းသပ်ပြား</h4><p>ကျန်းမာရေးဌာနများမှ ရရှိနိုင်သော စမ်းသပ်ပြားများ — စစ်ပြီးနောက် အနှုတ်ဖြစ်ပါက စစ်ဆေးကြောင်း မှန်ကန်စွာ အလုပ်လုပ်ကြောင်း ဆိုလိုသည်</p></div>
+    </div>
+  </div>
+
+  <div data-lang="zh">
+    <span class="section-num">05</span>
+    <h2>水质检测</h2>
+    <p>仅凭外观无法判断水是否安全。以下是村庄级别可行的最佳检测方法。</p>
+    <div class="test-grid">
+      <div class="test-card"><span class="test-icon">🌿</span><h4>清澈度检测</h4><p>将出水盛入透明玻璃杯，对着阳光观察。应完全透明，无漂浮颗粒。浑浊则表示滤器需要清洁或更多时间。</p></div>
+      <div class="test-card"><span class="test-icon">⏱️</span><h4>流速检测</h4><p>健康的滤器每小时出水0.5–1升。过慢表示砂层堵塞（清洁顶层）。清洁后突然过快表示砂层被扰动，需检查并重新填充。</p></div>
+      <div class="test-card"><span class="test-icon">🧪</span><h4>H₂S 检测纸</h4><p>低成本检测纸可检测粪便细菌污染，可通过非政府组织和卫生部门获取。过滤后结果为阴性（无变色）表示滤器工作正常。</p></div>
+      <div class="test-card"><span class="test-icon">🏥</span><h4>实验室检测</h4><p>向地区卫生所提交100毫升出水样本，请求检测大肠杆菌。每100毫升零大肠杆菌 = 可安全饮用。这是黄金标准检测。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="alt-bg" style="padding-bottom:3rem">
+<section id="contact" class="section" style="padding-top:2rem;padding-bottom:1rem">
+  <div data-lang="en"><span class="section-num">06</span><h2>Questions? Get in Touch</h2><p>This project is run by one field worker on the Thailand–Myanmar border. If you want to build a filter, need help, or want to bring this to your village or ministry, please reach out.</p></div>
+  <div data-lang="th"><span class="section-num">06</span><h2>มีคำถาม? ติดต่อเรา</h2><p>โครงการนี้ดำเนินการโดยเจ้าหน้าที่ภาคสนามคนเดียวที่ชายแดนไทย-เมียนมา หากต้องการความช่วยเหลือหรือต้องการนำไปใช้ในชุมชนของคุณ โปรดติดต่อ</p></div>
+  <div data-lang="my"><span class="section-num">06</span><h2>မေးခွန်းများ ရှိပါသလား?</h2><p>ဤပရောဂျက်ကို ထိုင်း-မြန်မာနယ်စပ်တွင် တစ်ဦးတည်းသောလယ်ကွင်းလုပ်သားမှ ဦးဆောင်သည်</p></div>
+  <div data-lang="zh"><span class="section-num">06</span><h2>有疑问？联系我们</h2><p>本项目由一位驻扎在泰缅边境的田野工作者运营。如果您想建造滤器、需要帮助，或希望将此项目带到您的村庄或组织，请与我们联系。</p></div>
+
+  <div class="contact-box">
+    <h3>Sacred Water Project</h3>
+    <p>
+      <span data-lang="en">Thailand–Myanmar Border Region<br/>For questions about building, materials, or bringing this filter to your community:</span>
+      <span data-lang="th">พื้นที่ชายแดนไทย-เมียนมา<br/>สอบถามเกี่ยวกับการสร้างหรือนำไปใช้ในชุมชน:</span>
+      <span data-lang="my">ထိုင်း-မြန်မာနယ်စပ်ဒေသ<br/>တည်ဆောက်ခြင်းနှင့် ဒေသသို့ ယူဆောင်ရန် မေးမြန်းနိုင်သည်:</span>
+      <span data-lang="zh">泰缅边境地区<br/>有关建造、材料或将此滤器引入您社区的问题：</span>
+    </p>
+    <a href="mailto:your@email.com" class="contact-btn">
+      <span data-lang="en">Send a Message</span>
+      <span data-lang="th">ส่งข้อความ</span>
+      <span data-lang="my">စာပို့ပါ</span>
+      <span data-lang="zh">发送消息</span>
+    </a>
+  </div>
+  <p style="font-size:.78rem;color:var(--text-light);text-align:center;margin-top:1.5rem;font-style:italic">
+    <span data-lang="en">This website and all information is free and open source. Share it freely.</span>
+    <span data-lang="th">เว็บไซต์นี้และข้อมูลทั้งหมดเป็นโอเพ่นซอร์สและฟรี</span>
+    <span data-lang="my">ဤဝဘ်ဆိုဒ်နှင့် သတင်းအချက်အလက်အားလုံးသည် အခမဲ့ open source ဖြစ်သည်</span>
+  </p>
+</section>
+</div>
+
+<footer>
+  <strong>Sacred Water</strong><br/>
+  <span data-lang="en">A biosand filter project — Thailand–Myanmar border</span>
+  <span data-lang="th">โครงการกรองทรายชีวภาพ — ชายแดนไทย-เมียนมา</span>
+  <span data-lang="my">ဇီဝသဲစစ်ဆေးကြောင်းပရောဂျက် — ထိုင်း-မြန်မာနယ်စပ်</span>
+  <br/>Open source · GitHub Pages · Free forever<br/>
+  <span style="font-size:.68rem">Replace your@email.com with your contact address before publishing.</span>
+</footer>
+
+<script>
+/* ── LANGUAGE TOGGLE ── */
+function setLang(l){
+  document.body.className='lang-'+l;
+  const labels={en:'🇺🇸 English',th:'🇹🇭 ภาษาไทย',my:'🇲🇲 မြန်မာ',zh:'🇨🇳 中文'};
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active',b.textContent.trim()===labels[l]);
+  });
+}
+
+/* ── TROUBLESHOOT ACCORDION ── */
+function toggleTrouble(el){el.parentElement.classList.toggle('open')}
+
+/* ── BACTERIA ANIMATION ── */
+const BUGS=[
+  {label:'E. coli',color:'rgba(255,140,40,',w:22,h:9,shape:'rod',count:6},
+  {label:'Vibrio',color:'rgba(255,60,60,',w:14,h:9,shape:'comma',count:5},
+  {label:'Giardia',color:'rgba(170,80,255,',w:13,h:18,shape:'oval',count:4},
+  {label:'Virus',color:'rgba(255,50,130,',w:9,h:9,shape:'dot',count:7},
+  {label:'Cryptosporidium',color:'rgba(80,220,180,',w:11,h:11,shape:'dot',count:4},
+];
+
+function buildBacteriaScene(canvasId){
+  const wrap=document.getElementById(canvasId);
+  if(!wrap)return;
+  const W=wrap.offsetWidth||320,H=200;
+
+  // legend strip
+  const legend=document.createElement('div');
+  legend.style.cssText='display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.6rem';
+  BUGS.forEach
+      legend.appendChild(chip);
+    });
+    wrap.parentElement.insertBefore(legend,wrap);
+
+  // canvas
+  const canvas=document.createElement('canvas');
+  canvas.width=W;canvas.height=H;
+  canvas.style.cssText='display:block;width:100%;border-radius:8px';
+  wrap.appendChild(canvas);
+  const ctx=canvas.getContext('2d');
+
+  // create particles
+  const particles=[];
+  BUGS.forEach(b=>{
+    for(let i=0;i<b.count;i++){
+      particles.push({
+        x:Math.random()*W,y:Math.random()*H,
+        vx:(Math.random()-.5)*0.7,vy:(Math.random()-.5)*0.7,
+        angle:Math.random()*Math.PI*2,
+        aSp:(Math.random()-.5)*0.03,
+        w:b.w,h:b.h,shape:b.shape,
+        color:b.color,
+        wobble:Math.random()*Math.PI*2,
+        wobbleSpeed:0.03+Math.random()*0.02,
+      });
+    }
+  });
+
+  function drawParticle(p){
+    ctx.save();
+    ctx.translate(p.x,p.y);
+    ctx.rotate(p.angle);
+    const alpha=0.85;
+    ctx.fillStyle=p.color+alpha+')';
+    ctx.shadowColor=p.color+'0.6)';
+    ctx.shadowBlur=8;
+    if(p.shape==='rod'){
+      ctx.beginPath();
+      ctx.ellipse(0,0,p.w/2,p.h/2,0,0,Math.PI*2);
+      ctx.fill();
+      ctx.strokeStyle=p.color+'0.5)';
+      ctx.lineWidth=1.2;
+      ctx.beginPath();
+      ctx.moveTo(p.w/2,0);
+      ctx.bezierCurveTo(p.w/2+6,p.h*2,p.w/2+12,-p.h,p.w/2+18,0);
+      ctx.stroke();
+    } else if(p.shape==='comma'){
+      ctx.beginPath();
+      ctx.ellipse(0,0,p.w/2,p.h/2,0,0,Math.PI*2);
+      ctx.fill();
+      ctx.strokeStyle=p.color+'0.5)';
+      ctx.lineWidth=1.5;
+      ctx.beginPath();
+      ctx.moveTo(p.w/2,p.h/2);
+      ctx.bezierCurveTo(p.w,p.h*2,0,p.h*2.5,-p.w/2,p.h);
+      ctx.stroke();
+    } else if(p.shape==='oval'){
+      ctx.beginPath();
+      ctx.ellipse(0,0,p.w/2,p.h/2,0,0,Math.PI*2);
+      ctx.fill();
+      for(let j=0;j<6;j++){
+        const a=(j/6)*Math.PI*2;
+        ctx.strokeStyle=p.color+'0.4)';
+        ctx.lineWidth=1;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a)*p.w/2,Math.sin(a)*p.h/2);
+        ctx.lineTo(Math.cos(a)*(p.w/2+5),Math.sin(a)*(p.h/2+5));
+        ctx.stroke();
+      }
+    } else {
+      ctx.beginPath();
+      ctx.arc(0,0,p.w/2,0,Math.PI*2);
+      ctx.fill();
+      for(let j=0;j<8;j++){
+        const a=(j/8)*Math.PI*2;
+        ctx.strokeStyle=p.color+'0.7)';
+        ctx.lineWidth=1.5;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a)*p.w/2,Math.sin(a)*p.h/2);
+        ctx.lineTo(Math.cos(a)*(p.w/2+4),Math.sin(a)*(p.h/2+4));
+        ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,W,H);
+    const grad=ctx.createLinearGradient(0,0,0,H);
+    grad.addColorStop(0,'rgba(10,61,98,0.95)');
+    grad.addColorStop(1,'rgba(6,40,65,0.98)');
+    ctx.fillStyle=grad;
+    ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(59,159,212,0.06)';
+    ctx.lineWidth=1;
+    for(let x=0;x<W;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+    for(let y=0;y<H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+    particles.forEach(p=>{
+      p.wobble+=p.wobbleSpeed;
+      p.x+=p.vx+Math.sin(p.wobble)*0.3;
+      p.y+=p.vy+Math.cos(p.wobble*0.7)*0.2;
+      p.angle+=p.aSp;
+      if(p.x<-20)p.x=W+20;
+      if(p.x>W+20)p.x=-20;
+      if(p.y<-20)p.y=H+20;
+      if(p.y>H+20)p.y=-20;
+      drawParticle(p);
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+window.addEventListener('load',()=>{
+  buildBacteriaScene('bacteriaCanvas');
+  buildBacteriaScene('bacteriaCanvas2');
+  buildBacteriaScene('bacteriaCanvas3');
+  buildBacteriaScene('bacteriaCanvas4');
+});
+</script>
+</body>
+</html>
