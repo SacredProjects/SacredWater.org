@@ -531,7 +531,7 @@ footer strong{color:rgba(200,230,248,.8)}
 
     <p>When human or animal waste enters a water source through flooding, open defecation, or runoff, it carries <strong>bacteria</strong> (E. coli, cholera), <strong>viruses</strong> (hepatitis A), and <strong>parasites</strong> (Giardia, Cryptosporidium). Even a small amount infects the gut — causing diarrhea, vomiting, and dehydration that can kill a child within days.</p>
     <p><em>"Many people often have to walk very far or access already contaminated water."</em> This often causes children to miss school, families spending more of their income on medicine, or the loss of being able to work for several days due to sickness from preventable illnesses.</p>
-    <img src="Images/Germ_Transfer.png" alt="How dirty water makes us sick — germ transfer infographic" style="width:100%;border-radius:10px;margin:1.25rem 0;box-shadow:0 4px 20px rgba(13,42,61,.15)"/>
+    <img src="Images/GermTransfer.png" alt="How dirty water makes us sick — germ transfer infographic" style="width:100%;border-radius:10px;margin:1.25rem 0;box-shadow:0 4px 20px rgba(13,42,61,.15)"/>
 
     <div class="water-drop-divider"></div>
 
@@ -1075,152 +1075,13 @@ footer strong{color:rgba(200,230,248,.8)}
 /* ── LANGUAGE TOGGLE ── */
 function setLang(l){
   document.body.className='lang-'+l;
-  const labels={en:'🇺🇸 English',th:'🇹🇭 ภาษาไทย',my:'🇲🇲 မြန်မာ',zh:'🇨🇳 中文'};
   document.querySelectorAll('.lang-btn').forEach(b=>{
-    b.classList.toggle('active',b.textContent.trim()===labels[l]);
+    b.classList.toggle('active', b.getAttribute('onclick')==="setLang('"+l+"')");
   });
 }
 
 /* ── TROUBLESHOOT ACCORDION ── */
 function toggleTrouble(el){el.parentElement.classList.toggle('open')}
-
-/* ── BACTERIA ANIMATION ── */
-const BUGS=[
-  {label:'E. coli',color:'rgba(255,140,40,',w:22,h:9,shape:'rod',count:6},
-  {label:'Vibrio',color:'rgba(255,60,60,',w:14,h:9,shape:'comma',count:5},
-  {label:'Giardia',color:'rgba(170,80,255,',w:13,h:18,shape:'oval',count:4},
-  {label:'Virus',color:'rgba(255,50,130,',w:9,h:9,shape:'dot',count:7},
-  {label:'Cryptosporidium',color:'rgba(80,220,180,',w:11,h:11,shape:'dot',count:4},
-];
-
-function buildBacteriaScene(canvasId){
-  const wrap=document.getElementById(canvasId);
-  if(!wrap)return;
-  const W=wrap.offsetWidth||320,H=200;
-
-  // legend strip
-  const legend=document.createElement('div');
-  legend.style.cssText='display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.6rem';
-  BUGS.forEach
-      legend.appendChild(chip);
-    });
-    wrap.parentElement.insertBefore(legend,wrap);
-
-  // canvas
-  const canvas=document.createElement('canvas');
-  canvas.width=W;canvas.height=H;
-  canvas.style.cssText='display:block;width:100%;border-radius:8px';
-  wrap.appendChild(canvas);
-  const ctx=canvas.getContext('2d');
-
-  // create particles
-  const particles=[];
-  BUGS.forEach(b=>{
-    for(let i=0;i<b.count;i++){
-      particles.push({
-        x:Math.random()*W,y:Math.random()*H,
-        vx:(Math.random()-.5)*0.7,vy:(Math.random()-.5)*0.7,
-        angle:Math.random()*Math.PI*2,
-        aSp:(Math.random()-.5)*0.03,
-        w:b.w,h:b.h,shape:b.shape,
-        color:b.color,
-        wobble:Math.random()*Math.PI*2,
-        wobbleSpeed:0.03+Math.random()*0.02,
-      });
-    }
-  });
-
-  function drawParticle(p){
-    ctx.save();
-    ctx.translate(p.x,p.y);
-    ctx.rotate(p.angle);
-    const alpha=0.85;
-    ctx.fillStyle=p.color+alpha+')';
-    ctx.shadowColor=p.color+'0.6)';
-    ctx.shadowBlur=8;
-    if(p.shape==='rod'){
-      ctx.beginPath();
-      ctx.ellipse(0,0,p.w/2,p.h/2,0,0,Math.PI*2);
-      ctx.fill();
-      ctx.strokeStyle=p.color+'0.5)';
-      ctx.lineWidth=1.2;
-      ctx.beginPath();
-      ctx.moveTo(p.w/2,0);
-      ctx.bezierCurveTo(p.w/2+6,p.h*2,p.w/2+12,-p.h,p.w/2+18,0);
-      ctx.stroke();
-    } else if(p.shape==='comma'){
-      ctx.beginPath();
-      ctx.ellipse(0,0,p.w/2,p.h/2,0,0,Math.PI*2);
-      ctx.fill();
-      ctx.strokeStyle=p.color+'0.5)';
-      ctx.lineWidth=1.5;
-      ctx.beginPath();
-      ctx.moveTo(p.w/2,p.h/2);
-      ctx.bezierCurveTo(p.w,p.h*2,0,p.h*2.5,-p.w/2,p.h);
-      ctx.stroke();
-    } else if(p.shape==='oval'){
-      ctx.beginPath();
-      ctx.ellipse(0,0,p.w/2,p.h/2,0,0,Math.PI*2);
-      ctx.fill();
-      for(let j=0;j<6;j++){
-        const a=(j/6)*Math.PI*2;
-        ctx.strokeStyle=p.color+'0.4)';
-        ctx.lineWidth=1;
-        ctx.beginPath();
-        ctx.moveTo(Math.cos(a)*p.w/2,Math.sin(a)*p.h/2);
-        ctx.lineTo(Math.cos(a)*(p.w/2+5),Math.sin(a)*(p.h/2+5));
-        ctx.stroke();
-      }
-    } else {
-      ctx.beginPath();
-      ctx.arc(0,0,p.w/2,0,Math.PI*2);
-      ctx.fill();
-      for(let j=0;j<8;j++){
-        const a=(j/8)*Math.PI*2;
-        ctx.strokeStyle=p.color+'0.7)';
-        ctx.lineWidth=1.5;
-        ctx.beginPath();
-        ctx.moveTo(Math.cos(a)*p.w/2,Math.sin(a)*p.h/2);
-        ctx.lineTo(Math.cos(a)*(p.w/2+4),Math.sin(a)*(p.h/2+4));
-        ctx.stroke();
-      }
-    }
-    ctx.restore();
-  }
-
-  function animate(){
-    ctx.clearRect(0,0,W,H);
-    const grad=ctx.createLinearGradient(0,0,0,H);
-    grad.addColorStop(0,'rgba(10,61,98,0.95)');
-    grad.addColorStop(1,'rgba(6,40,65,0.98)');
-    ctx.fillStyle=grad;
-    ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(59,159,212,0.06)';
-    ctx.lineWidth=1;
-    for(let x=0;x<W;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
-    for(let y=0;y<H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
-    particles.forEach(p=>{
-      p.wobble+=p.wobbleSpeed;
-      p.x+=p.vx+Math.sin(p.wobble)*0.3;
-      p.y+=p.vy+Math.cos(p.wobble*0.7)*0.2;
-      p.angle+=p.aSp;
-      if(p.x<-20)p.x=W+20;
-      if(p.x>W+20)p.x=-20;
-      if(p.y<-20)p.y=H+20;
-      if(p.y>H+20)p.y=-20;
-      drawParticle(p);
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
-
-window.addEventListener('load',()=>{
-  buildBacteriaScene('bacteriaCanvas');
-  buildBacteriaScene('bacteriaCanvas2');
-  buildBacteriaScene('bacteriaCanvas3');
-  buildBacteriaScene('bacteriaCanvas4');
-});
 </script>
 </body>
 </html>
