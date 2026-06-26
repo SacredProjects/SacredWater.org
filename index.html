@@ -166,6 +166,12 @@ strong{color:var(--navy);font-weight:600}
 
 .water-drop-divider{width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--sky),transparent);margin:2rem 0;opacity:.4}
 
+/* germ transfer supplemental image */
+.germ-transfer-img{
+  width:100%;max-width:560px;display:block;margin:1.25rem auto 0;
+  border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.25);
+}
+
 /* cawst link box */
 .resource-link{
   display:flex;align-items:center;gap:1rem;
@@ -329,11 +335,8 @@ footer strong{color:rgba(200,230,248,.8)}
   <div class="bubble" style="width:20px;height:20px;left:45%;bottom:0;animation-duration:11s;animation-delay:1.5s"></div>
 
   <div class="hero-inner">
-    <svg class="drop-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32 4 C26 16 10 24 10 38 C10 51.3 20.3 60 32 60 C43.7 60 54 51.3 54 38 C54 24 38 16 32 4Z" fill="rgba(59,159,212,0.3)"/>
-      <path d="M32 10 C27 20 14 27 14 38 C14 49 22.5 57 32 57 C41.5 57 50 49 50 38 C50 27 37 20 32 10Z" fill="rgba(168,216,240,0.5)"/>
-      <path d="M32 18 C29 25 20 29 20 37 C20 44.7 25.4 51 32 51 C38.6 51 44 44.7 44 37 C44 29 35 25 32 18Z" fill="rgba(255,255,255,0.9)"/>
-    </svg>
+    <!-- LOGO: replaces former inline SVG droplet icon -->
+    <img src="Images/SacredWaterLogoLarge.png" alt="Sacred Water logo" class="drop-icon" style="width:64px;height:64px;object-fit:contain"/>
 
     <div data-lang="en"><h1>Sacred <em>Water</em></h1><p class="hero-tagline">Build a locally sourced, sustainable water filter that removes 99% of bacteria and protozoa, and a 2–3 log removal of viruses. Lasts 10 years or more, and can be built almost anywhere for minimal cost ($20 USD).</p></div>
     <div data-lang="th"><h1>น้ำ<em>ศักดิ์สิทธิ์</em></h1><p class="hero-tagline">สร้างตัวกรองน้ำที่ยั่งยืนจากวัสดุในท้องถิ่น ซึ่งกำจัดแบคทีเรียและโปรโตซัวได้ 99% และลดไวรัสได้ 2–3 log มีอายุการใช้งาน 10 ปีขึ้นไป และสร้างได้แทบทุกที่ด้วยต้นทุนต่ำ (ประมาณ 20 ดอลลาร์สหรัฐ)</p></div>
@@ -396,6 +399,9 @@ footer strong{color:rgba(200,230,248,.8)}
   <!-- ══════════════════════════════════════════════════════
        SHARED ANIMATED SCENE — defined ONCE, shown in every
        language. Only the label + caption text swap per lang.
+       SVG critters preserved exactly as-is, per instruction.
+       GermTransfer.png added BELOW the scene as a supplemental
+       static diagram, also shared once (not duplicated per lang).
   ══════════════════════════════════════════════════════ -->
   <div class="bacteria-scene">
     <div class="bacteria-label">
@@ -531,6 +537,9 @@ footer strong{color:rgba(200,230,248,.8)}
       <span data-lang="my">ဤသတ္တဝါများသည် မျက်မမြင်ဖြစ်သော်လည်း စစ်ဆေးမထားသော မြစ်ရေနှင့် အင်းရေ အများစုတွင် ရှိနေသည်</span>
       <span data-lang="zh">这些微生物真实存在——肉眼不可见，却存在于大多数未经过滤的河水和池塘水中</span>
     </div>
+
+    <!-- NEW: GermTransfer.png — supplemental static diagram, shared once below the animated scene -->
+    <img src="Images/GermTransfer.png" alt="Diagram showing how germs transfer through contaminated water into the body" class="germ-transfer-img"/>
   </div>
 
   <!-- ── CLOSING: paragraph + callout (per language) ── -->
