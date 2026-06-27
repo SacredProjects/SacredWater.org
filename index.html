@@ -159,10 +159,11 @@ body.lang-my .hero-tagline [data-lang="my"],body.lang-zh .hero-tagline [data-lan
 
 .hero-stats{display:flex;justify-content:center;gap:clamp(1.4rem,6vw,3.4rem);flex-wrap:wrap}
 .stat{position:relative}
-.stat-fig{font-family:var(--sans);font-weight:700;font-size:clamp(2.3rem,7vw,3.1rem);line-height:1;
+.stat-fig{font-family:var(--serif);font-weight:700;font-size:clamp(2.3rem,7vw,3.1rem);line-height:1;
   background:linear-gradient(160deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;background-clip:text;color:var(--gold);-webkit-text-fill-color:transparent;
   display:flex;align-items:baseline;justify-content:center;gap:.05em}
 .stat-plus{font-size:.55em;color:var(--gold-lt);-webkit-text-fill-color:var(--gold-lt)}
+.numeral-1-fix{font-family:Georgia,'Times New Roman',serif;font-size:.78em;font-weight:700;vertical-align:baseline}
 .stat-lbl{margin-top:.5rem;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(180,212,228,.78)}
 .hero-cue{position:absolute;left:50%;bottom:clamp(1.6rem,5vh,2.6rem);transform:translateX(-50%);
   display:flex;flex-direction:column;align-items:center;gap:.5rem;text-decoration:none;
@@ -186,7 +187,7 @@ body.lang-my .hero-tagline [data-lang="my"],body.lang-zh .hero-tagline [data-lan
   padding:1.05rem 1.25rem;font-size:.98rem;font-weight:600;letter-spacing:.03em;
   color:rgba(200,226,240,.64);text-decoration:none;border-bottom:3px solid transparent;
   transition:color .25s,border-color .25s}
-.nav a .n{font-family:var(--sans);font-size:1.24rem;font-weight:700;color:var(--gold);opacity:.72;transition:opacity .25s}
+.nav a .n{font-family:var(--serif);font-size:1.24rem;font-weight:700;color:var(--gold);opacity:.72;transition:opacity .25s}
 .nav a:hover{color:#fff}
 .nav a.active{color:#fff;border-bottom-color:var(--gold)}
 .nav a.active .n{opacity:1}
@@ -208,7 +209,7 @@ body.lang-my .hero-tagline [data-lang="my"],body.lang-zh .hero-tagline [data-lan
 .alt-bg::before,.alt-bg::after{content:'';position:absolute;left:0;right:0;height:48px;pointer-events:none}
 .alt-bg::before{top:0;background:linear-gradient(var(--paper),transparent)}
 .alt-bg::after{bottom:0;background:linear-gradient(transparent,var(--paper))}
-.section-num{display:block;font-family:var(--sans);font-weight:700;font-size:clamp(3.2rem,11vw,5rem);
+.section-num{display:block;font-family:var(--serif);font-weight:700;font-size:clamp(3.2rem,11vw,5rem);
   line-height:.85;margin-bottom:.4rem;letter-spacing:-.02em;
   background:linear-gradient(160deg,var(--gold) 10%,rgba(201,154,68,.22));-webkit-background-clip:text;background-clip:text;color:var(--gold);-webkit-text-fill-color:transparent;
   -webkit-text-stroke:0}
@@ -413,7 +414,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   .bottom-nav a{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:1px;
     padding:.5rem .12rem .55rem;text-decoration:none;color:rgba(200,226,240,.6);
     border-top:2px solid transparent;transition:color .2s,border-color .2s}
-  .bottom-nav a .bn{font-family:var(--sans);font-size:1.18rem;font-weight:700;line-height:1;color:var(--gold);opacity:.68}
+  .bottom-nav a .bn{font-family:var(--serif);font-size:1.18rem;font-weight:700;line-height:1;color:var(--gold);opacity:.68}
   .bottom-nav a .bl{font-size:.6rem;font-weight:600;letter-spacing:.01em;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .bottom-nav a.active{color:#fff;border-top-color:var(--gold)}
   .bottom-nav a.active .bn{opacity:1}
@@ -546,7 +547,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   /* section dropdown (sticky below topbar) */
   .mobile-section-dropdown{display:block;position:sticky;top:var(--bar-h);z-index:330;padding:.6rem .9rem;background:rgba(5,22,34,.97);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,154,68,.32)}
   .mobile-section-toggle{width:100%;min-height:48px;display:flex;align-items:center;gap:.7rem;border-radius:14px;border:1px solid rgba(201,154,68,.45);background:rgba(3,18,28,.95);color:#f6e1aa;padding:.7rem 1rem;font-family:var(--sans);font-size:1rem;line-height:1.4;cursor:pointer;text-align:left}
-  .mobile-section-toggle .ms-cur-num{color:var(--gold);font-weight:700;font-family:var(--sans);font-size:1.18rem;flex:0 0 auto}
+  .mobile-section-toggle .ms-cur-num{color:var(--gold);font-weight:700;font-family:var(--serif);font-size:1.18rem;flex:0 0 auto}
   .mobile-section-toggle .ms-cur-label{flex:1 1 auto;min-width:0}
   .mobile-section-toggle .ms-chev{flex:0 0 auto;color:var(--gold);transition:transform .2s ease;font-size:1rem}
   .mobile-section-dropdown.open .mobile-section-toggle .ms-chev{transform:rotate(180deg)}
@@ -555,7 +556,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   .mobile-section-menu button{width:100%;display:flex;align-items:center;gap:.75rem;text-align:left;padding:.9rem 1rem;border:0;border-bottom:1px solid rgba(255,255,255,.08);background:transparent;color:#eaf6ff;font-family:var(--sans);font-size:1rem;line-height:1.45;white-space:normal;cursor:pointer}
   .mobile-section-menu button:last-child{border-bottom:0}
   .mobile-section-menu button.active{background:rgba(201,154,68,.12)}
-  .mobile-section-menu button .section-number{color:var(--gold);font-weight:700;font-family:var(--sans);font-size:1.12rem;flex:0 0 auto;min-width:1.7em}
+  .mobile-section-menu button .section-number{color:var(--gold);font-weight:700;font-family:var(--serif);font-size:1.12rem;flex:0 0 auto;min-width:1.7em}
   /* Burmese: full display, no truncation */
   body.lang-my .mobile-section-toggle,body.lang-my .mobile-section-menu button,body.lang-my .lang-drop-menu button,body.lang-my .lang-drop-btn{font-size:.96rem;line-height:1.6;letter-spacing:0;word-break:normal}
   /* FAQ: bottom area now free -> sit at bottom */
@@ -648,7 +649,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
 
 <nav class="nav" id="nav" aria-label="Sections">
   <div class="nav-track">
-    <a href="#why"><span class="n">01</span><span data-lang="en" lang="en">Clean Water</span><span data-lang="th" lang="th">น้ำสะอาด</span><span data-lang="my" lang="my">ရေသန့်</span><span data-lang="zh" lang="zh">清洁水</span></a>
+    <a href="#why"><span class="n">0<span class="numeral-1-fix">1</span></span><span data-lang="en" lang="en">Clean Water</span><span data-lang="th" lang="th">น้ำสะอาด</span><span data-lang="my" lang="my">ရေသန့်</span><span data-lang="zh" lang="zh">清洁水</span></a>
     <a href="#howworks"><span class="n">02</span><span data-lang="en" lang="en">How It Works</span><span data-lang="th" lang="th">วิธีทำงาน</span><span data-lang="my" lang="my">အလုပ်လုပ်ပုံ</span><span data-lang="zh" lang="zh">工作原理</span></a>
     <a href="#build"><span class="n">03</span><span data-lang="en" lang="en">Build It</span><span data-lang="th" lang="th">วิธีสร้าง</span><span data-lang="my" lang="my">တည်ဆောက်နည်း</span><span data-lang="zh" lang="zh">如何建造</span></a>
     <a href="#troubleshoot"><span class="n">04</span><span data-lang="en" lang="en">Troubleshoot</span><span data-lang="th" lang="th">แก้ปัญหา</span><span data-lang="my" lang="my">ပြဿနာဖြေရှင်းရန်</span><span data-lang="zh" lang="zh">故障排除</span></a>
@@ -675,7 +676,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
 ═══════════════════════════════════ -->
 <section id="why" class="section">
   <div data-lang="en" lang="en">
-    <span class="section-num">01</span>
+    <span class="section-num">0<span class="numeral-1-fix">1</span></span>
     <h2>Why Clean Water Matters</h2>
     <p>You cannot see, smell, or taste most waterborne pathogens. Water that looks perfectly clear can carry invisible killers — and in villages without clean water, these are the leading cause of sickness and death in young children.</p>
 
@@ -711,7 +712,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   </div>
 
   <div data-lang="th" lang="th">
-    <span class="section-num">01</span>
+    <span class="section-num">0<span class="numeral-1-fix">1</span></span>
     <h2>ทำไมน้ำสะอาดจึงสำคัญ</h2>
     <p>เชื้อโรคในน้ำส่วนใหญ่ คุณมองไม่เห็น ดมไม่ได้กลิ่น และชิมไม่รู้รส น้ำที่ดูใสสะอาดดีอาจมีฆาตกรล่องหนปะปนอยู่ — และในหมู่บ้านที่ไม่มีน้ำสะอาด สิ่งเหล่านี้คือสาเหตุอันดับต้น ๆ ของการเจ็บป่วยและการเสียชีวิตในเด็กเล็ก</p>
 
@@ -737,7 +738,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   </div>
 
   <div data-lang="my" lang="my">
-    <span class="section-num">01</span>
+    <span class="section-num">0<span class="numeral-1-fix">1</span></span>
     <h2>သန့်ရှင်းသောရေ အဘယ်ကြောင့် အရေးကြီးသနည်း</h2>
     <p>ရေထဲတွင် ပါဝင်သော ရောဂါပိုး အများစုကို မျက်စိဖြင့် မမြင်နိုင်၊ အနံ့ဖြင့်လည်း မရ၊ အရသာဖြင့်လည်း မသိနိုင်ပါ။ ကြည်လင်နေသော ရေသည်ပင် မမြင်နိုင်သော အသက်သေစေနိုင်သည့် ပိုးမွှားများ သယ်ဆောင်နိုင်သည် — သန့်ရှင်းသောရေ မရှိသည့် ရွာများတွင် ၎င်းတို့သည် ကလေးငယ်များ ဖျားနာ သေဆုံးရခြင်း၏ အဓိက အကြောင်းရင်း ဖြစ်သည်။</p>
     <div class="bacteria-scene">
@@ -755,7 +756,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   </div>
 
   <div data-lang="zh" lang="zh">
-    <span class="section-num">01</span>
+    <span class="section-num">0<span class="numeral-1-fix">1</span></span>
     <h2>为什么清洁水至关重要</h2>
     <p>大多数水中病原体看不见、闻不到，也尝不出。看起来清澈见底的水，也可能携带致命的隐形威胁——在缺乏清洁水的村庄，这正是幼儿患病和死亡的首要原因。</p>
     <div class="bacteria-scene">
@@ -1565,14 +1566,15 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   }
 
   /* count-up stats */
+  function renderNum(el,v){var s=String(v);el.innerHTML=(s.indexOf('1')===-1)?s:s.replace(/1/g,'<span class="numeral-1-fix">1</span>');}
   function countUp(){
     document.querySelectorAll('.count').forEach(function(el){
       var to=+el.dataset.to,t0=null,dur=1400;
       function tick(ts){t0=t0||ts;var p=Math.min((ts-t0)/dur,1);
-        el.textContent=Math.round((1-Math.pow(1-p,3))*to);if(p<1)requestAnimationFrame(tick);}
+        renderNum(el,Math.round((1-Math.pow(1-p,3))*to));if(p<1)requestAnimationFrame(tick);}
       requestAnimationFrame(tick);});
   }
-  if(reduce){document.querySelectorAll('.count').forEach(function(el){el.textContent=el.dataset.to;});}
+  if(reduce){document.querySelectorAll('.count').forEach(function(el){renderNum(el,el.dataset.to);});}
   else{setTimeout(countUp,300);}
 })();
 </script>
