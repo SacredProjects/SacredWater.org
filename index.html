@@ -311,15 +311,45 @@ em{color:var(--gold-deep)}
 
 /* ── STEPS ── */
 .steps{display:flex;flex-direction:column;gap:1rem;margin-top:1.6rem}
-.step{display:grid;grid-template-columns:52px 1fr;gap:1.1rem;align-items:start;
+.steps-hint{font-size:.95rem;color:var(--ink-3);font-style:italic;margin-top:.9rem;margin-bottom:0}
+.step{display:grid;grid-template-columns:52px 1fr 18px;gap:1.1rem;align-items:start;
   background:linear-gradient(180deg,#fff,#f5fafc);border:1px solid var(--line);border-radius:14px;padding:1.3rem;
-  transition:transform .25s,box-shadow .25s}
-.step:hover{transform:translateY(-3px);box-shadow:0 20px 44px -26px rgba(11,34,48,.55)}
+  transition:transform .25s,box-shadow .25s,border-color .25s;cursor:pointer;outline:none}
+.step:hover,.step:focus-visible{transform:translateY(-3px);box-shadow:0 20px 44px -26px rgba(11,34,48,.55);border-color:rgba(201,154,68,.45)}
+.step.open{border-color:rgba(201,154,68,.55);box-shadow:0 20px 44px -26px rgba(11,34,48,.55)}
 .step-num{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  font-family:var(--serif);font-size:1.4rem;font-weight:700;color:#22160a;
+  font-family:var(--serif);font-size:1.12rem;font-weight:700;color:#22160a;letter-spacing:-.01em;
   background:linear-gradient(150deg,var(--gold-lt),var(--gold));box-shadow:0 6px 18px -6px rgba(201,154,68,.6)}
+.step-body{min-width:0}
 .step h4{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.06em}
 .step p{font-size:1.02rem;margin-bottom:0;color:var(--ink-2)}
+.step-chev{width:13px;height:13px;margin-top:19px;justify-self:end;flex-shrink:0;
+  border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);
+  transform:rotate(45deg);transition:transform .3s ease;opacity:.75}
+/* ── expanding sub-steps ── */
+.step-subs{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s ease}
+.step-subs-inner{overflow:hidden}
+.substeps{list-style:none;margin:0;padding:0}
+.step-subs-inner>.substeps{margin-top:1rem;padding-top:.95rem;border-top:1px solid var(--line)}
+.substeps li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:baseline;
+  font-size:.99rem;line-height:1.62;color:var(--ink-2);padding:.42rem 0}
+.substeps li+li{border-top:1px dashed rgba(11,34,48,.1)}
+.sub-n{font-family:var(--serif);font-weight:700;font-size:.95rem;color:var(--gold);
+  min-width:2.4em;letter-spacing:.01em}
+.sub-t{min-width:0}
+.step.open .step-subs{grid-template-rows:1fr}
+.step.open .step-chev{transform:rotate(225deg)}
+@media (hover:hover) and (pointer:fine){
+  .step:hover .step-subs{grid-template-rows:1fr}
+  .step:hover .step-chev{transform:rotate(225deg)}
+}
+@media (max-width:640px){
+  .step{grid-template-columns:44px 1fr 14px;gap:.8rem;padding:1.05rem}
+  .step-num{width:44px;height:44px;font-size:.98rem}
+  .step-chev{margin-top:15px;width:11px;height:11px}
+  .substeps li{grid-template-columns:1fr;gap:.15rem}
+  .sub-n{min-width:0}
+}
 
 /* ── MATERIALS TABLE ── */
 .materials{width:100%;border-collapse:separate;border-spacing:0;margin:1.6rem 0;font-size:1rem;
@@ -822,11 +852,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
                 <stop offset="0%" stop-color="#c8922a"/>
                 <stop offset="100%" stop-color="#a87020"/>
               </linearGradient>
-              <linearGradient id="ironSand" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#b06a24"/>
-                <stop offset="50%" stop-color="#9c5220"/>
-                <stop offset="100%" stop-color="#8a4a1e"/>
-              </linearGradient>
               <linearGradient id="jugFill" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#60c8f8"/>
                 <stop offset="100%" stop-color="#1a80d4"/>
@@ -880,52 +905,26 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
             <text x="125" y="131" text-anchor="middle" fill="#fff" font-size="7.5" font-family="DM Sans,sans-serif" font-weight="700">BIOLAYER</text>
 
             <!-- ══════════════════════════════════
-                 SAND ZONE — split into 3 bands (was one 218px fine-sand layer):
-                 TOP fine sand (~15%): y=134–192
-                 MIDDLE iron + fine sand (~30%): y=192–308
-                 BOTTOM fine sand (~15%): y=308–366  (absorbs old iron strip)
+                 SAND ZONE — one continuous fine-sand layer: y=134–366
             ══════════════════════════════════ -->
-            <!-- TOP FINE SAND -->
-            <rect x="68" y="134" width="114" height="58" fill="url(#sandFine)"/>
+            <!-- FINE SAND — single continuous layer, y=134 to y=366 -->
+            <rect x="68" y="134" width="114" height="232" fill="url(#sandFine)"/>
             <line x1="68" y1="148" x2="182" y2="148" stroke="#b87828" stroke-width=".6" opacity=".5"/>
             <line x1="68" y1="162" x2="182" y2="162" stroke="#b87828" stroke-width=".6" opacity=".5"/>
             <line x1="68" y1="176" x2="182" y2="176" stroke="#b87828" stroke-width=".6" opacity=".5"/>
-            <text x="125" y="170" text-anchor="middle" fill="#fff" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">FINE SAND</text>
-
-            <!-- MIDDLE: IRON LAYER blended through FINE SAND -->
-            <rect x="68" y="192" width="114" height="116" fill="url(#ironSand)"/>
-            <!-- sand texture lines -->
-            <line x1="68" y1="206" x2="182" y2="206" stroke="#7a3f16" stroke-width=".6" opacity=".45"/>
-            <line x1="68" y1="220" x2="182" y2="220" stroke="#7a3f16" stroke-width=".6" opacity=".45"/>
-            <line x1="68" y1="234" x2="182" y2="234" stroke="#7a3f16" stroke-width=".6" opacity=".45"/>
-            <line x1="68" y1="276" x2="182" y2="276" stroke="#7a3f16" stroke-width=".6" opacity=".45"/>
-            <line x1="68" y1="290" x2="182" y2="290" stroke="#7a3f16" stroke-width=".6" opacity=".45"/>
-            <line x1="68" y1="304" x2="182" y2="304" stroke="#7a3f16" stroke-width=".6" opacity=".45"/>
-            <!-- iron/rust flecks scattered through the band -->
-            <line x1="76"  y1="200" x2="90"  y2="200" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="120" y1="203" x2="135" y2="203" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="150" y1="199" x2="166" y2="199" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="95"  y1="213" x2="110" y2="213" stroke="#e08a4a" stroke-width="1.6" opacity=".65"/>
-            <line x1="140" y1="216" x2="156" y2="216" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="80"  y1="227" x2="94"  y2="227" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="122" y1="285" x2="138" y2="285" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="86"  y1="283" x2="100" y2="283" stroke="#e08a4a" stroke-width="1.6" opacity=".65"/>
-            <line x1="150" y1="288" x2="165" y2="288" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="100" y1="298" x2="115" y2="298" stroke="#dc7a3c" stroke-width="1.6" opacity=".7"/>
-            <line x1="138" y1="300" x2="153" y2="300" stroke="#e08a4a" stroke-width="1.6" opacity=".65"/>
-            <circle cx="108" cy="207" r="1.6" fill="#e8944e" opacity=".7"/>
-            <circle cx="160" cy="224" r="1.6" fill="#e8944e" opacity=".7"/>
-            <circle cx="82"  cy="295" r="1.6" fill="#e8944e" opacity=".7"/>
-            <circle cx="168" cy="300" r="1.6" fill="#e8944e" opacity=".7"/>
-            <text x="125" y="248" text-anchor="middle" fill="#fff" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">IRON + FINE SAND</text>
-            <text x="125" y="260" text-anchor="middle" fill="#ffe0c0" font-size="6.5" font-family="DM Sans,sans-serif" font-weight="600">(virus adsorption)</text>
-
-            <!-- BOTTOM FINE SAND -->
-            <rect x="68" y="308" width="114" height="58" fill="url(#sandFine)"/>
-            <line x1="68" y1="322" x2="182" y2="322" stroke="#b87828" stroke-width=".6" opacity=".5"/>
-            <line x1="68" y1="336" x2="182" y2="336" stroke="#b87828" stroke-width=".6" opacity=".5"/>
-            <line x1="68" y1="350" x2="182" y2="350" stroke="#b87828" stroke-width=".6" opacity=".5"/>
-            <text x="125" y="344" text-anchor="middle" fill="#fff" font-size="8.5" font-family="DM Sans,sans-serif" font-weight="700">FINE SAND</text>
+            <line x1="68" y1="190" x2="182" y2="190" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="204" x2="182" y2="204" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="218" x2="182" y2="218" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="232" x2="182" y2="232" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="274" x2="182" y2="274" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="288" x2="182" y2="288" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="302" x2="182" y2="302" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="316" x2="182" y2="316" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="330" x2="182" y2="330" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="344" x2="182" y2="344" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <line x1="68" y1="358" x2="182" y2="358" stroke="#b87828" stroke-width=".6" opacity=".5"/>
+            <text x="125" y="246" text-anchor="middle" fill="#fff" font-size="9.5" font-family="DM Sans,sans-serif" font-weight="700">FINE SAND</text>
+            <text x="125" y="259" text-anchor="middle" fill="#ffe8c8" font-size="6.5" font-family="DM Sans,sans-serif" font-weight="600">(main filtering medium)</text>
 
             <!-- ══════════════════════════════════
                  ACTIVATED CARBON — 14px, y=366 to y=380
@@ -1031,7 +1030,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#d94040"></div><div><div class="leg-title">Baffle</div><div class="leg-desc">Diffuses incoming water so it doesn't disturb the biolayer below.</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#3daf8a"></div><div><div class="leg-title">Biolayer</div><div class="leg-desc">Living good bacteria that eat and destroy pathogens. The most important part of the filter.</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#b87828"></div><div><div class="leg-title">Fine Sand</div><div class="leg-desc">The tallest layer — washed clean river sand. Most biological filtering happens here.</div></div></div>
-        <div class="layer-legend-item"><div class="leg-swatch" style="background:#b85c20"></div><div><div class="leg-title">Iron Layer</div><div class="leg-desc">Rust (iron oxides and hydroxides) adsorbs viruses effectively. Iron-enhanced filtration adds another 0.5–2 log reduction in some laboratory studies.</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a2a2a"></div><div><div class="leg-title">Activated Carbon</div><div class="leg-desc">Captures organic matter, improves adsorption of some viruses, and prevents breakthrough of viruses attached to particles.</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#8099aa"></div><div><div class="leg-title">Small Gravel</div><div class="leg-desc">Pre-filters larger debris and supports the fine sand above.</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a3540"></div><div><div class="leg-title">Large Rocks</div><div class="leg-desc">Bottom drainage layer — lets clean water flow freely toward the outlet.</div></div></div>
@@ -1069,7 +1067,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#d94040"></div><div><div class="leg-title">แผ่นกระจายน้ำ</div><div class="leg-desc">ช่วยกระจายน้ำที่ไหลเข้ามา เพื่อไม่ให้ไปรบกวนชั้นชีวภาพที่อยู่ด้านล่าง</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#3daf8a"></div><div><div class="leg-title">ชั้นชีวภาพ</div><div class="leg-desc">แบคทีเรียดีที่มีชีวิตซึ่งกินและทำลายเชื้อโรค เป็นส่วนที่สำคัญที่สุดของตัวกรอง</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#b87828"></div><div><div class="leg-title">ทรายละเอียด</div><div class="leg-desc">ชั้นที่หนาที่สุด — เป็นทรายแม่น้ำที่ล้างสะอาดแล้ว การกรองทางชีวภาพส่วนใหญ่เกิดขึ้นที่นี่</div></div></div>
-        <div class="layer-legend-item"><div class="leg-swatch" style="background:#b85c20"></div><div><div class="leg-title">ชั้นเหล็ก</div><div class="leg-desc">สนิม (เหล็กออกไซด์และไฮดรอกไซด์) ดูดซับไวรัสได้อย่างมีประสิทธิภาพ การกรองที่เสริมด้วยเหล็กช่วยลดเชื้อได้เพิ่มอีก 0.5–2 log ในการศึกษาในห้องปฏิบัติการบางส่วน</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a2a2a"></div><div><div class="leg-title">ถ่านกัมมันต์</div><div class="leg-desc">ดักจับสารอินทรีย์ ช่วยเพิ่มการดูดซับไวรัสบางชนิด และป้องกันไม่ให้ไวรัสที่เกาะอยู่กับอนุภาคหลุดรอดผ่านไป</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#8099aa"></div><div><div class="leg-title">กรวดขนาดเล็ก</div><div class="leg-desc">กรองเศษตะกอนขนาดใหญ่ออกก่อน และรองรับชั้นทรายละเอียดที่อยู่ด้านบน</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a3540"></div><div><div class="leg-title">หินขนาดใหญ่</div><div class="leg-desc">ชั้นระบายน้ำที่ก้นถัง — ปล่อยให้น้ำสะอาดไหลได้สะดวกไปยังทางออก</div></div></div>
@@ -1107,7 +1104,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#d94040"></div><div><div class="leg-title">ရေဖြန့်ပြား (Baffle)</div><div class="leg-desc">အပေါ်မှ ဝင်လာသောရေကို ဖြန့်ကြဲပေးပြီး အောက်ရှိ ဇီဝအလွှာကို မနှောင့်ယှက်စေရန် ကာကွယ်ပေးသည်။</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#3daf8a"></div><div><div class="leg-title">ဇီဝအလွှာ (Biolayer)</div><div class="leg-desc">ရောဂါပိုးများကို စားသုံး ဖျက်ဆီးပေးသော အသက်ရှင်သည့် ကောင်းသော ဘက်တီးရီးယား။ ရေစစ်၏ အရေးကြီးဆုံး အစိတ်အပိုင်း ဖြစ်သည်။</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#b87828"></div><div><div class="leg-title">သဲမှုန် (Fine Sand)</div><div class="leg-desc">အထူဆုံး အလွှာ — ဆေးကြောထားသော သန့်ရှင်းသည့် မြစ်သဲ။ ဇီဝ စစ်ထုတ်မှု အများစုသည် ဤနေရာတွင် ဖြစ်ပေါ်သည်။</div></div></div>
-        <div class="layer-legend-item"><div class="leg-swatch" style="background:#b85c20"></div><div><div class="leg-title">သံအလွှာ (Iron Layer)</div><div class="leg-desc">သံချေး (သံအောက်ဆိုက်နှင့် ဟိုက်ဒရောက်ဆိုက်) သည် ဗိုင်းရပ်စ်များကို ထိရောက်စွာ စုပ်ယူသည်။ သံဖြင့် အားဖြည့်ထားသော စစ်ထုတ်မှုသည် ဓာတ်ခွဲခန်း လေ့လာမှု အချို့တွင် ၀.၅–၂ log ထပ်မံ လျှော့ချပေးနိုင်သည်။</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a2a2a"></div><div><div class="leg-title">သက်ဝင်ကာဗွန် (Activated Carbon)</div><div class="leg-desc">အော်ဂဲနစ် အညစ်အကြေးများကို ဖမ်းယူပြီး ဗိုင်းရပ်စ် အချို့ကို စုပ်ယူနိုင်စွမ်း တိုးမြှင့်ကာ အမှုန်များတွင် ကပ်ပါလာသော ဗိုင်းရပ်စ်များ ဖြတ်မကျော်စေရန် တားဆီးပေးသည်။</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#8099aa"></div><div><div class="leg-title">ကျောက်စရစ်နု (Small Gravel)</div><div class="leg-desc">အကြီးစား အမှိုက်သရိုက်များကို ကြိုတင် စစ်ထုတ်ပြီး အပေါ်ရှိ သဲမှုန်ကို ထောက်ပံ့ပေးသည်။</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a3540"></div><div><div class="leg-title">ကျောက်တုံးကြီးများ (Large Rocks)</div><div class="leg-desc">အောက်ဆုံး ရေထွက်အလွှာ — သန့်ရှင်းသောရေ ရေထွက်ပေါက်သို့ လွတ်လပ်စွာ စီးဆင်းနိုင်စေသည်။</div></div></div>
@@ -1142,7 +1138,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#d94040"></div><div><div class="leg-title">挡水板</div><div class="leg-desc">扩散注入的水流，使其不会扰动下方的生物层。</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#3daf8a"></div><div><div class="leg-title">生物层</div><div class="leg-desc">以病原体为食并将其消灭的活性有益菌。这是整座滤器最关键的部分。</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#b87828"></div><div><div class="leg-title">细砂</div><div class="leg-desc">最厚的一层，采用洗净的河砂。绝大部分生物过滤都在此完成。</div></div></div>
-        <div class="layer-legend-item"><div class="leg-swatch" style="background:#b85c20"></div><div><div class="leg-title">铁层</div><div class="leg-desc">铁锈（氧化铁与氢氧化铁）能有效吸附病毒。在部分实验室研究中，铁强化过滤可额外带来 0.5–2 个对数级的削减。</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a2a2a"></div><div><div class="leg-title">活性炭</div><div class="leg-desc">吸附有机物，提升对部分病毒的吸附能力，并防止附着在颗粒上的病毒穿透滤层。</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#8099aa"></div><div><div class="leg-title">细砾石</div><div class="leg-desc">预先滤除较大的杂质，并承托上方的细砂。</div></div></div>
         <div class="layer-legend-item"><div class="leg-swatch" style="background:#2a3540"></div><div><div class="leg-title">大石块</div><div class="leg-desc">底部排水层——让清洁水自由流向出水口。</div></div></div>
@@ -1179,7 +1174,7 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
   <div data-lang="en" lang="en">
     <span class="section-num">03</span>
     <h2>How to Build It</h2>
-    <p>This filter is designed to be built by anyone using local materials available in most parts of the world. No special skills or tools required, except learning how to use cement and a trowel. Follow the steps below for an easy filter build.</p>
+    <p>This filter is designed to be built by anyone using local materials available in most parts of the world. No special skills or tools required, except learning how to use cement, a trowel and a drill. Follow the steps below for an easy filter build.</p>
 
     <span class="zoomfig zoomfig-c" role="button" tabindex="0" aria-label="Enlarge image"><picture><img src="Images/IMG_3209.JPG" alt="Completed Sacred Water biosand filter in a village, with blue PVC outlet pipe filling a water container" class="photo-real" loading="lazy" decoding="async" width="1000" height="1424"/></picture></span>
     <p class="photo-caption">A completed Sacred Water filter — concrete pipe, concrete base, blue PVC outlet pipe. Water flows continuously into the collection container.</p>
@@ -1193,7 +1188,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <tr><td>Large Rocks</td><td>3/4 inch gravel</td><td>Bottom drainage layer</td></tr>
         <tr><td>Small Rocks / Gravel</td><td>1–5mm pea-sized</td><td>Middle filter layer</td></tr>
         <tr><td>Bio-Char</td><td>1–3cm crushed</td><td>Activated carbon layer</td></tr>
-        <tr><td>Iron Shavings or Steel Wool</td><td>Mix with fine Sand 30cm at 20%+ Ratio</td><td>Iron layer</td></tr>
         <tr><td>Fine Sand</td><td>Washed clean river sand</td><td>Upper filter medium + biolayer forms here</td></tr>
         <tr><td>PVC Pipe (1/4 in.) + Elbows</td><td>1/4 inch pipe diameter</td><td>Filling and gravity water level control</td></tr>
         <tr><td>Concrete / Mortar / Bricks</td><td>Portland cement, fine sand, waterproofing agent</td><td>Waterproofing body and building the filter</td></tr>
@@ -1207,22 +1201,135 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
     </div>
 
     <h3>Build Steps</h3>
+    <p class="steps-hint">Hover over any step — or tap it on a phone — to open the detailed sub-steps.</p>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div><h4>Prepare the concrete pipe</h4><p>Stand the concrete pipe upright on a flat surface. This is the main body of your filter. Ensure it is stable and will not tip.</p></div></div>
-      <div class="step"><div class="step-num">2</div><div><h4>Build the concrete base</h4><p>Pour a small concrete base platform around the bottom of the pipe. This elevates the filter slightly and holds your collection container in place beneath the outlet. Allow 24–48 hours to cure.</p></div></div>
-      <div class="step"><div class="step-num">3</div><div><h4>Install the PVC outlet pipe</h4><p>Insert PVC pipe with an elbow fitting through the base of the concrete, near the bottom. Seal around it thoroughly with mortar so no water bypasses the sand. The outlet end should reach outside the filter body, over your collection container.</p></div></div>
-      <div class="step"><div class="step-num">4</div><div><h4>Add large rocks (10–15cm layer)</h4><p>Place clean, fist-sized rocks in the bottom of the pipe above the outlet level. This layer supports everything above and allows water to drain freely to the outlet.</p></div></div>
-      <div class="step"><div class="step-num">5</div><div><h4>Wash the Fine Sand</h4><p>Wash the fine sand 8–15 times depending on the quality of the sand. Pour water over the sand in a bucket, stir, then pour off the cloudy water. Repeat until the water runs completely clear. To learn how to clean the sand: <a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" style="color:var(--mid);font-weight:700">▶ Watch Here</a></p></div></div>
-      <div class="step"><div class="step-num">6</div><div><h4>Add fine sand (30–40cm layer)</h4><p>Pour washed fine river sand as the top layer. This is where the biolayer will grow. Leave 10–15cm of space above the sand for water to collect.</p></div></div>
-      <div class="step"><div class="step-num">7</div><div><h4>Add a lid</h4><p>Make or place a simple lid (concrete or wood) over the top to keep insects, animals, and debris out. It should be easy to lift when adding water.</p></div></div>
-      <div class="step"><div class="step-num">8</div><div><h4>Start-up: wait 4 weeks before drinking</h4><p>Fill the filter with water daily for 2–4 weeks. The output will be cloudy at first — this is normal. After 4 weeks, the biolayer has formed and output water is safe to drink. <strong>Do not drink output water before 4 weeks have passed.</strong></p></div></div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-1_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">1.0</div>
+        <div class="step-body">
+          <h4>Prepare the Concrete Pipe</h4>
+          <p>Drill and fit the bottom outlet, then seal the whole pipe inside and out with a thin, wet cement slurry.</p>
+          <div class="step-subs" id="sub-en-1_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">1.1</span><span class="sub-t">Drill the 22mm hole approx. 10cm from the bottom of the concrete tube.</span></li>
+            <li><span class="sub-n">1.2</span><span class="sub-t">Cut a 20cm piece of 1/2 inch pipe and drill holes in it on all sides.</span></li>
+            <li><span class="sub-n">1.3</span><span class="sub-t">Insert your 90 degree 1/2 inch PVC elbow, the drilled 20cm pipe and the end cap, and glue them together.</span></li>
+            <li><span class="sub-n">1.4</span><span class="sub-t">Mix your first batch of cement — 1 bucket of Portland cement to 3 buckets of fine sand, with 1–1.5 buckets of water depending on the dryness of the sand. Note: you want this really wet and thin to help coat the pipe.</span></li>
+            <li><span class="sub-n">1.5</span><span class="sub-t">Coat the inside and the outside of the pipe with concrete to seal the small holes, and pack the area around the pipe outlet on the inside and outside with cement.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-2_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">2.0</div>
+        <div class="step-body">
+          <h4>Build the Filter Base</h4>
+          <p>Level the ground, fill the base holder with rock, then mix that rock through wet cement and pack it down solid.</p>
+          <div class="step-subs" id="sub-en-2_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">2.1</span><span class="sub-t">Level the ground area where you plan to place the filter. Place the base holder on the ground and level it.</span></li>
+            <li><span class="sub-n">2.2</span><span class="sub-t">Fill the base full with 3/4 rocks and pack it down. Note: this is to ensure the concrete pipe doesn't sink into the base when placed.</span></li>
+            <li><span class="sub-n">2.3</span><span class="sub-t">Separate 2–3 buckets of your wet cement from the main mixing tub for later use.</span></li>
+            <li><span class="sub-n">2.4</span><span class="sub-t">Take the rocks back out of the base and mix them in with the remaining cement in the tub. Mix thoroughly and then pour it back into the base. Do not pour cement on top of rocks in the base without mixing.</span></li>
+            <li><span class="sub-n">2.5</span><span class="sub-t">Use the trowel to remove air bubbles and pack down the rocks and cement in the base. Give it 10–15 minutes to settle and release trapped air.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-3_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">3.0</div>
+        <div class="step-body">
+          <h4>Build the Filter</h4>
+          <p>Mark your water level from the baffle, run the internal standpipe up to it, and set the pipe onto the wet base.</p>
+          <div class="step-subs" id="sub-en-3_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">3.1</span><span class="sub-t">Drill multiple holes in your baffle, and take a measurement of its length.</span></li>
+            <li><span class="sub-n">3.2</span><span class="sub-t">Permanently mark on the inside, from the top of the concrete pipe, the length of the baffle +5cm (approx. 15–20cm total).</span></li>
+            <li><span class="sub-n">3.3</span><span class="sub-t">Cut a 1/2 inch PVC pipe piece the length from the elbow outlet to the area that was marked from the top of the concrete pipe (approx. 77–80cm). Note: you want your outlet to sit a few cm above your resting water level.</span></li>
+            <li><span class="sub-n">3.4</span><span class="sub-t">Insert the 1/2 inch pipe into the bottom outlet elbow, then add another 90 degree elbow on the top. Use your mounting bracket to mark two holes by placing it directly below the top elbow. Drill halfway through the concrete pipe, only the length of the plastic screw anchor — do not drill all the way through the pipe. Secure with 2 screws.</span></li>
+            <li><span class="sub-n">3.5</span><span class="sub-t">Take the concrete pipe now and place it dead centre on the base, careful not to let it sink deeper than the PVC pipe inside. Note: you want to gently place this down directly, one time, to help form a seal between the wet concrete and the concrete pipe.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-4_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">4.0</div>
+        <div class="step-body">
+          <h4>Filter and Platform Setup</h4>
+          <p>Build the block platform in front of the base and render the whole structure smooth with your remaining cement.</p>
+          <div class="step-subs" id="sub-en-4_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">4.1</span><span class="sub-t">While the base and the concrete pipe are drying, take your concrete blocks and begin to build a platform in front of the base. Typically we do three vertical on the bottom, two flat on the top, and one more vertical — broken to make a rectangular shape.</span></li>
+            <li><span class="sub-n">4.2</span><span class="sub-t">Begin by placing your remaining wet cement in between these blocks, building as you would a concrete wall.</span></li>
+            <li><span class="sub-n">4.3</span><span class="sub-t">Once the platform is built, begin adding the remaining wet cement to the outside of the concrete pipe over the base, as well as to your platform.</span></li>
+            <li><span class="sub-n">4.4</span><span class="sub-t">Use all of your cement to help create a uniform wet seal around the entire structure. It is often best to do this in layers, letting each layer dry slightly — not so much concrete that it falls off, and not so little that it dries out.</span></li>
+            <li><span class="sub-n">4.5</span><span class="sub-t">Use water and a sponge as well as your hand to smooth out the entire structure so that you get a nice uniform seal. Let it cure for 24 hours. Prevent cracking by slightly adding water to the structure as it dries, and smooth out any cracks.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-5_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">5.0</div>
+        <div class="step-body">
+          <h4>Washing the Sand and Rocks</h4>
+          <p>Wash the fine sand until the silt and clay are gone, then confirm it with a drop-rate test in a glass jar. <a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--mid);font-weight:700;white-space:nowrap">▶ Watch Here</a></p>
+          <div class="step-subs" id="sub-en-5_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">5.1</span><span class="sub-t">Use the fine sand and fill the bucket no more than halfway with sand. Then add water on top to fill the 20 litre bucket. Stir vigorously with your hand, reaching to the bottom of the bucket. The goal is to lift the silt and clay off the grains of sand and suspend it in the water column.</span></li>
+            <li><span class="sub-n">5.2</span><span class="sub-t">Stir vigorously and agitate for 20 to 30 seconds, until you can easily feel the bottom of the bucket with no sand resting on it. If you allow the sand to rest, you will have to wash more — almost double the number of times.</span></li>
+            <li><span class="sub-n">5.3</span><span class="sub-t">Wait about 5 seconds, then begin to slowly — very slowly — pour the water out of the bucket while allowing the sand to stay in. You should see chemical runoff, clay, silt and other undesirables go out with the water. Be careful not to lose your sand by pouring too fast.</span></li>
+            <li><span class="sub-n">5.4</span><span class="sub-t">Repeat steps 5.1 to 5.3 for around 3 to 5 washes, then check your drop rate in a glass jar. To perform the drop rate, agitate the sand as you would in steps 5.1 and 5.2. Collect a sample in a jar of the mixed sand and water. Shake vigorously for 10 seconds, then hold it still. Count the number of seconds it takes until you see a strong line of sand form at the bottom. If 5 seconds or below, the sand is ready.</span></li>
+            <li><span class="sub-n">5.5</span><span class="sub-t">Once your sand is clean and ready — usually after around 5 to 12 washes depending on the quality of the sand — empty the now clean sand into a bag and save it. Use this process for your remaining bags of sand until all sand is clean. Wash and rinse your 3/4 rocks and pea-sized small rocks until clean, and set each aside in its own bag.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-6_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">6.0</div>
+        <div class="step-body">
+          <h4>Making the Biochar</h4>
+          <p>Burn wood in a double barrel system, quench it, then crush and wash the biochar ready for the filter.</p>
+          <div class="step-subs" id="sub-en-6_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">6.1</span><span class="sub-t">Set up your double barrel system and fill the first barrel completely with wood.</span></li>
+            <li><span class="sub-n">6.2</span><span class="sub-t">Light a fire in the middle of the wood, then place your second barrel on top of the first barrel.</span></li>
+            <li><span class="sub-n">6.3</span><span class="sub-t">The burn will take approximately 30 to 45 minutes. You will know your burn is almost complete when you see coals dropping out the bottom of the first barrel — or you can use a piece of plastic on a stick to check how fast it melts at the bottom of the barrel.</span></li>
+            <li><span class="sub-n">6.4</span><span class="sub-t">Extinguish the fire and cool off the top barrel with water. After you remove the top barrel, extinguish the remaining biochar with water for as long as it takes. Then spread your biochar onto a plastic tarp once cooled.</span></li>
+            <li><span class="sub-n">6.5</span><span class="sub-t">Crush the new biochar into small half-inch rock-like sizes. Be careful not to crush too much and create a lot of powder. Then wash and rinse your biochar in a tub of water, using netting of some sort to retain the large chunks of biochar that you will put in the filter.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-7_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">7.0</div>
+        <div class="step-body">
+          <h4>Bringing It All Together</h4>
+          <p>Load the layers in order — large rock, pea gravel, biochar, fine sand — then fill slowly with water and fit the baffle and lid.</p>
+          <div class="step-subs" id="sub-en-7_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">7.1</span><span class="sub-t">Add the 3/4 sized rock carefully into the bottom of the filter and fill to just above the PVC pipe, about 2–3cm. Total is about 5–7cm.</span></li>
+            <li><span class="sub-n">7.2</span><span class="sub-t">Take a measurement from the top of the 3/4 size rocks to your mark at the top of your concrete pipe.</span></li>
+            <li><span class="sub-n">7.3</span><span class="sub-t">Add 5–7cm of the cleaned pea-sized rock and level it. Now add 5–7cm of biochar on top of the small rocks.</span></li>
+            <li><span class="sub-n">7.4</span><span class="sub-t">Add fine sand to 5cm below your mark, where the water level will rest.</span></li>
+            <li><span class="sub-n">7.5</span><span class="sub-t">Slowly fill with water to settle the sand and wait until you see it exit the outlet pipe. Add the baffle and lid once the filter is flowing. Run water through for 1 hour to help clean the filter.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-en-8_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">8.0</div>
+        <div class="step-body">
+          <h4>Start-Up: Wait 4 Weeks Before Drinking</h4>
+          <p>The biolayer needs about 28 days to form. Use the filter daily during this period, but do not drink the output yet.</p>
+          <div class="step-subs" id="sub-en-8_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">8.1</span><span class="sub-t">Fill the filter with water daily for the first 4 weeks. Regular use feeds the biolayer and helps it establish faster.</span></li>
+            <li><span class="sub-n">8.2</span><span class="sub-t">The output will be cloudy at first. This is normal and clears as the sand settles and the biolayer forms.</span></li>
+            <li><span class="sub-n">8.3</span><span class="sub-t"><strong>Do not drink the output water before 4 weeks have passed.</strong> Boil or treat it, or use it for washing, until the start-up period is complete.</span></li>
+            <li><span class="sub-n">8.4</span><span class="sub-t">Keep the filter wet at all times. Always leave at least 5cm of water standing above the sand — if it dries out, the biolayer goes dormant and the 28-day start-up must begin again.</span></li>
+            <li><span class="sub-n">8.5</span><span class="sub-t">After 4 weeks the biolayer is established and the output water is safe to drink. Keep using the filter often, and let it rest in between fillings.</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 
   <div data-lang="th" lang="th">
     <span class="section-num">03</span>
     <h2>วิธีการสร้าง</h2>
-    <p>ตัวกรองนี้ออกแบบให้ใครก็สร้างได้ โดยใช้วัสดุในท้องถิ่นที่หาได้ในเกือบทุกพื้นที่ทั่วโลก ไม่ต้องมีทักษะหรือเครื่องมือพิเศษ เพียงแค่เรียนรู้วิธีใช้ปูนซีเมนต์และเกรียงเท่านั้น ทำตามขั้นตอนด้านล่างเพื่อสร้างตัวกรองได้อย่างง่ายดาย</p>
+    <p>ตัวกรองนี้ออกแบบให้ใครก็สร้างได้ โดยใช้วัสดุในท้องถิ่นที่หาได้ในเกือบทุกพื้นที่ทั่วโลก ไม่ต้องมีทักษะหรือเครื่องมือพิเศษ เพียงแค่เรียนรู้วิธีใช้ปูนซีเมนต์ เกรียง และสว่านเท่านั้น ทำตามขั้นตอนด้านล่างเพื่อสร้างตัวกรองได้อย่างง่ายดาย</p>
 
     <span class="zoomfig zoomfig-c" role="button" tabindex="0" aria-label="Enlarge image"><picture><img src="Images/IMG_3209.JPG" alt="ตัวกรองทรายชีวภาพ Sacred Water ที่สร้างเสร็จแล้วในหมู่บ้าน พร้อมท่อทางออก PVC สีน้ำเงินที่กำลังเติมน้ำลงในภาชนะเก็บน้ำ" class="photo-real" loading="lazy" decoding="async" width="1000" height="1424"/></picture></span>
     <p class="photo-caption">ตัวกรอง Sacred Water ที่สร้างเสร็จแล้ว — ท่อคอนกรีต ฐานคอนกรีต และท่อทางออก PVC สีน้ำเงิน น้ำจะไหลลงสู่ภาชนะเก็บน้ำอย่างต่อเนื่อง</p>
@@ -1236,7 +1343,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <tr><td>หินขนาดใหญ่</td><td>กรวด 3/4 นิ้ว</td><td>ชั้นระบายน้ำด้านล่าง</td></tr>
         <tr><td>หินก้อนเล็ก / กรวด</td><td>ขนาด 1–5mm เท่าเมล็ดถั่ว</td><td>ชั้นกรองตรงกลาง</td></tr>
         <tr><td>Bio-Char</td><td>บดละเอียดขนาด 1–3cm</td><td>ชั้นถ่านกัมมันต์</td></tr>
-        <tr><td>เศษเหล็ก หรือ ฝอยขัดเหล็ก (Steel Wool)</td><td>ผสมกับทรายละเอียด 30cm ในอัตราส่วน 20%+</td><td>ชั้นเหล็ก</td></tr>
         <tr><td>ทรายละเอียด</td><td>ทรายแม่น้ำที่ล้างสะอาดแล้ว</td><td>ตัวกลางกรองชั้นบน + ชั้นชีวภาพก่อตัวขึ้นที่นี่</td></tr>
         <tr><td>ท่อ PVC (1/4 นิ้ว) + ข้อต่องอ</td><td>ท่อเส้นผ่านศูนย์กลาง 1/4 นิ้ว</td><td>เติมน้ำและควบคุมระดับน้ำด้วยแรงโน้มถ่วง</td></tr>
         <tr><td>คอนกรีต / ปูนก่อ / อิฐ</td><td>ปูนซีเมนต์ Portland, ทรายละเอียด, สารกันน้ำ</td><td>กันน้ำให้ตัวกรองและใช้ก่อสร้างตัวกรอง</td></tr>
@@ -1250,22 +1356,135 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
     </div>
 
     <h3>ขั้นตอนการสร้าง</h3>
+    <p class="steps-hint">วางเมาส์เหนือขั้นตอนใดก็ได้ — หรือแตะบนโทรศัพท์ — เพื่อเปิดดูขั้นตอนย่อยโดยละเอียด</p>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div><h4>เตรียมท่อคอนกรีต</h4><p>ตั้งท่อคอนกรีตให้ตรงบนพื้นเรียบ ส่วนนี้คือตัวหลักของตัวกรอง ตรวจดูให้แน่ใจว่ามั่นคงและจะไม่ล้ม</p></div></div>
-      <div class="step"><div class="step-num">2</div><div><h4>ก่อฐานคอนกรีต</h4><p>เทฐานคอนกรีตเล็กๆ ขึ้นรอบฐานล่างของท่อ ฐานนี้จะช่วยยกตัวกรองให้สูงขึ้นเล็กน้อย และช่วยยึดภาชนะเก็บน้ำให้อยู่ใต้ทางออก ปล่อยให้แห้งตัว 24–48 ชั่วโมง</p></div></div>
-      <div class="step"><div class="step-num">3</div><div><h4>ติดตั้งท่อทางออก PVC</h4><p>สอดท่อ PVC ที่มีข้อต่องอผ่านฐานคอนกรีตบริเวณใกล้ก้นท่อ อุดรอบๆ ด้วยปูนก่อให้แน่นหนา เพื่อไม่ให้น้ำเล็ดลอดผ่านโดยไม่ผ่านชั้นทราย ปลายทางออกควรยื่นออกมานอกตัวกรอง อยู่เหนือภาชนะเก็บน้ำของคุณ</p></div></div>
-      <div class="step"><div class="step-num">4</div><div><h4>ใส่หินขนาดใหญ่ (ชั้นหนา 10–15cm)</h4><p>วางหินสะอาดขนาดเท่ากำปั้นไว้ที่ก้นท่อ ให้อยู่สูงกว่าระดับทางออก ชั้นนี้จะรองรับทุกชั้นที่อยู่ด้านบนและช่วยให้น้ำไหลลงสู่ทางออกได้อย่างสะดวก</p></div></div>
-      <div class="step"><div class="step-num">5</div><div><h4>ล้างทรายละเอียด</h4><p>ล้างทรายละเอียด 8–15 ครั้ง ขึ้นอยู่กับคุณภาพของทราย เทน้ำลงบนทรายในถัง คนให้ทั่ว แล้วเทน้ำขุ่นทิ้ง ทำซ้ำจนกว่าน้ำจะใสสนิท เรียนรู้วิธีล้างทราย: <a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" style="color:var(--mid);font-weight:700">▶ ดูที่นี่</a></p></div></div>
-      <div class="step"><div class="step-num">6</div><div><h4>ใส่ทรายละเอียด (ชั้นหนา 30–40cm)</h4><p>เททรายแม่น้ำละเอียดที่ล้างแล้วเป็นชั้นบนสุด ที่นี่คือจุดที่ชั้นชีวภาพจะเติบโตขึ้น เว้นช่องว่างเหนือทรายไว้ 10–15cm เพื่อให้น้ำมารวมกัน</p></div></div>
-      <div class="step"><div class="step-num">7</div><div><h4>ใส่ฝาปิด</h4><p>ทำหรือวางฝาปิดแบบง่ายๆ (คอนกรีตหรือไม้) ไว้ด้านบน เพื่อกันแมลง สัตว์ และสิ่งสกปรกไม่ให้เข้าไป ฝาควรยกออกได้ง่ายเวลาเติมน้ำ</p></div></div>
-      <div class="step"><div class="step-num">8</div><div><h4>ช่วงเริ่มต้น: รอ 4 สัปดาห์ก่อนดื่ม</h4><p>เติมน้ำลงในตัวกรองทุกวันเป็นเวลา 2–4 สัปดาห์ ในช่วงแรกน้ำที่ออกมาจะขุ่น — ซึ่งเป็นเรื่องปกติ หลังจาก 4 สัปดาห์ ชั้นชีวภาพจะก่อตัวขึ้นแล้ว และน้ำที่ออกมาจะปลอดภัยสำหรับการดื่ม <strong>อย่าดื่มน้ำที่ออกมาก่อนครบ 4 สัปดาห์</strong></p></div></div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-1_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">1.0</div>
+        <div class="step-body">
+          <h4>เตรียมท่อคอนกรีต</h4>
+          <p>เจาะและติดตั้งทางออกด้านล่าง แล้วเคลือบท่อทั้งด้านในและด้านนอกด้วยน้ำปูนเหลวบางๆ เพื่อปิดรูรั่ว</p>
+          <div class="step-subs" id="sub-th-1_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">1.1</span><span class="sub-t">เจาะรูขนาด 22mm สูงจากก้นท่อคอนกรีตประมาณ 10cm</span></li>
+            <li><span class="sub-n">1.2</span><span class="sub-t">ตัดท่อขนาด 1/2 นิ้ว ยาว 20cm แล้วเจาะรูรอบท่อทุกด้าน</span></li>
+            <li><span class="sub-n">1.3</span><span class="sub-t">ประกอบข้อต่องอ 90 องศา PVC ขนาด 1/2 นิ้ว เข้ากับท่อ 20cm ที่เจาะรูไว้และฝาปิดปลาย แล้วทากาวยึดติดกัน</span></li>
+            <li><span class="sub-n">1.4</span><span class="sub-t">ผสมปูนชุดแรก — ปูนซีเมนต์ Portland 1 ถัง ต่อทรายละเอียด 3 ถัง และน้ำ 1–1.5 ถัง ขึ้นอยู่กับความแห้งของทราย หมายเหตุ: ต้องการให้เหลวและบางมาก เพื่อให้เคลือบท่อได้ดี</span></li>
+            <li><span class="sub-n">1.5</span><span class="sub-t">เคลือบปูนทั้งด้านในและด้านนอกของท่อเพื่อปิดรูเล็กๆ และอัดปูนรอบบริเวณทางออกของท่อทั้งด้านในและด้านนอก</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-2_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">2.0</div>
+        <div class="step-body">
+          <h4>สร้างฐานตัวกรอง</h4>
+          <p>ปรับพื้นให้ได้ระดับ ใส่หินลงในฐาน แล้วนำหินนั้นมาผสมกับปูนเปียกและอัดให้แน่น</p>
+          <div class="step-subs" id="sub-th-2_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">2.1</span><span class="sub-t">ปรับพื้นที่ที่จะวางตัวกรองให้ได้ระดับ วางฐานรองลงบนพื้นและปรับให้ได้ระดับ</span></li>
+            <li><span class="sub-n">2.2</span><span class="sub-t">ใส่หินขนาด 3/4 นิ้วลงในฐานให้เต็มและอัดลงไป หมายเหตุ: เพื่อให้แน่ใจว่าท่อคอนกรีตจะไม่จมลงไปในฐานเมื่อวางลง</span></li>
+            <li><span class="sub-n">2.3</span><span class="sub-t">แยกปูนเปียกออกมา 2–3 ถังจากกะบะผสมหลัก เก็บไว้ใช้ภายหลัง</span></li>
+            <li><span class="sub-n">2.4</span><span class="sub-t">นำหินออกจากฐานแล้วผสมเข้ากับปูนที่เหลือในกะบะ ผสมให้เข้ากันดีแล้วเทกลับลงในฐาน อย่าเทปูนลงบนหินในฐานโดยไม่ผสมกันก่อน</span></li>
+            <li><span class="sub-n">2.5</span><span class="sub-t">ใช้เกรียงไล่ฟองอากาศและอัดหินกับปูนในฐานให้แน่น ทิ้งไว้ 10–15 นาทีเพื่อให้เซ็ตตัวและปล่อยอากาศที่ค้างอยู่ออก</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-3_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">3.0</div>
+        <div class="step-body">
+          <h4>ประกอบตัวกรอง</h4>
+          <p>ทำเครื่องหมายระดับน้ำจากแผ่นกระจายน้ำ เดินท่อยืนภายในขึ้นไปถึงระดับนั้น แล้ววางท่อลงบนฐานที่ยังเปียก</p>
+          <div class="step-subs" id="sub-th-3_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">3.1</span><span class="sub-t">เจาะรูหลายๆ รูบนแผ่นกระจายน้ำ (baffle) และวัดความยาวของมันไว้</span></li>
+            <li><span class="sub-n">3.2</span><span class="sub-t">ทำเครื่องหมายถาวรที่ผนังด้านในจากขอบบนของท่อคอนกรีต เท่ากับความยาวของ baffle +5cm (รวมประมาณ 15–20cm)</span></li>
+            <li><span class="sub-n">3.3</span><span class="sub-t">ตัดท่อ PVC ขนาด 1/2 นิ้ว ให้ยาวเท่ากับระยะจากข้อต่องอทางออกขึ้นไปถึงตำแหน่งที่ทำเครื่องหมายไว้จากขอบบนของท่อคอนกรีต (ประมาณ 77–80cm) หมายเหตุ: ต้องการให้ทางออกอยู่สูงกว่าระดับน้ำนิ่งไม่กี่เซนติเมตร</span></li>
+            <li><span class="sub-n">3.4</span><span class="sub-t">สอดท่อ 1/2 นิ้วเข้ากับข้อต่องอทางออกด้านล่าง แล้วต่อข้อต่องอ 90 องศาอีกตัวที่ด้านบน ใช้ขายึดทาบไว้ใต้ข้อต่องอด้านบนโดยตรงเพื่อทำเครื่องหมายรู 2 รู เจาะเข้าไปในเนื้อท่อคอนกรีตแค่ครึ่งเดียว ลึกเท่าความยาวของพุกพลาสติกเท่านั้น — อย่าเจาะทะลุผนังท่อ ยึดด้วยสกรู 2 ตัว</span></li>
+            <li><span class="sub-n">3.5</span><span class="sub-t">ยกท่อคอนกรีตวางลงตรงกลางฐานพอดี ระวังอย่าให้จมลึกกว่าท่อ PVC ที่อยู่ข้างใน หมายเหตุ: ควรวางลงอย่างนุ่มนวลในครั้งเดียว เพื่อช่วยให้เกิดการยึดผนึกระหว่างปูนเปียกกับท่อคอนกรีต</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-4_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">4.0</div>
+        <div class="step-body">
+          <h4>ติดตั้งตัวกรองและแท่นวาง</h4>
+          <p>ก่อแท่นอิฐบล็อกด้านหน้าฐาน แล้วฉาบโครงสร้างทั้งหมดให้เรียบด้วยปูนที่เหลือ</p>
+          <div class="step-subs" id="sub-th-4_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">4.1</span><span class="sub-t">ระหว่างที่ฐานและท่อคอนกรีตกำลังแห้ง นำอิฐบล็อกมาก่อเป็นแท่นด้านหน้าฐาน โดยทั่วไปเราวางแนวตั้ง 3 ก้อนด้านล่าง วางนอน 2 ก้อนด้านบน และแนวตั้งอีก 1 ก้อน ตัดแบ่งให้เป็นรูปสี่เหลี่ยมผืนผ้า</span></li>
+            <li><span class="sub-n">4.2</span><span class="sub-t">เริ่มด้วยการใส่ปูนเปียกที่เหลือลงระหว่างอิฐบล็อกเหล่านี้ ก่อเหมือนที่ก่อกำแพงคอนกรีตทั่วไป</span></li>
+            <li><span class="sub-n">4.3</span><span class="sub-t">เมื่อก่อแท่นเสร็จแล้ว เริ่มฉาบปูนเปียกที่เหลือลงบนผิวด้านนอกของท่อคอนกรีตเหนือฐาน รวมถึงบนแท่นวางด้วย</span></li>
+            <li><span class="sub-n">4.4</span><span class="sub-t">ใช้ปูนทั้งหมดที่มีเพื่อสร้างชั้นผนึกเปียกที่สม่ำเสมอรอบโครงสร้างทั้งหมด มักจะดีที่สุดหากทำเป็นชั้นๆ ปล่อยให้แต่ละชั้นแห้งเล็กน้อย — อย่าใส่ปูนหนาจนหลุดร่วง และอย่าบางจนแห้งแตก</span></li>
+            <li><span class="sub-n">4.5</span><span class="sub-t">ใช้น้ำ ฟองน้ำ และมือปาดผิวโครงสร้างทั้งหมดให้เรียบ เพื่อให้ได้ผิวผนึกที่สวยและสม่ำเสมอ ทิ้งให้บ่มตัว 24 ชั่วโมง ป้องกันการแตกร้าวด้วยการพรมน้ำเล็กน้อยขณะที่แห้ง และปาดรอยแตกให้เรียบ</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-5_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">5.0</div>
+        <div class="step-body">
+          <h4>ล้างทรายและหิน</h4>
+          <p>ล้างทรายละเอียดจนตะกอนและดินเหนียวหมดไป แล้วยืนยันผลด้วยการทดสอบอัตราการตกตะกอนในขวดแก้ว <a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--mid);font-weight:700;white-space:nowrap">▶ ดูที่นี่</a></p>
+          <div class="step-subs" id="sub-th-5_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">5.1</span><span class="sub-t">ใส่ทรายละเอียดลงในถังไม่เกินครึ่งถัง แล้วเติมน้ำจนเต็มถัง 20 ลิตร ใช้มือคนอย่างแรงให้ถึงก้นถัง เป้าหมายคือทำให้ตะกอนและดินเหนียวหลุดออกจากเม็ดทรายและลอยแขวนอยู่ในน้ำ</span></li>
+            <li><span class="sub-n">5.2</span><span class="sub-t">คนและกวนอย่างแรง 20 ถึง 30 วินาที จนกระทั่งสัมผัสก้นถังได้ง่ายโดยไม่มีทรายค้างอยู่ หากปล่อยให้ทรายนอนก้น คุณจะต้องล้างเพิ่มอีกเกือบเท่าตัว</span></li>
+            <li><span class="sub-n">5.3</span><span class="sub-t">รอประมาณ 5 วินาที แล้วค่อยๆ เทน้ำออกจากถังอย่างช้าๆ มากๆ โดยให้ทรายยังคงอยู่ในถัง คุณจะเห็นสารเคมี ดินเหนียว ตะกอน และสิ่งไม่พึงประสงค์อื่นๆ ไหลออกไปพร้อมน้ำ ระวังอย่าเทเร็วเกินไปจนทรายหลุดออกไปด้วย</span></li>
+            <li><span class="sub-n">5.4</span><span class="sub-t">ทำซ้ำขั้นตอน 5.1 ถึง 5.3 ประมาณ 3 ถึง 5 รอบ แล้วตรวจอัตราการตกตะกอนในขวดแก้ว วิธีทดสอบ: กวนทรายเหมือนในขั้นตอน 5.1 และ 5.2 เก็บตัวอย่างน้ำผสมทรายใส่ขวด เขย่าแรงๆ 10 วินาที แล้วตั้งนิ่งไว้ นับจำนวนวินาทีจนเห็นเส้นแบ่งชั้นทรายชัดเจนที่ก้นขวด ถ้า 5 วินาทีหรือน้อยกว่า แสดงว่าทรายพร้อมใช้งาน</span></li>
+            <li><span class="sub-n">5.5</span><span class="sub-t">เมื่อทรายสะอาดและพร้อมแล้ว — โดยทั่วไปหลังล้างประมาณ 5 ถึง 12 รอบขึ้นอยู่กับคุณภาพทราย — เททรายที่สะอาดแล้วใส่ถุงเก็บไว้ ทำแบบเดียวกันกับทรายถุงที่เหลือจนสะอาดทั้งหมด ล้างและกรองหิน 3/4 นิ้วและหินขนาดเท่าเมล็ดถั่วจนสะอาด แล้วแยกเก็บใส่ถุงของแต่ละชนิด</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-6_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">6.0</div>
+        <div class="step-body">
+          <h4>ทำถ่านชีวภาพ (Biochar)</h4>
+          <p>เผาไม้ในระบบถังสองชั้น ดับด้วยน้ำ แล้วบดและล้างถ่านชีวภาพให้พร้อมใส่ตัวกรอง</p>
+          <div class="step-subs" id="sub-th-6_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">6.1</span><span class="sub-t">ตั้งระบบถังสองชั้นของคุณ แล้วใส่ไม้ลงในถังใบแรกให้เต็ม</span></li>
+            <li><span class="sub-n">6.2</span><span class="sub-t">จุดไฟตรงกลางกองไม้ แล้ววางถังใบที่สองคว่ำลงบนถังใบแรก</span></li>
+            <li><span class="sub-n">6.3</span><span class="sub-t">การเผาจะใช้เวลาประมาณ 30 ถึง 45 นาที คุณจะรู้ว่าใกล้เสร็จเมื่อเห็นถ่านร่วงออกมาจากก้นถังใบแรก หรือจะใช้เศษพลาสติกติดปลายไม้จิ้มทดสอบดูว่าละลายเร็วแค่ไหนที่ก้นถังก็ได้</span></li>
+            <li><span class="sub-n">6.4</span><span class="sub-t">ดับไฟและราดน้ำให้ถังใบบนเย็นลง เมื่อยกถังใบบนออกแล้ว ให้ราดน้ำดับถ่านชีวภาพที่เหลือจนดับสนิท จากนั้นเกลี่ยถ่านชีวภาพลงบนผ้าใบพลาสติกเมื่อเย็นแล้ว</span></li>
+            <li><span class="sub-n">6.5</span><span class="sub-t">บดถ่านชีวภาพให้เป็นชิ้นขนาดประมาณครึ่งนิ้วคล้ายก้อนหินเล็กๆ ระวังอย่าบดละเอียดเกินไปจนกลายเป็นผง จากนั้นล้างถ่านชีวภาพในกะบะน้ำ โดยใช้ตาข่ายรองเพื่อเก็บชิ้นถ่านก้อนใหญ่ที่จะนำไปใส่ในตัวกรอง</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-7_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">7.0</div>
+        <div class="step-body">
+          <h4>ประกอบทุกอย่างเข้าด้วยกัน</h4>
+          <p>ใส่ชั้นวัสดุตามลำดับ — หินใหญ่ หินเมล็ดถั่ว ถ่านชีวภาพ ทรายละเอียด — แล้วเติมน้ำช้าๆ และใส่แผ่นกระจายน้ำกับฝาปิด</p>
+          <div class="step-subs" id="sub-th-7_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">7.1</span><span class="sub-t">ใส่หินขนาด 3/4 นิ้วลงก้นตัวกรองอย่างระมัดระวัง ให้สูงเหนือท่อ PVC ประมาณ 2–3cm รวมความหนาประมาณ 5–7cm</span></li>
+            <li><span class="sub-n">7.2</span><span class="sub-t">วัดระยะจากผิวบนของหิน 3/4 นิ้วขึ้นไปถึงเครื่องหมายที่ทำไว้ด้านบนของท่อคอนกรีต</span></li>
+            <li><span class="sub-n">7.3</span><span class="sub-t">ใส่หินขนาดเมล็ดถั่วที่ล้างสะอาดแล้วหนา 5–7cm แล้วเกลี่ยให้เรียบ จากนั้นใส่ถ่านชีวภาพหนา 5–7cm ทับบนหินเล็ก</span></li>
+            <li><span class="sub-n">7.4</span><span class="sub-t">ใส่ทรายละเอียดจนถึงระดับต่ำกว่าเครื่องหมายที่ระดับน้ำจะนิ่ง 5cm</span></li>
+            <li><span class="sub-n">7.5</span><span class="sub-t">ค่อยๆ เติมน้ำเพื่อให้ทรายเซ็ตตัว และรอจนเห็นน้ำไหลออกจากท่อทางออก ใส่แผ่นกระจายน้ำและฝาปิดเมื่อตัวกรองเริ่มไหลแล้ว ปล่อยน้ำไหลผ่านต่อเนื่อง 1 ชั่วโมงเพื่อช่วยล้างตัวกรอง</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-th-8_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">8.0</div>
+        <div class="step-body">
+          <h4>ช่วงเริ่มต้น: รอ 4 สัปดาห์ก่อนดื่ม</h4>
+          <p>ชั้นชีวภาพต้องใช้เวลาประมาณ 28 วันจึงจะก่อตัว ใช้ตัวกรองทุกวันในช่วงนี้ แต่ยังห้ามดื่มน้ำที่ออกมา</p>
+          <div class="step-subs" id="sub-th-8_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">8.1</span><span class="sub-t">เติมน้ำลงในตัวกรองทุกวันตลอด 4 สัปดาห์แรก การใช้งานสม่ำเสมอจะหล่อเลี้ยงชั้นชีวภาพและช่วยให้ก่อตัวได้เร็วขึ้น</span></li>
+            <li><span class="sub-n">8.2</span><span class="sub-t">ในช่วงแรกน้ำที่ออกมาจะขุ่น ซึ่งเป็นเรื่องปกติ และจะใสขึ้นเมื่อทรายเซ็ตตัวและชั้นชีวภาพก่อตัวขึ้น</span></li>
+            <li><span class="sub-n">8.3</span><span class="sub-t"><strong>อย่าดื่มน้ำที่ออกมาก่อนครบ 4 สัปดาห์</strong> ให้ต้มหรือบำบัดก่อน หรือใช้สำหรับซักล้างจนกว่าจะพ้นช่วงเริ่มต้น</span></li>
+            <li><span class="sub-n">8.4</span><span class="sub-t">รักษาให้ตัวกรองชุ่มน้ำอยู่เสมอ ให้มีน้ำขังเหนือผิวทรายอย่างน้อย 5cm ตลอดเวลา — หากปล่อยให้แห้ง ชั้นชีวภาพจะพักตัวและต้องเริ่มนับ 28 วันใหม่ทั้งหมด</span></li>
+            <li><span class="sub-n">8.5</span><span class="sub-t">หลังครบ 4 สัปดาห์ ชั้นชีวภาพจะก่อตัวสมบูรณ์และน้ำที่ออกมาปลอดภัยสำหรับการดื่ม ใช้ตัวกรองบ่อยๆ และอย่าลืมปล่อยให้พักในระหว่างการเติมน้ำแต่ละครั้ง</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 
   <div data-lang="my" lang="my">
     <span class="section-num">03</span>
     <h2>မည်သို့ တည်ဆောက်ရမည်နည်း</h2>
-    <p>ဤရေစစ်ကို ကမ္ဘာ့ဒေသ အများစုတွင် ရရှိနိုင်သော ဒေသတွင်း ပစ္စည်းများဖြင့် မည်သူမဆို တည်ဆောက်နိုင်ရန် ဒီဇိုင်းထုတ်ထားသည်။ ဘိလပ်မြေနှင့် ပန်းရံသုံး ကိရိယာ အသုံးပြုနည်း သင်ယူရုံမှလွဲ၍ အထူး ကျွမ်းကျင်မှု သို့မဟုတ် ကိရိယာ မလိုအပ်ပါ။ အောက်ပါ အဆင့်များအတိုင်း လုပ်ဆောင်ပါက ရေစစ်ကို လွယ်ကူစွာ တည်ဆောက်နိုင်သည်။</p>
+    <p>ဤရေစစ်ကို ကမ္ဘာ့ဒေသ အများစုတွင် ရရှိနိုင်သော ဒေသတွင်း ပစ္စည်းများဖြင့် မည်သူမဆို တည်ဆောက်နိုင်ရန် ဒီဇိုင်းထုတ်ထားသည်။ ဘိလပ်မြေ၊ ပန်းရံဓားနှင့် လျှပ်စစ်တူးစက် အသုံးပြုနည်း သင်ယူရုံမှလွဲ၍ အထူး ကျွမ်းကျင်မှု သို့မဟုတ် ကိရိယာ မလိုအပ်ပါ။ အောက်ပါ အဆင့်များအတိုင်း လုပ်ဆောင်ပါက ရေစစ်ကို လွယ်ကူစွာ တည်ဆောက်နိုင်သည်။</p>
     <span class="zoomfig zoomfig-c" role="button" tabindex="0" aria-label="Enlarge image"><picture><img src="Images/IMG_3209.JPG" alt="ရွာတစ်ရွာတွင် ပြီးစီးသွားသော Sacred Water ဇီဝသဲ ရေစစ်" class="photo-real" loading="lazy" decoding="async" width="1000" height="1424"/></picture></span>
     <p class="photo-caption">ပြီးစီးသွားသော Sacred Water ရေစစ်တစ်ခု — ကွန်ကရစ်ပိုက်၊ ကွန်ကရစ်ခုံတိုင်နှင့် အပြာရောင် PVC ရေထွက်ပိုက်။ သန့်ရှင်းသောရေသည် ရေခံအိုးထဲသို့ မပြတ်တမ်း စီးဆင်းနေသည်။</p>
 
@@ -1278,7 +1497,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <tr><td>ကျောက်တုံးကြီးများ</td><td>၃/၄ လက်မ ကျောက်စရစ်</td><td>အောက်ဆုံး ရေထွက်အလွှာ</td></tr>
         <tr><td>ကျောက်တုံးငယ် / ကျောက်စရစ်</td><td>၁–၅ မီလီမီတာ၊ ပဲစေ့အရွယ်</td><td>အလယ် စစ်ထုတ်အလွှာ</td></tr>
         <tr><td>ဇီဝမီးသွေး (Bio-Char)</td><td>၁–၃ စင်တီမီတာ ကြိတ်ထား</td><td>သက်ဝင်ကာဗွန် အလွှာ</td></tr>
-        <tr><td>သံမှုန့် (Iron Shavings) သို့မဟုတ် Steel Wool</td><td>သဲမှုန့်နှင့် ရောစပ်ပါ (၃၀ စင်တီမီတာ၊ ၂၀%+ အချိုး)</td><td>သံအလွှာ</td></tr>
         <tr><td>သဲမှုန်</td><td>ဆေးကြောထားသော သန့်ရှင်းသည့် မြစ်သဲ</td><td>အပေါ်ပိုင်း စစ်ထုတ်ပစ္စည်း + ဇီဝအလွှာ ဖြစ်ပေါ်ရာ နေရာ</td></tr>
         <tr><td>PVC ပိုက် (၁/၄ လက်မ) + တံကောက်များ</td><td>ပိုက်အချင်း ၁/၄ လက်မ</td><td>ရေဖြည့်ခြင်းနှင့် ဆွဲအားဖြင့် ရေမျက်နှာပြင် ထိန်းချုပ်ခြင်း</td></tr>
         <tr><td>ကွန်ကရစ် / အင်္ဂတေ / အုတ်</td><td>Portland ဘိလပ်မြေ၊ သဲမှုန်၊ ရေကာဆေး</td><td>ကိုယ်ထည်ကို ရေစိုခံအောင် ပြုလုပ်ပြီး ရေစစ် တည်ဆောက်ခြင်း</td></tr>
@@ -1292,22 +1510,135 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
     </div>
 
     <h3>တည်ဆောက်ရန် အဆင့်များ</h3>
+    <p class="steps-hint">အသေးစိတ် အဆင့်ခွဲများ ကြည့်ရန် အဆင့်တစ်ခုခုပေါ်တွင် မောက်စ်တင်ပါ — ဖုန်းတွင်ဆိုလျှင် တို့ပါ။</p>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div><h4>ကွန်ကရစ်ပိုက် ပြင်ဆင်ပါ</h4><p>ကွန်ကရစ်ပိုက်ကို ပြားညီသော မြေပြင်ပေါ်တွင် ထောင်လိုက်ပါ။ ၎င်းသည် သင့်ရေစစ်၏ အဓိက ကိုယ်ထည်ဖြစ်သည်။ တည်ငြိမ်ပြီး မလဲကျအောင် သေချာစေပါ။</p></div></div>
-      <div class="step"><div class="step-num">2</div><div><h4>ကွန်ကရစ် ခုံတိုင် တည်ဆောက်ပါ</h4><p>ပိုက်၏ အောက်ခြေ ပတ်လည်တွင် ကွန်ကရစ် ခုံတိုင်ငယ်တစ်ခု လောင်းပါ။ ၎င်းသည် ရေစစ်ကို အနည်းငယ် မြှင့်ပေးပြီး ရေထွက်ပေါက်အောက်ရှိ ရေခံအိုးကို နေရာတကျ ထိန်းထားပေးသည်။ မာကျောရန် ၂၄–၄၈ နာရီ ထားပါ။</p></div></div>
-      <div class="step"><div class="step-num">3</div><div><h4>PVC ရေထွက်ပိုက် တပ်ဆင်ပါ</h4><p>တံကောက်ပါသော PVC ပိုက်ကို ကွန်ကရစ်ခုံ၏ အောက်ခြေနားတွင် ထိုးသွင်းပါ။ ရေသည် သဲကို ကျော်မသွားအောင် အင်္ဂတေဖြင့် ပတ်လည်ကို သေချာ ပိတ်ဆို့ပါ။ ရေထွက် အစွန်းသည် ရေစစ် ကိုယ်ထည်ပြင်ပ၊ ရေခံအိုးအပေါ်သို့ ရောက်ရှိရမည်။</p></div></div>
-      <div class="step"><div class="step-num">4</div><div><h4>ကျောက်တုံးကြီးများ ထည့်ပါ (၁၀–၁၅ စင်တီမီတာ အလွှာ)</h4><p>ဆေးကြောထားသော လက်သီးဆုပ်အရွယ် ကျောက်တုံးများကို ရေထွက်ပေါက်အထက်၊ ပိုက်အောက်ခြေတွင် ထည့်ပါ။ ဤအလွှာသည် အပေါ်ရှိ အရာအားလုံးကို ထောက်ပံ့ပြီး ရေကို ရေထွက်ပေါက်သို့ လွတ်လပ်စွာ စီးဆင်းစေသည်။</p></div></div>
-      <div class="step"><div class="step-num">5</div><div><h4>သဲမှုန် ဆေးကြောပါ</h4><p>သဲ၏ အရည်အသွေးပေါ်မူတည်၍ သဲမှုန်ကို ၈–၁၅ ကြိမ် ဆေးကြောပါ။ ပုံးထဲရှိ သဲပေါ်သို့ ရေလောင်း၊ မွှေ၊ ပြီးနောက် နောက်ကျိသောရေကို သွန်ပစ်ပါ။ ရေ အပြည့်အဝ ကြည်လင်လာသည်အထိ ထပ်ခါတလဲလဲ ပြုလုပ်ပါ။ သဲ ဆေးကြောနည်း သင်ယူရန်: <a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" style="color:var(--mid);font-weight:700">▶ ဒီမှာ ကြည့်ပါ</a></p></div></div>
-      <div class="step"><div class="step-num">6</div><div><h4>သဲမှုန် ထည့်ပါ (၃၀–၄၀ စင်တီမီတာ အလွှာ)</h4><p>ဆေးကြောထားသော မြစ်သဲမှုန်ကို အပေါ်ဆုံး အလွှာအဖြစ် လောင်းထည့်ပါ။ ဤနေရာတွင် ဇီဝအလွှာ ပေါက်ဖွားလာမည်။ ရေ စုဆည်းရန် သဲအထက်တွင် ၁၀–၁၅ စင်တီမီတာ နေရာလွတ် ချန်ထားပါ။</p></div></div>
-      <div class="step"><div class="step-num">7</div><div><h4>အဖုံး တပ်ပါ</h4><p>ပိုးမွှား၊ တိရစ္ဆာန်နှင့် အမှိုက်သရိုက် မဝင်စေရန် ထိပ်ပိုင်းတွင် ရိုးရှင်းသော အဖုံး (ကွန်ကရစ် သို့မဟုတ် သစ်သား) တစ်ခု ပြုလုပ် သို့မဟုတ် တင်ထားပါ။ ရေဖြည့်သည့်အခါ အလွယ်တကူ ဖွင့်နိုင်ရမည်။</p></div></div>
-      <div class="step"><div class="step-num">8</div><div><h4>စတင်ချိန်: မသောက်မီ ၄ ပတ် စောင့်ပါ</h4><p>ရေစစ်ကို နေ့စဉ် ၂–၄ ပတ် ရေဖြည့်ပါ။ အစတွင် ထွက်ရှိသောရေသည် နောက်ကျိနေမည် — ၎င်းသည် ပုံမှန်ဖြစ်သည်။ ၄ ပတ် ကြာပြီးနောက် ဇီဝအလွှာ ဖြစ်ပေါ်လာပြီး ထွက်ရေသည် သောက်သုံးရန် ဘေးကင်းသည်။ <strong>၄ ပတ် မပြည့်မီ ထွက်ရေကို မသောက်ပါနှင့်။</strong></p></div></div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-1_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">1.0</div>
+        <div class="step-body">
+          <h4>ကွန်ကရစ်ပိုက် ပြင်ဆင်ခြင်း</h4>
+          <p>အောက်ခြေ ရေထွက်ပေါက်ကို တွင်း၍ တပ်ဆင်ပါ။ ထို့နောက် ပိုက်တစ်ခုလုံး၏ အတွင်းအပြင်ကို ဘိလပ်မြေရည် ပါးပါးဖြင့် သုတ်၍ ပိတ်ဆို့ပါ။</p>
+          <div class="step-subs" id="sub-my-1_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">1.1</span><span class="sub-t">ကွန်ကရစ်ပိုက်၏ အောက်ခြေမှ ခန့်မှန်း ၁၀ စင်တီမီတာအကွာတွင် ၂၂ မီလီမီတာ အပေါက် တွင်းပါ။</span></li>
+            <li><span class="sub-n">1.2</span><span class="sub-t">၁/၂ လက်မ ပိုက်ကို ၂၀ စင်တီမီတာ အရှည် ဖြတ်ပြီး ဘေးပတ်လည် အားလုံးတွင် အပေါက်များ တွင်းပါ။</span></li>
+            <li><span class="sub-n">1.3</span><span class="sub-t">၁/၂ လက်မ ၉၀ ဒီဂရီ PVC တံကောက်၊ အပေါက်တွင်းထားသော ၂၀ စင်တီမီတာ ပိုက်နှင့် အဖျားအဖုံးတို့ကို ထိုးသွင်းပြီး ကော်ဖြင့် ကပ်ပါ။</span></li>
+            <li><span class="sub-n">1.4</span><span class="sub-t">ပထမ ဘိလပ်မြေအသုတ်ကို ရောပါ — Portland ဘိလပ်မြေ ၁ ပုံးလျှင် သဲမှုန် ၃ ပုံး၊ သဲ၏ ခြောက်သွေ့မှုပေါ်မူတည်၍ ရေ ၁–၁.၅ ပုံး။ မှတ်ချက်: ပိုက်ကို ကောင်းစွာ သုတ်နိုင်ရန် အလွန် ရွှဲစို၍ ပါးလွှာသော အနေအထား လိုအပ်သည်။</span></li>
+            <li><span class="sub-n">1.5</span><span class="sub-t">အပေါက်ငယ်များ ပိတ်စေရန် ပိုက်၏ အတွင်းအပြင်ကို ကွန်ကရစ်ဖြင့် သုတ်ပါ။ ရေထွက်ပိုက် ပတ်လည် အတွင်းအပြင်ကိုလည်း ဘိလပ်မြေဖြင့် သေချာစွာ ဖြည့်ပိတ်ပါ။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-2_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">2.0</div>
+        <div class="step-body">
+          <h4>ရေစစ် ခုံတိုင် တည်ဆောက်ခြင်း</h4>
+          <p>မြေပြင်ကို ညီအောင်ပြုပြီး ခုံတိုင်အတွင်း ကျောက်များ ဖြည့်ပါ။ ထိုကျောက်များကို ဘိလပ်မြေစိုနှင့် ရောစပ်ကာ ခိုင်ခံ့စွာ ဖိသိပ်ပါ။</p>
+          <div class="step-subs" id="sub-my-2_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">2.1</span><span class="sub-t">ရေစစ် ထားရှိမည့် မြေနေရာကို ညီအောင် ပြုလုပ်ပါ။ ခုံတိုင်အခြေခံကို မြေပေါ်တွင် တင်၍ ရေချိန်ညှိပါ။</span></li>
+            <li><span class="sub-n">2.2</span><span class="sub-t">ခုံတိုင်ကို ၃/၄ ကျောက်များဖြင့် အပြည့် ဖြည့်ပြီး ဖိသိပ်ပါ။ မှတ်ချက်: ကွန်ကရစ်ပိုက် တင်လိုက်သည့်အခါ ခုံတိုင်ထဲသို့ မနစ်သွားစေရန် ဖြစ်သည်။</span></li>
+            <li><span class="sub-n">2.3</span><span class="sub-t">နောက်မှ အသုံးပြုရန်အတွက် ဘိလပ်မြေစို ၂–၃ ပုံးကို အဓိက ရောစပ်သည့် ကန်မှ ခွဲထုတ်ထားပါ။</span></li>
+            <li><span class="sub-n">2.4</span><span class="sub-t">ခုံတိုင်မှ ကျောက်များကို ပြန်ထုတ်ပြီး ကန်ထဲရှိ ကျန်ဘိလပ်မြေနှင့် ရောပါ။ သေချာစွာ ရောပြီးမှ ခုံတိုင်ထဲသို့ ပြန်လောင်းပါ။ မရောဘဲ ခုံတိုင်ထဲရှိ ကျောက်များအပေါ်သို့ ဘိလပ်မြေ တိုက်ရိုက် မလောင်းပါနှင့်။</span></li>
+            <li><span class="sub-n">2.5</span><span class="sub-t">လေပူဖောင်းများ ထွက်စေရန်နှင့် ခုံတိုင်ထဲရှိ ကျောက်/ဘိလပ်မြေကို ဖိသိပ်ရန် ပန်းရံဓားကို သုံးပါ။ တည်ငြိမ်ပြီး ပိတ်မိနေသော လေထွက်စေရန် ၁၀–၁၅ မိနစ် ထားပါ။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-3_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">3.0</div>
+        <div class="step-body">
+          <h4>ရေစစ် တပ်ဆင်ခြင်း</h4>
+          <p>ရေဖြန့်ပြားမှ ရေမျက်နှာပြင်ကို အမှတ်အသားပြုပါ။ အတွင်းပိုင်း ထောင်ပိုက်ကို ထိုအမှတ်အထိ တင်ပြီး ပိုက်ကို ခုံတိုင်စိုပေါ်တွင် တင်ပါ။</p>
+          <div class="step-subs" id="sub-my-3_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">3.1</span><span class="sub-t">သင့် ရေဖြန့်ပြား (baffle) တွင် အပေါက်များစွာ တွင်းပြီး ၎င်း၏ အလျားကို တိုင်းထားပါ။</span></li>
+            <li><span class="sub-n">3.2</span><span class="sub-t">ကွန်ကရစ်ပိုက် ထိပ်မှ စ၍ အတွင်းဘက်တွင် baffle အလျား +၅ စင်တီမီတာ (စုစုပေါင်း ၁၅–၂၀ စင်တီမီတာခန့်) ကို အမြဲတမ်း အမှတ်အသား ပြုပါ။</span></li>
+            <li><span class="sub-n">3.3</span><span class="sub-t">တံကောက် ရေထွက်ပေါက်မှ ကွန်ကရစ်ပိုက်ထိပ်မှ အမှတ်အသားပြုထားသည့် နေရာအထိ အလျားရှိသော ၁/၂ လက်မ PVC ပိုက်တစ်ချောင်း ဖြတ်ပါ (ခန့်မှန်း ၇၇–၈၀ စင်တီမီတာ)။ မှတ်ချက်: ရေထွက်ပေါက်သည် ငြိမ်နေသော ရေမျက်နှာပြင်အထက် စင်တီမီတာ အနည်းငယ်တွင် ရှိသင့်သည်။</span></li>
+            <li><span class="sub-n">3.4</span><span class="sub-t">၁/၂ လက်မ ပိုက်ကို အောက်ခြေ ရေထွက် တံကောက်ထဲသို့ ထိုးသွင်းပြီး အပေါ်တွင် ၉၀ ဒီဂရီ တံကောက် နောက်တစ်ခု ထပ်တပ်ပါ။ အပေါ်တံကောက်၏ တိုက်ရိုက်အောက်တွင် တပ်ဆင်ကွင်းကို ကပ်ထား၍ အပေါက် ၂ ပေါက် အမှတ်အသားပြုပါ။ ပလပ်စတစ် ဝက်အူချိတ်၏ အလျားအတိုင်းသာ ကွန်ကရစ်ပိုက်ကို တစ်ဝက်သာ တွင်းပါ — ပိုက်ကို အပေါက်ဖောက်၍ မတွင်းပါနှင့်။ ဝက်အူ ၂ လုံးဖြင့် တပ်ဆင်ပါ။</span></li>
+            <li><span class="sub-n">3.5</span><span class="sub-t">ယခု ကွန်ကရစ်ပိုက်ကို ခုံတိုင်၏ အလယ်ဗဟိုတွင် တိကျစွာ တင်ပါ။ အတွင်းရှိ PVC ပိုက်ထက် ပိုနစ်မသွားစေရန် သတိပြုပါ။ မှတ်ချက်: ဘိလပ်မြေစိုနှင့် ကွန်ကရစ်ပိုက်ကြား ပိတ်ဆို့မှု ဖြစ်စေရန် တစ်ကြိမ်တည်း ဖြည်းညှင်းစွာ တိုက်ရိုက် ချထားသင့်သည်။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-4_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">4.0</div>
+        <div class="step-body">
+          <h4>ရေစစ်နှင့် စင်မြင့် တပ်ဆင်ခြင်း</h4>
+          <p>ခုံတိုင်ရှေ့တွင် အုတ်တုံးစင်မြင့် တည်ဆောက်ပြီး ကျန်ဘိလပ်မြေဖြင့် တစ်ခုလုံးကို ချောမွေ့အောင် အင်္ဂတေဖြင့် သုတ်ပါ။</p>
+          <div class="step-subs" id="sub-my-4_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">4.1</span><span class="sub-t">ခုံတိုင်နှင့် ကွန်ကရစ်ပိုက် ခြောက်နေစဉ်တွင် ကွန်ကရစ်တုံးများဖြင့် ခုံတိုင်ရှေ့၌ စင်မြင့်တစ်ခု စတင် တည်ဆောက်ပါ။ ပုံမှန်အားဖြင့် အောက်တွင် ထောင်လိုက် ၃ တုံး၊ အပေါ်တွင် အလျားလိုက် ၂ တုံးနှင့် ထောင်လိုက် နောက်ထပ် ၁ တုံး ထားပြီး စတုဂံပုံ ဖြစ်အောင် ချိုးထားသည်။</span></li>
+            <li><span class="sub-n">4.2</span><span class="sub-t">ကွန်ကရစ်နံရံ ကာသကဲ့သို့ ဤအုတ်တုံးများကြားတွင် ကျန်ဘိလပ်မြေစိုကို ထည့်ခြင်းဖြင့် စတင်ပါ။</span></li>
+            <li><span class="sub-n">4.3</span><span class="sub-t">စင်မြင့် ပြီးသွားပါက ကျန်ဘိလပ်မြေစိုကို ခုံတိုင်အထက် ကွန်ကရစ်ပိုက်၏ အပြင်ဘက်နှင့် စင်မြင့်ပေါ်တွင် စတင် သုတ်ပါ။</span></li>
+            <li><span class="sub-n">4.4</span><span class="sub-t">အဆောက်အအုံ တစ်ခုလုံး ပတ်လည်တွင် ညီညာသော ပိတ်ဆို့မှု ရရှိစေရန် သင့်ဘိလပ်မြေ အားလုံးကို သုံးပါ။ အလွှာလိုက် သုတ်ပြီး အလွှာတစ်ခုစီကို အနည်းငယ် ခြောက်ခွင့်ပေးခြင်းက အကောင်းဆုံး ဖြစ်သည် — ကျွတ်ကျလောက်အောင် ထူထူ မလုပ်ရ၊ ခြောက်အက်လောက်အောင်လည်း ပါးလွန်း၍ မဖြစ်ရ။</span></li>
+            <li><span class="sub-n">4.5</span><span class="sub-t">ရေ၊ ရေမြှုပ်နှင့် လက်ဖြင့် အဆောက်အအုံတစ်ခုလုံးကို ချောမွေ့အောင် ပြုပြင်ပါ။ ၂၄ နာရီ မာကျောခွင့်ပေးပါ။ ခြောက်နေစဉ် ရေအနည်းငယ် ဖျန်းပေးခြင်းဖြင့် အက်ကွဲမှုကို ကာကွယ်ပြီး အက်ကြောင်းများကို ချောမွေ့အောင် ပြုပြင်ပါ။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-5_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">5.0</div>
+        <div class="step-body">
+          <h4>သဲနှင့် ကျောက်များ ဆေးကြောခြင်း</h4>
+          <p>နုန်းနှင့် ရွှံ့စေးများ ကုန်သည်အထိ သဲမှုန်ကို ဆေးကြောပါ။ ထို့နောက် ဖန်ခွက်ဖြင့် ကျဆင်းနှုန်း စမ်းသပ်၍ အတည်ပြုပါ။ <a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--mid);font-weight:700;white-space:nowrap">▶ ဒီမှာ ကြည့်ပါ</a></p>
+          <div class="step-subs" id="sub-my-5_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">5.1</span><span class="sub-t">သဲမှုန်ဖြင့် ပုံးကို တစ်ဝက်ထက် မပိုစေဘဲ ဖြည့်ပါ။ ထို့နောက် ၂၀ လီတာ ပုံး ပြည့်သည်အထိ ရေ ထပ်ဖြည့်ပါ။ ပုံးအောက်ခြေအထိ လက်ရောက်အောင် ပြင်းပြင်းထန်ထန် မွှေပါ။ ရည်ရွယ်ချက်မှာ သဲစေ့များပေါ်မှ နုန်းနှင့် ရွှံ့စေးကို ခွာချ၍ ရေထဲတွင် လွင့်စေရန် ဖြစ်သည်။</span></li>
+            <li><span class="sub-n">5.2</span><span class="sub-t">ပုံးအောက်ခြေကို လွယ်ကူစွာ စမ်းမိပြီး သဲ မကျန်တော့သည်အထိ ၂၀ မှ ၃၀ စက္ကန့် ပြင်းထန်စွာ မွှေနှောက်ပါ။ သဲကို နားခွင့်ပေးမိပါက ဆေးရသည့် အကြိမ်ရေ နှစ်ဆနီးပါး ပိုများသွားမည်။</span></li>
+            <li><span class="sub-n">5.3</span><span class="sub-t">၅ စက္ကန့်ခန့် စောင့်ပြီး သဲကို ပုံးထဲ ကျန်နေစေလျက် ရေကို အလွန် ဖြည်းညှင်းစွာ သွန်ချပါ။ ဓာတုအညစ်အကြေး၊ ရွှံ့စေး၊ နုန်းနှင့် အခြား မလိုလားအပ်သည့်အရာများ ရေနှင့်အတူ ထွက်သွားသည်ကို မြင်ရမည်။ မြန်လွန်းစွာ သွန်၍ သဲ မဆုံးရှုံးစေရန် သတိပြုပါ။</span></li>
+            <li><span class="sub-n">5.4</span><span class="sub-t">အဆင့် ၅.၁ မှ ၅.၃ ကို ၃ မှ ၅ ကြိမ်ခန့် ထပ်လုပ်ပြီး ဖန်ခွက်ဖြင့် ကျဆင်းနှုန်းကို စစ်ဆေးပါ။ စစ်ဆေးရန်— အဆင့် ၅.၁ နှင့် ၅.၂ အတိုင်း သဲကို မွှေပါ။ သဲနှင့်ရေ ရောနှောထားသည်ကို ဖန်ခွက်ထဲ နမူနာယူပါ။ ၁၀ စက္ကန့် ပြင်းပြင်းထန်ထန် လှုပ်ပြီး ငြိမ်စွာ ကိုင်ထားပါ။ ခွက်အောက်ခြေတွင် သဲ မျဉ်းကြောင်း ထင်ရှားစွာ ပေါ်လာသည်အထိ စက္ကန့် ရေတွက်ပါ။ ၅ စက္ကန့် သို့မဟုတ် အောက်ဖြစ်ပါက သဲ အသင့်ဖြစ်ပြီ။</span></li>
+            <li><span class="sub-n">5.5</span><span class="sub-t">သဲ သန့်ရှင်း အသင့်ဖြစ်ပါက — သဲအရည်အသွေးပေါ်မူတည်၍ ပုံမှန်အားဖြင့် ၅ မှ ၁၂ ကြိမ်ခန့် ဆေးပြီးနောက် — သန့်ရှင်းသွားသော သဲကို အိတ်ထဲ ထည့်၍ သိမ်းဆည်းပါ။ ကျန်သဲအိတ်များကိုလည်း အားလုံး သန့်ရှင်းသည်အထိ ဤနည်းအတိုင်း ပြုလုပ်ပါ။ ၃/၄ ကျောက်များနှင့် ပဲစေ့အရွယ် ကျောက်ငယ်များကိုလည်း သန့်သည်အထိ ဆေးကြောပြီး တစ်မျိုးစီ သီးခြားအိတ်ဖြင့် သိမ်းထားပါ။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-6_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">6.0</div>
+        <div class="step-body">
+          <h4>ဇီဝမီးသွေး (Biochar) ပြုလုပ်ခြင်း</h4>
+          <p>စည်နှစ်ထပ် စနစ်ဖြင့် သစ်သားကို လောင်ကျွမ်းစေပြီး ရေဖြင့် ငြိမ်းသတ်ကာ ကြိတ်ဆေးကြော၍ ရေစစ်အတွက် အသင့်ပြင်ပါ။</p>
+          <div class="step-subs" id="sub-my-6_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">6.1</span><span class="sub-t">သင့် စည်နှစ်ထပ် စနစ်ကို တည်ဆောက်ပြီး ပထမစည်ကို သစ်သားဖြင့် အပြည့် ဖြည့်ပါ။</span></li>
+            <li><span class="sub-n">6.2</span><span class="sub-t">သစ်သားအလယ်တွင် မီးရှို့ပြီး ဒုတိယစည်ကို ပထမစည်ပေါ်တွင် တင်ပါ။</span></li>
+            <li><span class="sub-n">6.3</span><span class="sub-t">လောင်ကျွမ်းရန် ခန့်မှန်း ၃၀ မှ ၄၅ မိနစ် ကြာမည်။ ပထမစည်၏ အောက်ခြေမှ မီးသွေးများ ကျလာသည်ကို မြင်ရသည့်အခါ လောင်ကျွမ်းမှု နီးပါးပြီးဆုံးပြီဟု သိနိုင်သည် — သို့မဟုတ် တုတ်ဖျားတွင် ပလပ်စတစ်တစ်စ တပ်၍ စည်အောက်ခြေတွင် မည်မျှမြန်မြန် အရည်ပျော်သည်ကို စစ်နိုင်သည်။</span></li>
+            <li><span class="sub-n">6.4</span><span class="sub-t">မီးကို ငြိမ်းသတ်ပြီး အပေါ်စည်ကို ရေဖြင့် အအေးခံပါ။ အပေါ်စည်ကို ဖယ်ပြီးနောက် ကျန်ဇီဝမီးသွေးကို လိုအပ်သလောက် ကြာအောင် ရေဖြင့် ငြိမ်းသတ်ပါ။ အေးပြီးမှ ဇီဝမီးသွေးကို ပလပ်စတစ်ဖျင်ပေါ်တွင် ဖြန့်ပါ။</span></li>
+            <li><span class="sub-n">6.5</span><span class="sub-t">ဇီဝမီးသွေးအသစ်ကို လက်မဝက်ခန့် ကျောက်တုံးငယ်အရွယ် ကြိတ်ပါ။ အမှုန့်များစွာ ဖြစ်မသွားစေရန် အလွန်အကျွံ မကြိတ်မိအောင် သတိပြုပါ။ ထို့နောက် ရေစစ်ထဲ ထည့်မည့် ဇီဝမီးသွေး အတုံးကြီးများ မကျန်ခဲ့စေရန် ပိုက်ကွန်တစ်မျိုးမျိုး အသုံးပြု၍ ရေကန်ထဲတွင် ဆေးကြောပါ။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-7_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">7.0</div>
+        <div class="step-body">
+          <h4>အားလုံး ပေါင်းစပ်ခြင်း</h4>
+          <p>အလွှာများကို အစဉ်လိုက် ထည့်ပါ — ကျောက်ကြီး၊ ပဲစေ့ကျောက်၊ ဇီဝမီးသွေး၊ သဲမှုန် — ထို့နောက် ရေကို ဖြည်းညှင်းစွာ ဖြည့်ကာ ရေဖြန့်ပြားနှင့် အဖုံး တပ်ပါ။</p>
+          <div class="step-subs" id="sub-my-7_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">7.1</span><span class="sub-t">၃/၄ အရွယ် ကျောက်များကို ရေစစ်၏ အောက်ခြေထဲသို့ ဂရုတစိုက် ထည့်ပြီး PVC ပိုက်အထက် ၂–၃ စင်တီမီတာခန့်အထိ ဖြည့်ပါ။ စုစုပေါင်း ၅–၇ စင်တီမီတာခန့် ဖြစ်သည်။</span></li>
+            <li><span class="sub-n">7.2</span><span class="sub-t">၃/၄ အရွယ် ကျောက်များ၏ ထိပ်မှ ကွန်ကရစ်ပိုက်ထိပ်ရှိ သင့်အမှတ်အသားအထိ တိုင်းတာပါ။</span></li>
+            <li><span class="sub-n">7.3</span><span class="sub-t">ဆေးကြောထားသော ပဲစေ့အရွယ် ကျောက်ကို ၅–၇ စင်တီမီတာ ထည့်၍ ညီအောင်ပြုပါ။ ယခု ကျောက်ငယ်များအပေါ်တွင် ဇီဝမီးသွေး ၅–၇ စင်တီမီတာ ထည့်ပါ။</span></li>
+            <li><span class="sub-n">7.4</span><span class="sub-t">ရေမျက်နှာပြင် ငြိမ်နေမည့် သင့်အမှတ်အသား၏ အောက် ၅ စင်တီမီတာအထိ သဲမှုန် ထည့်ပါ။</span></li>
+            <li><span class="sub-n">7.5</span><span class="sub-t">သဲ တည်ငြိမ်စေရန် ရေကို ဖြည်းညှင်းစွာ ဖြည့်ပြီး ရေထွက်ပိုက်မှ ထွက်လာသည်အထိ စောင့်ပါ။ ရေစစ် စီးဆင်းလာပါက ရေဖြန့်ပြားနှင့် အဖုံးကို တပ်ပါ။ ရေစစ်ကို သန့်စင်စေရန် ရေကို ၁ နာရီ စီးဆင်းစေပါ။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-my-8_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">8.0</div>
+        <div class="step-body">
+          <h4>စတင်ချိန်: မသောက်မီ ၄ ပတ် စောင့်ပါ</h4>
+          <p>ဇီဝအလွှာ ဖြစ်ပေါ်ရန် ၂၈ ရက်ခန့် လိုအပ်သည်။ ဤကာလအတွင်း ရေစစ်ကို နေ့စဉ် သုံးပါ၊ သို့သော် ထွက်ရေကို မသောက်ရသေးပါ။</p>
+          <div class="step-subs" id="sub-my-8_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">8.1</span><span class="sub-t">ပထမ ၄ ပတ်အတွင်း ရေစစ်ကို နေ့စဉ် ရေဖြည့်ပါ။ ပုံမှန် အသုံးပြုခြင်းက ဇီဝအလွှာကို အာဟာရဖြစ်စေပြီး ပိုမြန်မြန် ခိုင်မာလာစေသည်။</span></li>
+            <li><span class="sub-n">8.2</span><span class="sub-t">အစပိုင်းတွင် ထွက်ရေ နောက်ကျိနေမည်။ ၎င်းသည် ပုံမှန်ဖြစ်ပြီး သဲ တည်ငြိမ်လာကာ ဇီဝအလွှာ ဖြစ်ပေါ်လာသည်နှင့်အမျှ ကြည်လာမည်။</span></li>
+            <li><span class="sub-n">8.3</span><span class="sub-t"><strong>၄ ပတ် မပြည့်မီ ထွက်ရေကို မသောက်ပါနှင့်။</strong> စတင်ချိန် မပြီးမချင်း ကျိုချက် သို့မဟုတ် သန့်စင်ပြီးမှ သုံးပါ၊ သို့မဟုတ် ဆေးကြောရေးအတွက်သာ သုံးပါ။</span></li>
+            <li><span class="sub-n">8.4</span><span class="sub-t">ရေစစ်ကို အချိန်တိုင်း စိုစွတ်အောင် ထိန်းပါ။ သဲမျက်နှာပြင်အထက် အနည်းဆုံး ၅ စင်တီမီတာ ရေ အမြဲ ရှိနေစေပါ — ခြောက်သွားပါက ဇီဝအလွှာ အိပ်ငိုက်သွားပြီး ၂၈ ရက် စတင်ချိန်ကို အစမှ ပြန်စရမည်။</span></li>
+            <li><span class="sub-n">8.5</span><span class="sub-t">၄ ပတ်ကြာပြီးနောက် ဇီဝအလွှာ ခိုင်မာလာပြီး ထွက်ရေသည် သောက်သုံးရန် ဘေးကင်းသည်။ ရေစစ်ကို မကြာခဏ ဆက်သုံးပါ၊ ရေဖြည့်သည့် ကြားကာလတွင် အနားပေးပါ။</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 
   <div data-lang="zh" lang="zh">
     <span class="section-num">03</span>
     <h2>如何建造</h2>
-    <p>这座滤器经过专门设计，世界上大多数地区的任何人都能就地取材、自行建造。除了学会使用水泥和抹刀之外，无需任何特殊技能或工具。按照下面的步骤，即可轻松完成滤器的搭建。</p>
+    <p>这座滤器经过专门设计，世界上大多数地区的任何人都能就地取材、自行建造。除了学会使用水泥、抹刀和电钻之外，无需任何特殊技能或工具。按照下面的步骤，即可轻松完成滤器的搭建。</p>
     <span class="zoomfig zoomfig-c" role="button" tabindex="0" aria-label="Enlarge image"><picture><img src="Images/IMG_3209.JPG" alt="村庄中一座建成的 Sacred Water 生物砂滤器，蓝色 PVC 出水管正注满水容器" class="photo-real" loading="lazy" decoding="async" width="1000" height="1424"/></picture></span>
     <p class="photo-caption">一座建成的 Sacred Water 滤器——混凝土管、混凝土底座、蓝色 PVC 出水管。清洁水源源不断地流入收集容器中。</p>
 
@@ -1320,7 +1651,6 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
         <tr><td>大石块</td><td>3/4 英寸碎石</td><td>底部排水层</td></tr>
         <tr><td>小石块 / 砾石</td><td>1–5 毫米，豌豆大小</td><td>中间过滤层</td></tr>
         <tr><td>生物炭（Bio-Char）</td><td>破碎至 1–3 厘米</td><td>活性炭层</td></tr>
-        <tr><td>铁屑或钢丝棉</td><td>与细沙混合，30 厘米，比例 20%+</td><td>铁层</td></tr>
         <tr><td>细砂</td><td>洗净的清洁河砂</td><td>上层过滤介质 + 生物层在此形成</td></tr>
         <tr><td>PVC 管（1/4 英寸）+ 弯头</td><td>管径 1/4 英寸</td><td>注水与重力水位控制</td></tr>
         <tr><td>混凝土 / 砂浆 / 砖块</td><td>硅酸盐水泥、细砂、防水剂</td><td>滤体防水与砌筑滤器</td></tr>
@@ -1334,15 +1664,128 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
     </div>
 
     <h3>建造步骤</h3>
+    <p class="steps-hint">将鼠标悬停在任一步骤上——手机上则轻触——即可展开详细的子步骤。</p>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div><h4>立起混凝土管</h4><p>将混凝土管竖直立在平整的地面上，作为滤器的主体。务必确保它稳固、不会倾倒。</p></div></div>
-      <div class="step"><div class="step-num">2</div><div><h4>浇筑混凝土底座</h4><p>在管子底部四周浇筑一个小型混凝土平台。它能将滤器略微抬高，并把收集容器稳稳固定在出水口下方。养护 24–48 小时使其凝固。</p></div></div>
-      <div class="step"><div class="step-num">3</div><div><h4>安装 PVC 出水管</h4><p>在混凝土底座靠近底部处插入带弯头的 PVC 管，用砂浆将四周彻底密封，以免水绕过砂层。出水端应伸出滤体之外，悬在收集容器上方。</p></div></div>
-      <div class="step"><div class="step-num">4</div><div><h4>铺入大石块（10–15 厘米厚）</h4><p>在出水口以上、管子底部铺入洗净的拳头大小石块。这一层承托上方所有材料，并让水自由排向出水口。</p></div></div>
-      <div class="step"><div class="step-num">5</div><div><h4>清洗细砂</h4><p>视砂子洁净程度，将细砂清洗 8–15 次。在桶中向砂子倒水、搅拌，再倒掉浑浊的水，反复进行，直到水完全清澈。学习如何清洗砂子：<a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" style="color:var(--mid);font-weight:700">▶ 点此观看</a></p></div></div>
-      <div class="step"><div class="step-num">6</div><div><h4>铺入细砂（30–40 厘米厚）</h4><p>将洗净的河砂铺作最上层，生物层将在此生长。砂面以上请留出 10–15 厘米的空间供存水。</p></div></div>
-      <div class="step"><div class="step-num">7</div><div><h4>加装滤盖</h4><p>在顶部制作或盖上一个简易盖子（混凝土或木质），以防昆虫、动物和杂物进入。加水时应便于掀开。</p></div></div>
-      <div class="step"><div class="step-num">8</div><div><h4>启动期：饮用前先等待 4 周</h4><p>连续 2–4 周每天向滤器注水。起初出水会比较浑浊——这是正常现象。4 周之后，生物层已经形成，出水即可安全饮用。<strong>满 4 周之前，请勿饮用出水。</strong></p></div></div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-1_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">1.0</div>
+        <div class="step-body">
+          <h4>准备混凝土管</h4>
+          <p>钻孔并装好底部出水口，再用稀薄的水泥浆将整根管子内外涂封一遍。</p>
+          <div class="step-subs" id="sub-zh-1_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">1.1</span><span class="sub-t">在距混凝土管底部约 10 厘米处钻一个 22 毫米的孔。</span></li>
+            <li><span class="sub-n">1.2</span><span class="sub-t">截取一段 20 厘米长的 1/2 英寸管，在其四周各面钻孔。</span></li>
+            <li><span class="sub-n">1.3</span><span class="sub-t">将 1/2 英寸 90 度 PVC 弯头、钻好孔的 20 厘米管和端盖插接在一起并用胶粘牢。</span></li>
+            <li><span class="sub-n">1.4</span><span class="sub-t">拌制第一批水泥——1 桶硅酸盐水泥配 3 桶细砂，再视砂子干湿程度加 1–1.5 桶水。注意：浆料要拌得很稀很薄，才便于涂覆管壁。</span></li>
+            <li><span class="sub-n">1.5</span><span class="sub-t">用水泥浆涂覆管子内外表面以封住细小孔隙，并在管内外出水口四周填实水泥。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-2_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">2.0</div>
+        <div class="step-body">
+          <h4>砌筑滤器底座</h4>
+          <p>整平地面，将底座填满石块，再把这些石块拌入湿水泥中并夯实。</p>
+          <div class="step-subs" id="sub-zh-2_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">2.1</span><span class="sub-t">把打算安放滤器的地面整平。将底座座圈放在地面上并找平。</span></li>
+            <li><span class="sub-n">2.2</span><span class="sub-t">在底座中填满 3/4 英寸石块并夯实。注意：这是为了确保混凝土管放上去后不会下陷。</span></li>
+            <li><span class="sub-n">2.3</span><span class="sub-t">从主拌料槽中另外分出 2–3 桶湿水泥，留待后用。</span></li>
+            <li><span class="sub-n">2.4</span><span class="sub-t">把石块从底座中取出，与槽中剩余的水泥拌匀，然后再倒回底座。切勿不拌合就直接把水泥倒在底座的石块上。</span></li>
+            <li><span class="sub-n">2.5</span><span class="sub-t">用抹刀排出气泡，并将底座中的石块与水泥夯实。静置 10–15 分钟让其沉降并排出滞留的空气。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-3_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">3.0</div>
+        <div class="step-body">
+          <h4>组装滤器</h4>
+          <p>从挡水板定出水位标记，把内部立管接到该高度，再将管体落在尚湿的底座上。</p>
+          <div class="step-subs" id="sub-zh-3_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">3.1</span><span class="sub-t">在挡水板上钻若干个孔，并量出它的长度。</span></li>
+            <li><span class="sub-n">3.2</span><span class="sub-t">从混凝土管顶端起，在管内壁上做一个永久标记，位置为挡水板长度 +5 厘米（总计约 15–20 厘米）。</span></li>
+            <li><span class="sub-n">3.3</span><span class="sub-t">截取一段 1/2 英寸 PVC 管，长度为从弯头出水口到管顶所做标记处的距离（约 77–80 厘米）。注意：出水口应高出静止水位几厘米。</span></li>
+            <li><span class="sub-n">3.4</span><span class="sub-t">将 1/2 英寸管插入底部出水弯头，再在顶端接上另一个 90 度弯头。把固定支架贴在顶部弯头正下方，标出两个孔位。只在混凝土管壁上钻至一半深度，深度以塑料膨胀塞长度为准——切勿钻穿管壁。用 2 颗螺丝固定。</span></li>
+            <li><span class="sub-n">3.5</span><span class="sub-t">现在把混凝土管正对中心放到底座上，注意不要让它陷得比内部的 PVC 管更深。注意：应一次性轻缓地垂直落下，以便在湿水泥与混凝土管之间形成密封。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-4_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">4.0</div>
+        <div class="step-body">
+          <h4>滤器与平台搭建</h4>
+          <p>在底座前方砌出砌块平台，并用剩余的水泥将整个结构抹面找平。</p>
+          <div class="step-subs" id="sub-zh-4_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">4.1</span><span class="sub-t">趁底座和混凝土管晾干期间，用混凝土砌块在底座前方开始砌筑平台。我们通常是底部竖放三块、上部平放两块，再加一块竖放，掰断以拼成长方形。</span></li>
+            <li><span class="sub-n">4.2</span><span class="sub-t">先将剩余的湿水泥填入这些砌块之间，像砌混凝土墙一样施工。</span></li>
+            <li><span class="sub-n">4.3</span><span class="sub-t">平台砌好后，把剩余的湿水泥抹到底座以上混凝土管的外壁，以及平台上。</span></li>
+            <li><span class="sub-n">4.4</span><span class="sub-t">用尽所有水泥，在整个结构外围形成均匀的湿封层。最好分层施工，让每一层稍稍晾干——不要抹得太厚以致脱落，也不要太薄以致干裂。</span></li>
+            <li><span class="sub-n">4.5</span><span class="sub-t">用水、海绵和手把整个结构抹光，做出漂亮均匀的封面。养护 24 小时。晾干过程中稍微洒些水以防开裂，并把裂纹抹平。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-5_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">5.0</div>
+        <div class="step-body">
+          <h4>清洗砂子与石料</h4>
+          <p>把细砂洗到淤泥和黏土全部去除，再用玻璃瓶做沉降速率测试加以确认。 <a href="https://www.youtube.com/watch?v=qOZwe5PMs88" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--mid);font-weight:700;white-space:nowrap">▶ 点此观看</a></p>
+          <div class="step-subs" id="sub-zh-5_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">5.1</span><span class="sub-t">取细砂装入桶中，装量不超过半桶。然后加水注满这只 20 升的桶。用手伸到桶底用力搅拌。目的是把淤泥和黏土从砂粒上剥离，使其悬浮在水中。</span></li>
+            <li><span class="sub-n">5.2</span><span class="sub-t">用力搅拌、翻动 20 至 30 秒，直到能轻松摸到桶底且底部没有砂子沉积。若让砂子沉底，清洗次数会增加将近一倍。</span></li>
+            <li><span class="sub-n">5.3</span><span class="sub-t">等待约 5 秒，然后开始非常缓慢地把水倒出，同时让砂子留在桶内。你应当能看到化学残留、黏土、淤泥和其他杂质随水流出。小心不要倒得太快而把砂子冲走。</span></li>
+            <li><span class="sub-n">5.4</span><span class="sub-t">重复步骤 5.1 至 5.3 约 3 至 5 遍，然后用玻璃瓶检查沉降速率。测试方法：按步骤 5.1 和 5.2 的方式搅动砂子，取一份砂水混合样装入瓶中，用力摇晃 10 秒后静置。数一数需要多少秒才能在瓶底看到一条清晰的砂层分界线。若在 5 秒以内，说明砂子已经合格。</span></li>
+            <li><span class="sub-n">5.5</span><span class="sub-t">砂子洗净可用后——视砂质通常需洗约 5 至 12 遍——把洗好的砂子装袋保存。其余各袋砂子照此处理，直到全部洗净。同样把 3/4 英寸石块和豌豆大小的小石子洗净漂清，各自单独装袋备用。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-6_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">6.0</div>
+        <div class="step-body">
+          <h4>制作生物炭</h4>
+          <p>用双桶系统烧制木材，浇水熄灭，然后破碎并清洗生物炭，备好待用。</p>
+          <div class="step-subs" id="sub-zh-6_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">6.1</span><span class="sub-t">搭好你的双桶系统，把第一只桶完全装满木材。</span></li>
+            <li><span class="sub-n">6.2</span><span class="sub-t">在木材中间点火，然后把第二只桶扣在第一只桶上。</span></li>
+            <li><span class="sub-n">6.3</span><span class="sub-t">燃烧约需 30 至 45 分钟。当你看到有炭块从第一只桶底掉落时，就说明烧制接近完成——也可以用一小片塑料绑在棍子上，试探桶底处它熔化的快慢。</span></li>
+            <li><span class="sub-n">6.4</span><span class="sub-t">熄火，并用水给上面那只桶降温。取下上桶后，用水把剩余的生物炭彻底浇灭，需要多久就浇多久。冷却后把生物炭摊在塑料防水布上。</span></li>
+            <li><span class="sub-n">6.5</span><span class="sub-t">把新制的生物炭破碎成约半英寸的小石块状。注意不要碎得过细而产生大量粉末。然后在水槽中清洗漂净生物炭，用某种网兜留住要放入滤器的大块生物炭。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-7_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">7.0</div>
+        <div class="step-body">
+          <h4>组装成型</h4>
+          <p>按顺序铺设各层——大石块、豌豆砾石、生物炭、细砂——然后缓缓注水，装上挡水板和滤盖。</p>
+          <div class="step-subs" id="sub-zh-7_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">7.1</span><span class="sub-t">小心地把 3/4 英寸石块铺入滤器底部，填至略高于 PVC 管约 2–3 厘米处。总厚度约 5–7 厘米。</span></li>
+            <li><span class="sub-n">7.2</span><span class="sub-t">从 3/4 英寸石块的顶面量到混凝土管顶部的标记处，记下这个尺寸。</span></li>
+            <li><span class="sub-n">7.3</span><span class="sub-t">铺入 5–7 厘米洗净的豌豆大小石子并整平。然后在小石子上方铺入 5–7 厘米生物炭。</span></li>
+            <li><span class="sub-n">7.4</span><span class="sub-t">加入细砂，铺至标记（即静止水位）以下 5 厘米处。</span></li>
+            <li><span class="sub-n">7.5</span><span class="sub-t">缓缓注水使砂层沉实，等待直到看见水从出水管流出。滤器开始出水后装上挡水板和滤盖。持续过水 1 小时以帮助冲洗滤器。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
+      <div class="step" tabindex="0" role="button" aria-expanded="false" aria-controls="sub-zh-8_0" onclick="toggleStep(this)" onkeydown="stepKey(event,this)">
+        <div class="step-num">8.0</div>
+        <div class="step-body">
+          <h4>启动期：饮用前先等待 4 周</h4>
+          <p>生物层大约需要 28 天才能形成。这段期间请每天使用滤器，但出水暂时不可饮用。</p>
+          <div class="step-subs" id="sub-zh-8_0"><div class="step-subs-inner"><ol class="substeps">
+            <li><span class="sub-n">8.1</span><span class="sub-t">头 4 周每天向滤器注水。规律使用能滋养生物层，帮助它更快成形。</span></li>
+            <li><span class="sub-n">8.2</span><span class="sub-t">起初出水会比较浑浊。这是正常现象，随着砂层沉实、生物层形成会逐渐转清。</span></li>
+            <li><span class="sub-n">8.3</span><span class="sub-t"><strong>满 4 周之前，请勿饮用出水。</strong>在启动期结束前，请先煮沸或处理后再用，或仅用于洗涤。</span></li>
+            <li><span class="sub-n">8.4</span><span class="sub-t">始终保持滤器湿润。砂面以上请始终留有至少 5 厘米的水——一旦干涸，生物层就会进入休眠，28 天的启动期必须从头再来。</span></li>
+            <li><span class="sub-n">8.5</span><span class="sub-t">满 4 周后生物层已经建立，出水即可安全饮用。请经常使用滤器，并在两次注水之间让它稍作休息。</span></li>
+          </ol></div></div>
+        </div>
+        <span class="step-chev" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 </section>
@@ -1621,6 +2064,18 @@ html.scrolling .rays,html.scrolling .bubble,html.scrolling .hero-logo,html.scrol
 })();
 </script>
 <script>
+/* ── BUILD STEP EXPAND / COLLAPSE ── */
+function toggleStep(el){
+  var open = el.classList.toggle('open');
+  el.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function stepKey(e, el){
+  if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
+    e.preventDefault();
+    toggleStep(el);
+  }
+}
+
 (function(){
   // persist + announce language choice
   var _setLang = window.setLang;
